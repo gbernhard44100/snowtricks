@@ -1,1 +1,5 @@
+gb_tricks:
+    resource: "@GBTricksBundle/Resources/config/routing.yml"
+    prefix:   /
+
 
