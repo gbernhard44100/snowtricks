@@ -1,0 +1,108 @@
+-
+    name: Backflip
+    description: >
+        Saut périlleux arrière effectué dans le sens de la board
+        et non dans le sens du corps.
+    category: flip
+    picture:
+        - pictures/tricks/backflip-1.jpg
+        - pictures/tricks/backflip-2.jpg
+        - pictures/tricks/backflip-3.jpg
+    video:
+        - https://www.youtube.com/watch?v=W853WVF5AqI
+        - https://www.youtube.com/watch?v=Yz4brafqk5A
+-
+    name: 1080°
+    description: saut avec trois tours complets!!!
+    category: rotation
+    picture: null
+    video:
+        - https://www.youtube.com/watch?v=_3C02T-4Uug
+-
+    name: Carving
+    description: Effectuer un/des virages sans déraper
+    category: virage
+    picture:
+        - pictures/tricks/carving-1.jpg
+    video:
+        - https://www.youtube.com/watch?v=qj29_pq-_LE
+-
+    name: truck driver
+    description: >
+        saisie du carre avant et carre arrière avec chaque main
+        (comme tenir un volant de voiture)
+    category: grab
+    picture:
+        - pictures/tricks/truckDriver-1.jpg
+        - pictures/tricks/truckDriver-2.jpg
+    video: 
+        - https://www.youtube.com/watch?v=6tgjY8baFT0
+-
+    name: vitelli turn
+    description: virage couché sur la carre avec main au sol
+    category: virage
+    picture:
+        - pictures/tricks/vitelliTurn-1.jpg
+        - pictures/tricks/vitelliTurn-2.jpg
+        - pictures/tricks/vitelliTurn-3.jpg
+        - pictures/tricks/vitelliTurn-4.jpg
+        - pictures/tricks/vitelliTurn-5.jpg
+    video:
+        - https://www.youtube.com/watch?v=P0cUyyCoKCY
+        - https://www.youtube.com/watch?v=m2jMAbjfSII
+        - https://www.youtube.com/watch?v=jnDd8iJGnCs
+-
+    name: Revert
+    description : rotation de 180° à la verticale
+    category: rotation
+    picture: null
+    video: null
+-
+    name: Aerial
+    description: >
+        Saut droit sur un kicker ou saut avec une rotation
+        d’environ 120° en half-pipe
+    category: rotation
+    picture :
+        - pictures/tricks/aerial-1.jpg
+    video: null
+-
+    name: Indy (grab)
+    description: >
+        Ce grab consiste à attraper (catcher) sa planche avec sa
+        main arrière entre les deux pieds. Le tweak de ce trick
+        est en général effectué en tendant la jambe avant.
+    category: grab
+    picture:
+        - pictures/tricks/indyGrab-1.jpg
+        - pictures/tricks/indyGrab-2.jpg
+    video:
+        - https://www.youtube.com/watch?v=iKkhKekZNQ8
+-
+    name: Backside(virage)
+    description: Virage effectué du côté des talons, sur la carre backside.
+    category: virage
+    picture:
+        - pictures/tricks/backsideVirage-1.jpg
+    video:
+        - https://www.youtube.com/watch?v=zt-t7JeQPik
+-
+    name: Mac Twist
+    description: Figure de freestyle. Rotation aérienne de 540° la tête en bas.
+    category: flip
+    picture:
+        - pictures/tricks/macTwist-1.jpg
+    video:
+        - https://www.youtube.com/watch?v=k-CoAquRSwY
+        - https://www.youtube.com/watch?v=YQIvm_2ay-U
+-
+    name: Mute
+    description: >
+        La main avant vient saisir la carre front (point de pied)
+        entre les pieds.
+    category: grab
+    picture:
+        - pictures/tricks/mute-1.jpg
+        - pictures/tricks/mute-2.jpg
+        - pictures/tricks/mute-3.jpg
+    video: null 

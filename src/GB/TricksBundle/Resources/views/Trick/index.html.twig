@@ -1,0 +1,26 @@
+{% extends "GBTricksBundle::layout.html.twig" %}
+
+{% block body %}
+    <!-- Banner -->
+    <div class="container-fluid">
+        <img class="img-fluid" src="{{ absolute_url('../pictures/banner.jpeg') }}" alt="banner">
+    </div>
+    
+    <!-- Page Content -->
+    <div class="container">
+
+        <h1 class="my-4 text-center text-lg-left">Toutes les figures :</h1>
+        <div class="row text-center text-lg-left">
+        {% for trick in tricks %}            
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <a href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
+                    <div>
+                    <img class="img-fluid img-thumbnail" alt="{{ trick.name }}" src="{% if trick.pictures.first %}{{ asset(trick.pictures.first.url) }} {% endif %}" >
+                    <h3>{{ trick.name }}</h3>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}
