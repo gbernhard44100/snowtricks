@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends AbstractType
 {
@@ -26,8 +27,8 @@ class TrickType extends AbstractType
                 ->add('name', TextType::class)
                 ->add('description', TextareaType::class)
                 ->add('category', TextType::class)
-                ->add('picture', PictureType::class, array('required' => FALSE))
-                ->add('video', VideoType::class,array('required' => FALSE))
+                ->add('pictures', CollectionType::class, array( 'entry_type' => PictureType::class, 'allow_add' => TRUE, 'allow_delete' => TRUE, 'required' => FALSE))
+                ->add('videos', CollectionType::class, array( 'entry_type' => VideoType::class, 'required' => FALSE))
                 ->add('save', SubmitType::class)
         ;
     }

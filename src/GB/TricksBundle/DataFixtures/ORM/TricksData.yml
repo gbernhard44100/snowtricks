@@ -9,15 +9,18 @@
         - pictures/tricks/backflip-2.jpg
         - pictures/tricks/backflip-3.jpg
     video:
-        - https://www.youtube.com/watch?v=W853WVF5AqI
-        - https://www.youtube.com/watch?v=Yz4brafqk5A
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/W853WVF5AqI"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/Yz4brafqk5A"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 -
     name: 1080°
     description: saut avec trois tours complets!!!
     category: rotation
     picture: null
     video:
-        - https://www.youtube.com/watch?v=_3C02T-4Uug
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/_3C02T-4Uug"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 -
     name: Carving
     description: Effectuer un/des virages sans déraper
@@ -25,7 +28,8 @@
     picture:
         - pictures/tricks/carving-1.jpg
     video:
-        - https://www.youtube.com/watch?v=qj29_pq-_LE
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/qj29_pq-_LE"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 -
     name: truck driver
     description: >
@@ -36,7 +40,8 @@
         - pictures/tricks/truckDriver-1.jpg
         - pictures/tricks/truckDriver-2.jpg
     video: 
-        - https://www.youtube.com/watch?v=6tgjY8baFT0
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/6tgjY8baFT0"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 -
     name: vitelli turn
     description: virage couché sur la carre avec main au sol
@@ -48,9 +53,12 @@
         - pictures/tricks/vitelliTurn-4.jpg
         - pictures/tricks/vitelliTurn-5.jpg
     video:
-        - https://www.youtube.com/watch?v=P0cUyyCoKCY
-        - https://www.youtube.com/watch?v=m2jMAbjfSII
-        - https://www.youtube.com/watch?v=jnDd8iJGnCs
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/P0cUyyCoKCY"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/m2jMAbjfSII"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/jnDd8iJGnCs"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 -
     name: Revert
     description : rotation de 180° à la verticale
@@ -77,7 +85,8 @@
         - pictures/tricks/indyGrab-1.jpg
         - pictures/tricks/indyGrab-2.jpg
     video:
-        - https://www.youtube.com/watch?v=iKkhKekZNQ8
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/iKkhKekZNQ8"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 -
     name: Backside(virage)
     description: Virage effectué du côté des talons, sur la carre backside.
@@ -85,7 +94,8 @@
     picture:
         - pictures/tricks/backsideVirage-1.jpg
     video:
-        - https://www.youtube.com/watch?v=zt-t7JeQPik
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/zt-t7JeQPik"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 -
     name: Mac Twist
     description: Figure de freestyle. Rotation aérienne de 540° la tête en bas.
@@ -93,8 +103,10 @@
     picture:
         - pictures/tricks/macTwist-1.jpg
     video:
-        - https://www.youtube.com/watch?v=k-CoAquRSwY
-        - https://www.youtube.com/watch?v=YQIvm_2ay-U
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/k-CoAquRSwY"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - <iframe width="560" height="315" src="https://www.youtube.com/embed/YQIvm_2ay-U"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 -
     name: Mute
     description: >

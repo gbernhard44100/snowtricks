@@ -11,11 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Form\Forms;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 /**
  * Entities
  */
 use GB\TricksBundle\Entity\Trick;
+use GB\TricksBundle\Form\TrickType;
 
 
 
@@ -59,7 +62,7 @@ class TrickController extends Controller
         }
         
         return $this->render('GBTricksBundle:Trick:save.html.twig',
-                array('form' => $form));
+                array('form' => $form->createView()));
     }
     
     /**
