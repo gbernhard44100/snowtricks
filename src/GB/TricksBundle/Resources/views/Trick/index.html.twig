@@ -1,0 +1,40 @@
+{% extends "GBTricksBundle::layout.html.twig" %}
+
+{% block body %}
+    <!-- Banner -->
+    <div class="container-fluid">
+        <img class="img-fluid" src="{{ absolute_url('../pictures/banner.jpeg') }}" alt="banner">
+    </div>
+    
+    <!-- Page Content -->
+    <div class="container">
+
+        <h1 class="my-4 text-center text-lg-left">Toutes les figures :</h1>
+        <div class="row text-center text-lg-left">
+        {% for trick in tricks %}            
+            <div class="col-lg-3 col-md-4 col-xs-6">
+                <div class="row">
+                    <a href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
+                        <img class="img-fluid img-thumbnail" alt="{{ trick.name }}" src="{% if trick.pictures.first %}{{ asset(trick.pictures.first.webpath) }} {% endif %}" >
+                    </a>
+                </div>                    
+                <div class="row">
+                    <a href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
+                        <h3>{{ trick.name }}</h3>
+                    </a>
+                    <a href="{{ path('gb_tricks_delete', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="fas fa-trash-alt"></span> 
+                        </button>
+                    </a>
+                    <a href="{{ path('gb_tricks_modify', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="fas fa-pencil-alt"></span> 
+                        </button>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

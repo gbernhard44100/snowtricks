@@ -1,0 +1,79 @@
+{% extends "GBTricksBundle::layout.html.twig" %}
+
+{% block body %}
+    <!-- Header with Background Image -->
+    <header style="  height: 50vh;
+                min-height: 300px;
+                background: url({% if trick.pictures.first %}{{ asset(trick.pictures.first.webpath) }} {% endif %})
+                center center no-repeat scroll;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                background-size: cover;
+                -o-background-size: cover;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1 class="display-3 text-center text-white mt-4">
+                {{ trick.name }}
+            </h1> 
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Description -->
+        <div class="row text-center text-lg-left">
+            <div class="col-sm-12">
+                <h2 class="mt-4">{{ trick.name }}</h2>
+                <p>{{ trick.description }}</p>
+            </div>
+        </div>
+
+        <!-- Border -->
+        <hr>    
+
+        <!-- Pictures & Videos -->
+        <div class="row text-center text-lg-left">
+            {% if trick.pictures.first %}
+                {% for picture in trick.pictures %}
+                    <div class="trickshow col-lg-3 col-md-4 col-xs-6">
+                        <a href="#" class="d-block mb-4 h-100">
+                            <div>
+                                <img class="img-fluid img-thumbnail" src="{{ asset(picture.webpath) }}" alt="{{ picture.url }}">
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if trick.videos.first %}
+                {% for video in trick.videos %}
+                    <div class="trickshow col-lg-3 col-md-4 col-xs-6">
+                        <iframe src="{{ video.url }}" 
+                                allow="autoplay; encrypted-media" 
+                                allowfullscreen>
+                        </iframe>            
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div> 
+
+        <!-- Border -->
+        <hr>
+
+        <!-- Message form & Messages-->
+        <div class="row text-center text-lg-left">
+            {% include "GBTricksBundle:Trick:messageForm.html.twig" %}
+        </div>
+        <hr>
+        {% for message in messages %}
+            <div class="row">
+                <p><strong>Le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }} : </strong>
+                    {{ message.content }}</p>
+            </div>    
+        {% endfor %}
+
+    </div>     
+{% endblock %}

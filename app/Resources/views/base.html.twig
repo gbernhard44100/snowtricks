@@ -3,11 +3,33 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            <!-- Bootstrap core CSS -->
+            <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+            <!-- Custom styles for this template -->
+            <link rel="stylesheet" href="{{ asset('css/thumbnail-gallery.css') }}">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
+                  integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
+                  crossorigin="anonymous">
+        {% endblock %}
     </head>
     <body>
+        {{ include("nav.html.twig") }}
+        
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+            </div>
+        <!-- /.container -->
+        </footer>
+
+        <!-- Bootstrap core JavaScript -->
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.js') }}"></script>
+        {% endblock %}
+
     </body>
 </html>

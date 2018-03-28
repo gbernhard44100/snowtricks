@@ -1,0 +1,27 @@
+gb_tricks_homepage:
+    path:     /
+    defaults: 
+        _controller: GBTricksBundle:Trick:index
+    
+gb_tricks_trickpage:
+    path:     /trick/{trick_id}/
+    defaults: 
+        _controller: GBTricksBundle:Trick:view
+    requirements:
+        trick_id: \d+
+           
+gb_tricks_add:
+    path:     /add
+    defaults: { _controller: GBTricksBundle:Trick:add }
+
+gb_tricks_modify:
+    path:     /modify/{trick_id}
+    defaults: { _controller: GBTricksBundle:Trick:modify }
+    requirements:
+        trick_id: \d+
+        
+gb_tricks_delete:
+    path:     /delete/{trick_id}
+    defaults: { _controller: GBTricksBundle:Trick:delete }
+    requirements:
+        trick_id: \d+
