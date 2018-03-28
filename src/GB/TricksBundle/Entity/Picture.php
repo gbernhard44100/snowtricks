@@ -4,12 +4,15 @@ namespace GB\TricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Picture
  *
  * @ORM\Table(name="picture")
  * @ORM\Entity(repositoryClass="GB\TricksBundle\Repository\PictureRepository")
+ * @UniqueEntity(fields={"url"}, message={"Le nom de la photo a déjà été utilisé."})
+ * @ORM\HasLifecycleCallbacks
  */
 class Picture
 {
@@ -26,14 +29,16 @@ class Picture
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255, unique=true)
+     * @Assert\Regex(pattern="(\.jpeg|\.jpg|\.png)$",
+     * message="Le fichier à charger doit être sous format jpeg, jpg ou png")
      */
     private $url;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity="GB\TricksBundle\Entity\Trick",
-     * cascade={"persist", "remove"}, inversedBy="pictures")
-     * @ORM\JoinColumn(nullable=false)
+     *  inversedBy="pictures")
+     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
 
@@ -82,7 +87,7 @@ class Picture
      *
      * @return Picture
      */
-    public function setTrick(\GB\TricksBundle\Entity\Trick $trick)
+    public function setTrick(\GB\TricksBundle\Entity\Trick $trick = null)
     {
         $this->trick = $trick;
 
@@ -126,7 +131,7 @@ class Picture
         {
             return;
         }        
-        $this->url = $this->file->guessExtension();
+        $this->url = md5(uniqid()).'.'.$this->file->guessExtension();
     }
     
     /**
@@ -145,13 +150,13 @@ class Picture
          * Suppression de l'ancien fichier si il existe.
          */
         if($this->tempFileName !== null){
-            $oldFile = $this->getUploadRootDir().'/'.$this->tempFileName;
+            $oldFile = $this->getUploadRootDir().$this->getUploadDir().$this->tempFileName;
             if(file_exists($oldFile))
             {
                 unlink($oldFile);
             }
         }                
-        $this->file->move($this->getUploadRootDir, $this->url);        
+        $this->file->move($this->getUploadRootDir().$this->getUploadDir(), $this->url);        
     }
     
     /**
@@ -159,7 +164,7 @@ class Picture
      */
     public function preRemoveUpload()
     {
-        $this->tempFileName = $this->getUploadRootDir()->$this->url;
+        $this->tempFileName = $this->getUploadRootDir().$this->getUploadDir().'/'.$this->url;
     }
     
     /**
@@ -175,7 +180,7 @@ class Picture
     
     public function getUploadDir()
     {
-        return 'pictures/tricks/';
+        return 'pictures/tricks';
     }
     
     public function getUploadRootDir()

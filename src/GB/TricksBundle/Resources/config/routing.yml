@@ -1,19 +1,14 @@
 gb_tricks_homepage:
-    path:     /{page}
+    path:     /
     defaults: 
         _controller: GBTricksBundle:Trick:index
-        page:        1
-    requirements:
-        page: \d+
     
 gb_tricks_trickpage:
-    path:     /trick/{trick_id}/{messageList}
+    path:     /trick/{trick_id}/
     defaults: 
         _controller: GBTricksBundle:Trick:view
-        messageList: 1
     requirements:
         trick_id: \d+
-        messageList: \d+
            
 gb_tricks_add:
     path:     /add
@@ -28,11 +23,5 @@ gb_tricks_modify:
 gb_tricks_delete:
     path:     /delete/{trick_id}
     defaults: { _controller: GBTricksBundle:Trick:delete }
-    requirements:
-        trick_id: \d+
-
-gb_tricks_addmessage:
-    path:     /trick/{trick_id}/message
-    defaults: { _ controller: GBTricksBundle:Trick:addMessage }
     requirements:
         trick_id: \d+

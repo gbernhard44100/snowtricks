@@ -3,7 +3,7 @@
 namespace GB\TricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Video
  *
@@ -24,15 +24,16 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255, unique=true)
+     * @ORM\Column(name="url", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $url;
     
     /**
      *
      * @ORM\ManyToOne(targetEntity="GB\TricksBundle\Entity\Trick",
-     * cascade={"persist", "remove"}, inversedBy="videos")
-     * @ORM\JoinColumn(nullable=false)
+     *  inversedBy="videos")
+     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
 
@@ -77,7 +78,7 @@ class Video
      *
      * @return Video
      */
-    public function setTrick(\GB\TricksBundle\Entity\Trick $trick)
+    public function setTrick(\GB\TricksBundle\Entity\Trick $trick = null)
     {
         $this->trick = $trick;
 
@@ -92,5 +93,9 @@ class Video
     public function getTrick()
     {
         return $this->trick;
+    }
+    
+    public function adjustUrl(){
+        
     }
 }

@@ -3,12 +3,13 @@
 namespace GB\TricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Message
  *
  * @ORM\Table(name="message")
  * @ORM\Entity(repositoryClass="GB\TricksBundle\Repository\MessageRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Message
 {
@@ -32,14 +33,15 @@ class Message
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity="GB\TricksBundle\Entity\Trick",
-     * cascade={"persist"}, inversedBy="messages")
-     * @ORM\JoinColumn(nullable=false)
+     * inversedBy="messages")
+     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
     
@@ -123,5 +125,12 @@ class Message
     public function getTrick()
     {
         return $this->trick;
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     */
+    public function setToday(){
+        $this->date = new \DateTime();
     }
 }

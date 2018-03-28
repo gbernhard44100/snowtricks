@@ -12,6 +12,10 @@ body {
     height: 300px;
 }
 
+img.trickshow{
+    height: 300px;
+    max-width: auto;
+}
 
 @media (min-width: 992px) {
     body {

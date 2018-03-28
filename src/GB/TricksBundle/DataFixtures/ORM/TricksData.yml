@@ -5,31 +5,27 @@
         et non dans le sens du corps.
     category: flip
     picture:
-        - pictures/tricks/backflip-1.jpg
-        - pictures/tricks/backflip-2.jpg
-        - pictures/tricks/backflip-3.jpg
+        - backflip-1.jpg
+        - backflip-2.jpg
+        - backflip-3.jpg
     video:
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/W853WVF5AqI"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/Yz4brafqk5A"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - "https://www.youtube.com/embed/W853WVF5AqI"
+        - "https://www.youtube.com/embed/Yz4brafqk5A"
 -
     name: 1080°
     description: saut avec trois tours complets!!!
     category: rotation
     picture: null
     video:
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/_3C02T-4Uug"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - "https://www.youtube.com/embed/_3C02T-4Uug"
 -
     name: Carving
     description: Effectuer un/des virages sans déraper
     category: virage
     picture:
-        - pictures/tricks/carving-1.jpg
+        - carving-1.jpg
     video:
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/qj29_pq-_LE"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - "https://www.youtube.com/embed/qj29_pq-_LE"
 -
     name: truck driver
     description: >
@@ -37,28 +33,24 @@
         (comme tenir un volant de voiture)
     category: grab
     picture:
-        - pictures/tricks/truckDriver-1.jpg
-        - pictures/tricks/truckDriver-2.jpg
+        - truckDriver-1.jpg
+        - truckDriver-2.jpg
     video: 
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/6tgjY8baFT0"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - "https://www.youtube.com/embed/6tgjY8baFT0"
 -
     name: vitelli turn
     description: virage couché sur la carre avec main au sol
     category: virage
     picture:
-        - pictures/tricks/vitelliTurn-1.jpg
-        - pictures/tricks/vitelliTurn-2.jpg
-        - pictures/tricks/vitelliTurn-3.jpg
-        - pictures/tricks/vitelliTurn-4.jpg
-        - pictures/tricks/vitelliTurn-5.jpg
+        - vitelliTurn-1.jpg
+        - vitelliTurn-2.jpg
+        - vitelliTurn-3.jpg
+        - vitelliTurn-4.jpg
+        - vitelliTurn-5.jpg
     video:
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/P0cUyyCoKCY"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/m2jMAbjfSII"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/jnDd8iJGnCs"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - "https://www.youtube.com/embed/P0cUyyCoKCY"
+        - "https://www.youtube.com/embed/m2jMAbjfSII"
+        - "https://www.youtube.com/embed/jnDd8iJGnCs"
 -
     name: Revert
     description : rotation de 180° à la verticale
@@ -72,7 +64,7 @@
         d’environ 120° en half-pipe
     category: rotation
     picture :
-        - pictures/tricks/aerial-1.jpg
+        - aerial-1.jpg
     video: null
 -
     name: Indy (grab)
@@ -82,31 +74,27 @@
         est en général effectué en tendant la jambe avant.
     category: grab
     picture:
-        - pictures/tricks/indyGrab-1.jpg
-        - pictures/tricks/indyGrab-2.jpg
+        - indyGrab-1.jpg
+        - indyGrab-2.jpg
     video:
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/iKkhKekZNQ8"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - "https://www.youtube.com/embed/iKkhKekZNQ8"
 -
     name: Backside(virage)
     description: Virage effectué du côté des talons, sur la carre backside.
     category: virage
     picture:
-        - pictures/tricks/backsideVirage-1.jpg
+        - backsideVirage-1.jpg
     video:
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/zt-t7JeQPik"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - "https://www.youtube.com/embed/zt-t7JeQPik"
 -
     name: Mac Twist
     description: Figure de freestyle. Rotation aérienne de 540° la tête en bas.
     category: flip
     picture:
-        - pictures/tricks/macTwist-1.jpg
+        - macTwist-1.jpg
     video:
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/k-CoAquRSwY"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        - <iframe width="560" height="315" src="https://www.youtube.com/embed/YQIvm_2ay-U"
-            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        - "https://www.youtube.com/embed/k-CoAquRSwY"
+        - "https://www.youtube.com/embed/YQIvm_2ay-U"
 -
     name: Mute
     description: >
@@ -114,7 +102,7 @@
         entre les pieds.
     category: grab
     picture:
-        - pictures/tricks/mute-1.jpg
-        - pictures/tricks/mute-2.jpg
-        - pictures/tricks/mute-3.jpg
+        - mute-1.jpg
+        - mute-2.jpg
+        - mute-3.jpg
     video: null 

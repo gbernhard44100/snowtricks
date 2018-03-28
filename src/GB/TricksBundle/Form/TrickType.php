@@ -27,8 +27,18 @@ class TrickType extends AbstractType
                 ->add('name', TextType::class)
                 ->add('description', TextareaType::class)
                 ->add('category', TextType::class)
-                ->add('pictures', CollectionType::class, array( 'entry_type' => PictureType::class, 'allow_add' => TRUE, 'allow_delete' => TRUE, 'required' => FALSE))
-                ->add('videos', CollectionType::class, array( 'entry_type' => VideoType::class, 'required' => FALSE))
+                ->add('pictures', CollectionType::class, 
+                        array('entry_type' => PictureType::class,
+                            'allow_add' => TRUE,
+                            'allow_delete' => TRUE,
+                            'required' => FALSE,
+                            'by_reference' => FALSE))
+                ->add('videos', CollectionType::class,
+                        array('entry_type' => VideoType::class,
+                            'allow_add' => TRUE,
+                            'allow_delete' => TRUE,
+                            'required' => FALSE,
+                            'by_reference' => FALSE))
                 ->add('save', SubmitType::class)
         ;
     }
@@ -39,7 +49,7 @@ class TrickType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'GB\TricksBundle\Entity\Trick'
+                'data_class' => 'GB\TricksBundle\Entity\Trick',
         ));
     }
 

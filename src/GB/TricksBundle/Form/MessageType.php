@@ -3,31 +3,28 @@
 namespace GB\TricksBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use GB\TricksBundle\Validator\PictureFileExtension;
-
-class PictureType extends AbstractType
+class MessageType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', FileType::class, 
-                array('constraints' => array(new PictureFileExtension(),
-                    )));
-    }
-    
-    /**
+        $builder->add('content', TextareaType::class)
+                ->add('save', SubmitType::class);
+    }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'GB\TricksBundle\Entity\Picture',
+            'data_class' => 'GB\TricksBundle\Entity\Message'
         ));
     }
 
@@ -36,7 +33,7 @@ class PictureType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'gb_tricksbundle_picture';
+        return 'gb_tricksbundle_message';
     }
 
 
