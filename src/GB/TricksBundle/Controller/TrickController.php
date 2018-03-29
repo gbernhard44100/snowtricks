@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Entities & Forms
  */
@@ -21,6 +21,10 @@ use GB\TricksBundle\Form\TrickType;
 use GB\TricksBundle\Entity\Message;
 use GB\TricksBundle\Form\MessageType;
 
+/**
+ * To limit some functionalities to the authentified users
+ */
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TrickController extends Controller
 {
@@ -64,6 +68,12 @@ class TrickController extends Controller
                 array('trick' => $trick, 'form' => $form->createView(), 'messages' => $messages));
     }
     
+    /**
+     * 
+     * @param Request $request
+     * @return type
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     */
     public function addAction(Request $request)
     {
         $trick = new Trick();
@@ -88,6 +98,7 @@ class TrickController extends Controller
     
     /**
      * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
      */  
     public function modifyAction(Request $request, Trick $trick)
     {
@@ -109,6 +120,7 @@ class TrickController extends Controller
     
     /**
      * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
      */  
     public function deleteAction(Trick $trick)
     {
@@ -119,6 +131,7 @@ class TrickController extends Controller
     
     /**
      * @ParamConverter("trick", option={"mapping": {"trick_id": "id"}})
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
      */  
     public function MessageAction(Request $request, Trick $trick)
     {
