@@ -130,8 +130,8 @@ class Picture
         if($this->file === null)
         {
             return;
-        }        
-        $this->url = md5(uniqid()).'.'.$this->file->guessExtension();
+        }
+        $this->url = md5(uniqid()).'.'.$this->file->getClientOriginalExtension();
     }
     
     /**
@@ -154,8 +154,9 @@ class Picture
             if(file_exists($oldFile))
             {
                 unlink($oldFile);
+                
             }
-        }                
+        }
         $this->file->move($this->getUploadRootDir().$this->getUploadDir(), $this->url);        
     }
     
@@ -185,7 +186,7 @@ class Picture
     
     public function getUploadRootDir()
     {
-        return __DIR__. '/../../../../web/';
+        return '';
     }
     
     public function getWebPath()

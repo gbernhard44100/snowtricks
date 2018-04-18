@@ -65,11 +65,16 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
+    encryption: ssl
+    auth_mode: login
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
-    spool: { type: memory }
-    
+    port: 465
+    spool:
+        type: file
+        path: '%kernel.project_dir%/Web'
+        
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false

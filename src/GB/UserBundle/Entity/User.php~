@@ -184,55 +184,6 @@ class User implements UserInterface {
         return $this->password;
     }
 
-    
-    /**
-     * Set validationToken
-     *
-     * @param string $validationToken
-     *
-     * @return User
-     */
-    public function setValidationToken($validationToken)
-    {
-        $this->validationToken = $validationToken;
-
-        return $this;
-    }
-
-    /**
-     * Get validationToken
-     *
-     * @return string
-     */
-    public function getValidationToken()
-    {
-        return $this->validationToken;
-    }
-
-    /**
-     * Set passwordToken
-     *
-     * @param string $passwordToken
-     *
-     * @return User
-     */
-    public function setPasswordToken($passwordToken)
-    {
-        $this->passwordToken = $passwordToken;
-
-        return $this;
-    }
-
-    /**
-     * Get passwordToken
-     *
-     * @return string
-     */
-    public function getPasswordToken()
-    {
-        return $this->passwordToken;
-    }
-    
     /**
      * Set salt
      *
@@ -366,4 +317,52 @@ class User implements UserInterface {
         return $this->getUploadDir() . '/' . $this->profilPictureUrl;
     }
 
+
+    /**
+     * Set validationToken
+     *
+     * @param string $validationToken
+     *
+     * @return User
+     */
+    public function setValidationToken($validationToken)
+    {
+        $this->validationToken = $validationToken;
+
+        return $this;
+    }
+
+    /**
+     * Get validationToken
+     *
+     * @return string
+     */
+    public function getValidationToken()
+    {
+        return $this->validationToken;
+    }
+
+    /**
+     * Set passwordToken
+     *
+     * @param string $passwordToken
+     *
+     * @return User
+     */
+    public function setPasswordToken($passwordToken)
+    {
+        $this->passwordToken = $passwordToken;
+
+        return $this;
+    }
+
+    /**
+     * Get passwordToken
+     *
+     * @return string
+     */
+    public function getPasswordToken()
+    {
+        return $this->passwordToken;
+    }
 }

@@ -1,1 +1,7 @@
-Hello World!
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid snowbackground">    
+        {% block content %}{% endblock %}
+    </div>    
+{% endblock %}

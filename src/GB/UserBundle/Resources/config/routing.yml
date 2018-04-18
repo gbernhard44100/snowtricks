@@ -1,2 +1,7 @@
+gb_user_registration:
+    path:     /registration
+    defaults: { _controller: GBUserBundle:User:register }
 
-
+gb_user_validation:
+    path:     /validation
+    defaults: { _controller: GBUserBundle:User:valid }
