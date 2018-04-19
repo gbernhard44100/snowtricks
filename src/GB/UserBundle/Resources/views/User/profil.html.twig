@@ -1,0 +1,11 @@
+{# src/GB/UserBundle/Resources/views/User/profil.html.twig #}
+
+{% extends "GBUserBundle::layout.html.twig" %}
+
+{% block content %}
+
+    {{ user.userName }}
+    
+    <a href="{{path('gb_user_update')}}">Modifier</a>
+
+{% endblock %}

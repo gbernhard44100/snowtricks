@@ -11,7 +11,7 @@ class PictureFileExtensionValidator extends ConstraintValidator
         if($value === null){
             return;
         }
-        if (!preg_match('/(\.jpeg|\.jpg|\.png)$/', $value->getClientOriginalName(), $matches)) {
+        if (!preg_match('/(\.jpeg|\.jpg|\.png|.JPG|.JPEG|.PNG)$/', $value->getClientOriginalName(), $matches)) {
                 $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ string }}', $value)
                     ->addViolation();

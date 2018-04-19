@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new GB\TricksBundle\GBTricksBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new GB\UserBundle\GBUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
