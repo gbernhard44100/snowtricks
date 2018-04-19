@@ -139,28 +139,4 @@ class Message
     public function setToday(){
         $this->date = new \DateTime();
     }
-
-    /**
-     * Set user
-     *
-     * @param \GB\UserBundle\Entity\User $user
-     *
-     * @return Message
-     */
-    public function setUser(\GB\UserBundle\Entity\User $user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \GB\UserBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }

@@ -143,6 +143,7 @@ class TrickController extends Controller
             $form->handleRequest($request);
             if($form->isValid()){
                 $message->setTrick($trick);
+                $message->setUser($this->getUser());
                 $em->persist($message);
                 $em->flush();
                 $form = $this->get('form.factory')->create(MessageType::class, new Message());
