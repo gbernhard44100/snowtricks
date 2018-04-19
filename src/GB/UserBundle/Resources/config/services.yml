@@ -1,9 +1,16 @@
 services:
-    gb_user.validator.username:
-        class: GB\UserBundle\Validator\UserNameValidator
+    gb_user.validator.userexist:
+        class: GB\UserBundle\Validator\UserExistValidator
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
-            - { name: validator.constraint_validator, alias: gb_user_username }
+            - { name: validator.constraint_validator, alias: gb_user_userexist }
+    
+    gb_user.validator.registration:
+        class: GB\UserBundle\Validator\RegistrationValidator
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: validator.constraint_validator, alias: gb_user_registration_validator }        
+            
     gb_user.validator.password:
         class: GB\UserBundle\Validator\PasswordValidator
         arguments: ["@request_stack", "@doctrine.orm.entity_manager"]

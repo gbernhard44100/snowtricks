@@ -5,3 +5,19 @@ gb_user_registration:
 gb_user_validation:
     path:     /validation
     defaults: { _controller: GBUserBundle:User:valid }
+
+gb_user_forgotPassword:
+    path:     /forgotPassword
+    defaults: { _controller: GBUserBundle:User:forgot }
+    
+gb_user_resetPassword:
+    path:    /resetPassword
+    defaults: { _controller: GBUserBundle:User:resetPassword }
+
+gb_user_show:
+    path:     /showUser
+    defaults: { _controller: GBUserBundle:User:show }    
+    
+gb_user_update:
+    path:     /updateUser
+    defaults: { _controller: GBUserBundle:User:update }

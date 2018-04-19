@@ -1,0 +1,12 @@
+{% extends 'GBUserBundle::layout.html.twig' %}
+
+{% block content %}
+    {{ form_start(form) }}
+    
+    {{ form_row(form.userName) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.file) }}
+    {{ form_row(form.save) }}
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}    

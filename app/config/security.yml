@@ -1,9 +1,6 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
-    encoders:
-        GB\UserBundle\Entity\User: 
-            algorithm: sha512
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         main:

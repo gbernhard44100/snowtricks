@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ORM\EntityManagerInterface;
 
-class UserNameValidator extends ConstraintValidator
+class RegistrationValidator extends ConstraintValidator
 {
     private $em;
 

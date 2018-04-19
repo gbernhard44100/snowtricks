@@ -5,16 +5,20 @@ namespace GB\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use GB\UserBundle\Validator\UserExist;
+use GB\UserBundle\Validator\Registration;
+use GB\UserBundle\Validator\Password;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="GB\UserBundle\Repository\UserRepository")
- * @UniqueEntity(fields={"userName"}, message="Le nom d'utilisateur a déjà été utilisé.")
- * @UniqueEntity(fields={"email"}, message="Cette adresse email a déjà été utilisée.")
+ * @UniqueEntity(fields={"userName"}, message="Le nom d'utilisateur a déjà été utilisé.", groups={"registration"})
+ * @UniqueEntity(fields={"email"}, message="Cette adresse email a déjà été utilisée.", groups={"registration"})
  * @ORM\HasLifecycleCallbacks
  */
 class User implements UserInterface {
@@ -30,7 +34,8 @@ class User implements UserInterface {
 
     /**
      * @var string
-     *
+     * @UserExist(groups={"userExist"})
+     * @Registration(groups={"login"})
      * @ORM\Column(name="userName", type="string", length=255, unique=true)
      */
     private $userName;
@@ -51,7 +56,7 @@ class User implements UserInterface {
 
     /**
      * @var string
-     *
+     * @Password(groups={"login"})
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
@@ -82,14 +87,15 @@ class User implements UserInterface {
      *
      * @ORM\Column(name="roles", type="array")
      */
-    private $roles = array('IS_AUTHENTICATED_REMEMBERED',);
+    private $roles = array('IS_AUTHENTICATED_REMEMBERED');
+    
     private $file;
     private $tempFileName;
-
+    
     public function eraseCredentials() {
         
     }
-
+    
     /**
      * Get id
      *

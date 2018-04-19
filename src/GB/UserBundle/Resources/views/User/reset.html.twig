@@ -1,1 +1,14 @@
-Hello World!
+{# src/GB/UserBundle/Resources/views/User/reset.html.twig #}
+
+{% extends "GBUserBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <H1>Renouvellement de mot de passe pour : {{ user.userName }}</H1>
+    <form method="post">
+        <label for="password">Nouveau mot de passe : </label></br>
+        <input id="password" name="password" type="password">
+        <input type="submit" value="Modifier le mot de passe">
+    </form>    
+
+{% endblock %}
