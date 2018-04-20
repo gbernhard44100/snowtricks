@@ -4,10 +4,26 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-thumbnail-gallery/blob/master/LICENSE)
  */
 
+
+/*
+ * MAIN LAYOUT 
+*/
 body {
-  padding-top: 54px;
+    padding-top: 54px;
 }
 
+
+/*
+ * HOME PAGE
+*/
+.jumbotron {
+    height: 100%;
+    background-image: url(../../../pictures/banner.jpeg);
+}
+
+/*
+ * TRICK PAGE
+ */
 .video-container iframe, .video-container object, .video-container embed {
     height: 300px;
 }

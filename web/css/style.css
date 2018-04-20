@@ -1,0 +1,58 @@
+/*!
+ * Start Bootstrap - Thumbnail Gallery (https://startbootstrap.com/template-overviews/thumbnail-gallery)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-thumbnail-gallery/blob/master/LICENSE)
+ */
+
+
+/*
+ * MAIN LAYOUT 
+*/
+body {
+    padding-top: 54px;
+}
+
+
+/*
+ * HOME PAGE
+*/
+.jumbotron {
+    background-image: url(../pictures/banner.jpeg);
+    background-size: cover;
+    height: 100%;
+}
+
+/*
+ * TRICK PAGE
+ */
+.video-container iframe, .video-container object, .video-container embed {
+    height: 300px;
+}
+
+img.trickshow{
+    height: 300px;
+    max-width: auto;
+}
+
+@media (min-width: 992px) {
+    body {
+    padding-top: 56px;
+    }
+  
+    .video-container {
+    position: relative;
+    padding-bottom: 300px;
+    padding-top: 30px; height: 0; overflow: hidden;
+    }
+
+    .video-container iframe,
+    .video-container object,
+    .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+}
+  
+}

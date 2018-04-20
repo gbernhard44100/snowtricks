@@ -76,13 +76,14 @@ swiftmailer:
         path: '%kernel.project_dir%/Web'
         
 assetic:
-    debug:          "%kernel.debug%"
-    use_controller: false
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
     bundles:    [ ]
    #java: /usr/bin/java
     java: C:\Program Files\Java\jdk1.8.0_65\bin\java.exe
     filters:
         cssrewrite: ~
+        jsqueeze:   ~
         cssembed:
             jar: "%kernel.root_dir%/Resources/java/cssembed.jar"        
             yui_js:
