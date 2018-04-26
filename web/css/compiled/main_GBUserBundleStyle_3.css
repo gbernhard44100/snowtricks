@@ -1,0 +1,36 @@
+/*!
+ * Start Bootstrap - Thumbnail Gallery (https://startbootstrap.com/template-overviews/thumbnail-gallery)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-thumbnail-gallery/blob/master/LICENSE)
+ */
+
+
+/* Fonts
+font-family: 'Carter One', cursive;
+font-family: 'Libre Baskerville', serif;
+*/
+
+
+/*
+ * MAIN LAYOUT 
+*/
+body {
+    background-image: url(../../../pictures/background.jpeg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+.snowbackground .row{
+    background-color: rgba(229, 229, 229,0.85);
+    border-radius: 5em;
+    padding: 2.5em;
+}
+
+@media (min-width: 992px) {
+    body {
+    padding-top: 56px;
+    }
+}

@@ -21,7 +21,7 @@ use GB\UserBundle\Validator\Password;
  * @UniqueEntity(fields={"email"}, message="Cette adresse email a déjà été utilisée.", groups={"registration"})
  * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface {
+class User implements UserInterface, \Serializable {
 
     /**
      * @var int
@@ -94,6 +94,32 @@ class User implements UserInterface {
     
     public function eraseCredentials() {
         
+    }
+    
+    public function serialize() {
+        return serialize(array(
+        $this->id,
+        $this->userName,
+        $this->password,
+        $this->email,
+        $this->profilPictureUrl,
+        $this->validationToken,
+        $this->passwordToken,
+        $this->roles
+    ));
+    }
+    
+    public function unserialize($serialized) {
+        list (
+        $this->id,
+        $this->userName,
+        $this->password,
+        $this->email,
+        $this->profilPictureUrl,
+        $this->validationToken,
+        $this->passwordToken,
+        $this->roles
+    ) = unserialize($serialized);
     }
     
     /**
@@ -288,7 +314,7 @@ class User implements UserInterface {
     }
 
     public function setFile(UploadedFile $file = null) {        
-        $this->file = $file; 
+        $this->file = $file;
         if ($this->profilPictureUrl !== null) {
             $this->tempFileName = $this->profilPictureUrl;
             $this->profilPictureUrl = null;
@@ -337,7 +363,7 @@ class User implements UserInterface {
          * Resizing the picture after moving it into the Upload folder:
          */
         $source = imagecreatefromjpeg($this->getUploadDir() . '/' . $this->profilPictureUrl);       
-        $finalSizePicture = imagecreatetruecolor(150, 150);
+        $finalSizePicture = imagecreatetruecolor(64, 64);
         imagecopyresampled($finalSizePicture, $source, 0, 0, 0, 0,
                 imagesx($finalSizePicture), imagesy($finalSizePicture), 
                 imagesx($source), imagesy($source));
