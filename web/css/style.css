@@ -88,7 +88,7 @@ a.card{
     padding: 0px;
     max-width: 400px;
 }
-.card-img-top{
+.card-img-top, .img-fluid {
     image-resolution: 400dpi;
     height: 169px;
 }

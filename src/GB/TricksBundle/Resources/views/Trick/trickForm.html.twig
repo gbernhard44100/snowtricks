@@ -1,15 +1,42 @@
 <div class="well">
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-    
+        
     {{ form_errors(form) }}    
+    <div class="form-row">
+        <div class="col md-4 mb-3">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col md-4 mb-3">
+            {{ form_row(form.save, {'attr': {'class': 'btn-primary'}}) }}
+        </div>
+    </div>
+    {{ form_row(form.description) }}
     
-            
-    <H3>Images :</H3><a href="#" id="add_picture" class="btn btn-default">Ajouter une Photo</a>
-    <div class="row" id="gb_tricksbundle_trick_pictures_list" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}">    
+    {{ form_row(form.category) }}
+    <hr>
+    <div class="row">
+        <div class="d-flex bd-highlight mb-3">
+            <div class="bd-highlight">
+                <H3>Images :</H3>
+            </div>
+            <div class="ml-auto bd-highlight">
+                <a href="#" id="add_picture" class="btn btn-secondary">Ajouter une Photo</a>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-around" id="gb_tricksbundle_trick_pictures_list" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}">    
         {% for picture in form.pictures %}        
-            <div class="trickshow col-lg-3 col-md-4 col-xs-6">
-                <img class="img-fluid img-thumbnail d-block" src="{{ asset(picture.vars.value.webpath) }}" alt="{{ asset(picture.vars.value.url) }}">
-                {{ form_widget(picture.file) }}
+            <div class="trick col-lg-3 col-md-4 col-sm-12">
+                <div class="row">
+                    <img class="img-fluid" src="{{ asset(picture.vars.value.webpath) }}" alt="{{ asset(picture.vars.value.url) }}">                
+                </div>
+                <div class="row">
+                    <div class="custom-file">
+                        {{ form_widget(picture.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} }) }}
+                        {{ form_label(picture.file, "Charger", {'label_attr': {'class': 'custom-file-label'} }) }}                        
+                        {{ form_errors(picture.file, {'attr': {'class': 'invalid-feedback'} }) }}
+                    </div>
+                </div>
             </div>
         {% endfor %}        
     </div>
@@ -22,12 +49,6 @@
             </div>
         {% endfor %}        
     </div>
-    <hr>
-    {{ form_row(form.name) }}
-    
-    {{ form_row(form.description) }}
-    
-    {{ form_row(form.category) }}
     
     {{ form_rest(form) }}
     
@@ -86,7 +107,14 @@ $(document).ready(function() {
     // La fonction qui ajoute un lien de suppression d'une catégorie
     function addDeleteLink($prototype) {
       // Création du lien
-      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+      var $deleteLink = $('\
+<div class="row">\n\
+<a href="#" class="btn btn-danger btn-block">\n\
+<button type="button" class="btn btn-danger btn-block">\n\
+<span class="fas fa-trash-alt">\n\
+</span>\n\
+</button></a>\n\
+</div>');
 
       // Ajout du lien
       $prototype.append($deleteLink);
@@ -166,4 +194,5 @@ $(document).ready(function() {
       });
     }
   });
+  
 </script>
