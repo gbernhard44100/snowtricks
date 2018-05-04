@@ -188,7 +188,7 @@ class UserController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('info',
-                        'Votre inscription a bien été pris en compte. Un email pour demande de validation de votre compte vous a été envoyé.');
+                        'La modification de votre profil a bien été réalisé.');
                 return $this->redirectToRoute('gb_tricks_homepage');                
             }
         }

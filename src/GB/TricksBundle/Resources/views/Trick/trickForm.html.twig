@@ -1,57 +1,93 @@
 <div class="well">
     {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-        
+    <div class="row d-flex bd-highlight mb-3">
+        <div class="bd-highlight">
+            <H2>Contenu :</H2>
+        </div>
+        <div class="ml-auto bd-highlight">
+            {{ form_widget(form.save, {'attr': {'class': 'btn-primary'}, 'label': 'Enregistrer' }) }}
+        </div>
+    </div>
+       
     {{ form_errors(form) }}    
     <div class="form-row">
-        <div class="col md-4 mb-3">
-            {{ form_row(form.name) }}
-        </div>
-        <div class="col md-4 mb-3">
-            {{ form_row(form.save, {'attr': {'class': 'btn-primary'}}) }}
+        <div class="col-md-4 md-4 mb-3">
+            {{ form_label(form.name, "Nom de la figure :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
         </div>
     </div>
-    {{ form_row(form.description) }}
-    
-    {{ form_row(form.category) }}
+    <div class="form-row">
+        <div class="col-md-4 md-4 mb-3">
+            {{ form_label(form.category, "Catégories :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+            {{ form_widget(form.category) }}
+            {{ form_errors(form.category) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 md-4 mb-3">
+            {{ form_label(form.description, "Description :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+    </div>
     <hr>
-    <div class="row">
-        <div class="d-flex bd-highlight mb-3">
-            <div class="bd-highlight">
-                <H3>Images :</H3>
-            </div>
-            <div class="ml-auto bd-highlight">
-                <a href="#" id="add_picture" class="btn btn-secondary">Ajouter une Photo</a>
-            </div>
+    <div class="row d-flex bd-highlight mb-3">
+        <div class="bd-highlight">
+            <H2>Images :</H2>
+        </div>
+        <div class="ml-auto bd-highlight">
+            <a href="#" id="add_picture" class="btn btn-secondary">Ajouter une Photo</a>
         </div>
     </div>
-    <div class="row d-flex justify-content-around" id="gb_tricksbundle_trick_pictures_list" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}">    
+    <div class="row d-flex justify-content-around" id="gb_tricksbundle_trick_pictures_list" data-prototype="
+         {% filter escape %}
+             {% include 'GBTricksBundle:Trick:PictureDataprototype.html.twig' %}
+         {% endfilter %}    
+        ">    
         {% for picture in form.pictures %}        
             <div class="trick col-lg-3 col-md-4 col-sm-12">
                 <div class="row">
-                    <img class="img-fluid" src="{{ asset(picture.vars.value.webpath) }}" alt="{{ asset(picture.vars.value.url) }}">                
+                    <img class="img-fluid img-form" src="{{ asset(picture.vars.value.webpath) }}" alt="{{ asset(picture.vars.value.url) }}">                
                 </div>
                 <div class="row">
                     <div class="custom-file">
                         {{ form_widget(picture.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} }) }}
                         {{ form_label(picture.file, "Charger", {'label_attr': {'class': 'custom-file-label'} }) }}                        
-                        {{ form_errors(picture.file, {'attr': {'class': 'invalid-feedback'} }) }}
+                        {{ form_errors(picture.file) }}
                     </div>
                 </div>
             </div>
         {% endfor %}        
     </div>
     <hr>
-    <div id="gb_tricksbundle_trick_videos_list" data-prototype="{{ form_widget(form.videos.vars.prototype)|e }}">        
-        <H3>Videos :</H3><a href="#" id="add_video" class="btn btn-default">Ajouter une Video</a>
+        <div class="row d-flex bd-highlight mb-3">
+        <div class="bd-highlight">
+            <H2>Videos :</H2>
+        </div>
+        <div class="ml-auto bd-highlight">
+            <a href="#" id="add_video" class="btn btn-secondary">Ajouter une Video</a>
+        </div>
+    </div>
+    <div id="gb_tricksbundle_trick_videos_list" data-prototype="
+         {% filter escape %}
+             {% include 'GBTricksBundle:Trick:VideoDataprototype.html.twig' %}
+         {% endfilter %}
+         ">        
         {% for video in form.videos %}        
-            <div class="img-fluid img-thumbnail d-block mb-4">
-                {{ form_widget(video) }}
+            <div class="form-group row">
+                {{ form_label(video.url, 'Lien URL :', {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                <div class="col-sm-8">
+                    {{ form_widget(video.url, {'attr': {'class': 'form-control form-control-sm', 'placeholder': 'col-form-label-sm'} } ) }}
+                    {{ form_errors(video.url) }}
+                </div>
             </div>
         {% endfor %}        
     </div>
     
-    {{ form_rest(form) }}
-    
+    <div class="hidden">
+        {{ form_rest(form) }}
+    </div>
     {{ form_end(form) }}
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
@@ -180,7 +216,7 @@ $(document).ready(function() {
     // La fonction qui ajoute un lien de suppression d'une catégorie
     function addDeleteLink($prototype) {
       // Création du lien
-      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+      var $deleteLink = $('<div class="col-sm-2"><a href="#" class="btn btn-danger">Supprimer</a></div>');
 
       // Ajout du lien
       $prototype.append($deleteLink);

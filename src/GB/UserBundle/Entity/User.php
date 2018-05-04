@@ -315,9 +315,9 @@ class User implements UserInterface, \Serializable {
 
     public function setFile(UploadedFile $file = null) {        
         $this->file = $file;
-        if ($this->profilPictureUrl !== null) {
+        if ($this->profilPictureUrl !== null) {            
             $this->tempFileName = $this->profilPictureUrl;
-            $this->profilPictureUrl = null;
+            $this->profilPictureUrl = null;            
         }
     }
 
@@ -346,12 +346,11 @@ class User implements UserInterface, \Serializable {
         if ($this->file === null) {
             return;
         }
-
         /**
          * Delete the old folder if exists.
          */
-        if ($this->tempFileName !== null) {
-            $oldFile = $this->getUploadRootDir() . $this->getUploadDir() . $this->tempFileName;
+        if ($this->tempFileName !== null) {           
+            $oldFile = $this->getUploadRootDir() . $this->getUploadDir() . '/' . $this->tempFileName;
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
@@ -363,7 +362,7 @@ class User implements UserInterface, \Serializable {
          * Resizing the picture after moving it into the Upload folder:
          */
         $source = imagecreatefromjpeg($this->getUploadDir() . '/' . $this->profilPictureUrl);       
-        $finalSizePicture = imagecreatetruecolor(64, 64);
+        $finalSizePicture = imagecreatetruecolor(150, 150);
         imagecopyresampled($finalSizePicture, $source, 0, 0, 0, 0,
                 imagesx($finalSizePicture), imagesy($finalSizePicture), 
                 imagesx($source), imagesy($source));

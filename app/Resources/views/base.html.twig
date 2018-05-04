@@ -19,7 +19,32 @@
         {% endblock %}
     </head>
     <body>
+        {% if form is defined %}
+            {% form_theme form 'form_errors.html.twig' %}
+        {% endif %}
+        
         {{ include("nav.html.twig") }}
+
+        {% for message in app.session.flashbag.get('info') %}
+            <div class="alert alert-primary" role="alert">
+                <p><strong>{{ message }}</strong></p>
+            </div>
+        {% endfor %}
+        {% for message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-warning" role="alert">
+                <p><strong>{{ message }}</strong></p>
+            </div>
+        {% endfor %}
+        {% for message in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger" role="alert">
+                <p><strong>{{ message }}</strong></p>
+            </div>
+        {% endfor %}
+        {% for message in app.session.flashbag.get('success') %}
+            <div class="alert alert-success" role="alert">
+                <p><strong>{{ message }}</strong></p>
+            </div>
+        {% endfor %}
         
         {% block body %}{% endblock %}
         

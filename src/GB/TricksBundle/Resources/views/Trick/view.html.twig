@@ -53,14 +53,18 @@
 
         <!-- Message form & Messages-->
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <div class="row text-center text-lg-left">
+            <div class="row">
                 {% include "GBTricksBundle:Trick:messageForm.html.twig" %}
             </div>
             <hr>
         {% endif %}
         {% for message in messages %}
             <div class="media">
-                <img class="mr-3" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
+                {% if message.user.profilPictureUrl is defined %}
+                <img class="mr-3 message" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
+                {% else %}
+                    <img class="mr-3 message" src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
+                {% endif %}    
                 <div class="media-body">
                     <h5 class="mt-0">{{ message.user.userName }} / Le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }}</h5>
                     <p>{{ message.content }}</p>
