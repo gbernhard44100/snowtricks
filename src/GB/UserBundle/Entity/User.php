@@ -21,7 +21,7 @@ use GB\UserBundle\Validator\Password;
  * @UniqueEntity(fields={"email"}, message="Cette adresse email a déjà été utilisée.", groups={"registration"})
  * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface {
+class User implements UserInterface, \Serializable {
 
     /**
      * @var int
@@ -94,6 +94,32 @@ class User implements UserInterface {
     
     public function eraseCredentials() {
         
+    }
+    
+    public function serialize() {
+        return serialize(array(
+        $this->id,
+        $this->userName,
+        $this->password,
+        $this->email,
+        $this->profilPictureUrl,
+        $this->validationToken,
+        $this->passwordToken,
+        $this->roles
+    ));
+    }
+    
+    public function unserialize($serialized) {
+        list (
+        $this->id,
+        $this->userName,
+        $this->password,
+        $this->email,
+        $this->profilPictureUrl,
+        $this->validationToken,
+        $this->passwordToken,
+        $this->roles
+    ) = unserialize($serialized);
     }
     
     /**
@@ -288,10 +314,10 @@ class User implements UserInterface {
     }
 
     public function setFile(UploadedFile $file = null) {        
-        $this->file = $file; 
-        if ($this->profilPictureUrl !== null) {
+        $this->file = $file;
+        if ($this->profilPictureUrl !== null) {            
             $this->tempFileName = $this->profilPictureUrl;
-            $this->profilPictureUrl = null;
+            $this->profilPictureUrl = null;            
         }
     }
 
@@ -320,12 +346,11 @@ class User implements UserInterface {
         if ($this->file === null) {
             return;
         }
-
         /**
          * Delete the old folder if exists.
          */
-        if ($this->tempFileName !== null) {
-            $oldFile = $this->getUploadRootDir() . $this->getUploadDir() . $this->tempFileName;
+        if ($this->tempFileName !== null) {           
+            $oldFile = $this->getUploadRootDir() . $this->getUploadDir() . '/' . $this->tempFileName;
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }

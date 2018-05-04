@@ -1,0 +1,168 @@
+/*!
+ * Start Bootstrap - Thumbnail Gallery (https://startbootstrap.com/template-overviews/thumbnail-gallery)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-thumbnail-gallery/blob/master/LICENSE)
+ */
+
+
+/* Fonts
+font-family: 'Carter One', cursive;
+font-family: 'Libre Baskerville', serif;
+*/
+
+
+/*
+ * MAIN LAYOUT 
+*/
+body {
+    padding-top: 54px;
+}
+
+h1, label{
+   font-family: 'Carter One', cursive; 
+}
+
+h2{
+    font-family: 'Libre Baskerville', serif;
+    font-weight: bolder;
+}
+
+p{
+    font-family: 'Libre Baskerville', serif;
+    text-align: justify;
+}
+
+p.alert {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 14px;
+}
+
+a.navbar-brand img{
+    height: 40px;
+}
+
+.navbar li {
+    font-family: 'Carter One', cursive;
+}
+
+.alert {
+    padding-top: 25px;
+    padding-left: 5%;
+    margin-bottom: 0px;
+}
+
+/*
+ * HOME PAGE
+*/
+.jumbotron {
+    background-image: url(../pictures/banner.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+#banner {
+    height: 100vh;
+    text-align: center;
+}
+
+#title {
+    background-color: rgba(0,0,0,0.6);
+    padding: 10px; 
+    color: white;
+}
+
+#banner .row {
+    margin-bottom: 25px;
+}
+
+#Bienvenue {
+    padding-top: 75px;
+}
+
+#tricksection {
+    padding-top: 50px;
+}
+
+.title {
+    margin-bottom: 25px;
+    text-decoration: underline;
+}
+
+.trick{
+    margin-right: 5px;
+    margin-bottom: 50px;
+}
+.trick #button {
+    padding: 0px;
+}
+
+a.card{
+    padding: 0px;
+    max-width: 400px;
+}
+.card-img-top, .img-fluid {
+    image-resolution: 400dpi;
+    height: 169px;
+}
+.card-img-overlay{
+    background-color: rgba(0,0,0,0.25);
+}
+
+/*
+ * TRICK PAGE
+ */
+
+#frontPicture img{
+    width: 80%;
+    height: 60vh;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.trickshow .img-fluid,
+.embed-responsive
+{
+    max-height: 150px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.media{
+    padding-top: 10px;
+    padding-left: 30px;
+    background-color: #E5E5E5;
+    border-radius: 5em 5em;
+}
+
+#content{
+    margin-bottom: 50px;
+}
+
+img.message {
+    width: 64px;
+    height: auto;
+}
+
+/*
+ * Trick form :
+ */
+
+.well {
+    background-color: rgba(229, 229, 229, 0.85);
+    padding: 2.5em;
+}
+
+.img-form{
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    body {
+    padding-top: 56px;
+    }
+}

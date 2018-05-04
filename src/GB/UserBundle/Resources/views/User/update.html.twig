@@ -1,12 +1,47 @@
 {% extends 'GBUserBundle::layout.html.twig' %}
 
 {% block content %}
-    {{ form_start(form) }}
-    
-    {{ form_row(form.userName) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.file) }}
-    {{ form_row(form.save) }}
-    {{ form_rest(form) }}
-    {{ form_end(form) }}
+    <div class="row">
+        <div class="col-10 well">
+            {{ form_start(form) }}
+            <div class="row d-flex justify-content-between">
+                <H2>Modification du profil :</H2>
+                {{ form_widget(form.save, {'attr': {'class': 'btn-primary'}, 'label': 'Enregistrer' }) }}
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-row">
+                        <div class="col-md-8 md-4 mb-3">
+                            {{ form_label(form.userName, "Nom d'utilisateur :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                            {{ form_widget(form.userName) }}
+                            {{ form_errors(form.userName) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-8 md-4 mb-3">
+                            {{ form_label(form.email, "Adresse email :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 cesure">
+                    <div class="trick">
+                        <div class="row updatePicture">
+                            <img src="{{ asset(form.vars.value.webpath) }}" alt="{{ asset(form.vars.value.profilPictureUrl) }}">                
+                        </div>
+                        <div class="row d-flex">
+                            <div class="custom-file col-8 align-self-center">
+                                {{ form_widget(form.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} }) }}
+                                {{ form_label(form.file, "Charger", {'label_attr': {'class': 'custom-file-label'} }) }}                        
+                                {{ form_errors(form.file) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}                
+        </div>
+    </div>
 {% endblock %}    

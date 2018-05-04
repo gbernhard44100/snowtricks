@@ -2,31 +2,21 @@
 
 {% block body %}
     <!-- Header with Background Image -->
-    <header style="  height: 50vh;
-                min-height: 300px;
-                background: url({% if trick.pictures.first %}{{ asset(trick.pictures.first.webpath) }} {% endif %})
-                center center no-repeat scroll;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                background-size: cover;
-                -o-background-size: cover;">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <h1 class="display-3 text-center text-white mt-4">
-                {{ trick.name }}
-            </h1> 
-          </div>
+    {% if trick.pictures.first %}
+    <div class="container" id="frontPicture">
+        <div class="row justify-content-center">
+            <img src="{{ asset(trick.pictures.first.webpath) }}" 
+                 alt="{{ trick.pictures.first.url }}">
         </div>
-      </div>
-    </header>
+    </div>
+    {% endif %}
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" id="content">
         <!-- Description -->
         <div class="row text-center text-lg-left">
-            <div class="col-sm-12">
-                <h2 class="mt-4">{{ trick.name }}</h2>
+            <div class="align-items-center">
+                <h1>{{ trick.name }}</h1>
                 <p>{{ trick.description }}</p>
             </div>
         </div>
@@ -35,24 +25,22 @@
         <hr>    
 
         <!-- Pictures & Videos -->
-        <div class="row text-center text-lg-left">
+        <div class="row text-center text-lg-left d-flex align-items-start">
             {% if trick.pictures.first %}
                 {% for picture in trick.pictures %}
-                    <div class="trickshow col-lg-3 col-md-4 col-xs-6">
-                        <a href="#" class="d-block mb-4 h-100">
-                            <div>
-                                <img class="img-fluid img-thumbnail" src="{{ asset(picture.webpath) }}" alt="{{ picture.url }}">
-                            </div>
-                        </a>
+                    <div class="trickshow">
+                        <div>
+                            <img class="img-fluid" src="{{ asset(picture.webpath) }}" alt="{{ picture.url }}">
+                        </div>
                     </div>
                 {% endfor %}
             {% endif %}
 
             {% if trick.videos.first %}
                 {% for video in trick.videos %}
-                    <div class="trickshow col-lg-3 col-md-4 col-xs-6">
-                        <iframe src="{{ video.url }}" 
-                                allow="autoplay; encrypted-media" 
+                    <div class=" embed-responsive embed-responsive-4by3 col-lg-3 col-md-4 col-xs-12">
+                        <iframe class="embed-responsive-item"
+                                src="{{ video.url }}" 
                                 allowfullscreen>
                         </iframe>            
                     </div>
@@ -64,15 +52,24 @@
         <hr>
 
         <!-- Message form & Messages-->
-        <div class="row text-center text-lg-left">
-            {% include "GBTricksBundle:Trick:messageForm.html.twig" %}
-        </div>
-        <hr>
-        {% for message in messages %}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <div class="row">
-                <p><strong>Le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }} : </strong>
-                    {{ message.content }}</p>
-            </div>    
+                {% include "GBTricksBundle:Trick:messageForm.html.twig" %}
+            </div>
+            <hr>
+        {% endif %}
+        {% for message in messages %}
+            <div class="media">
+                {% if message.user.profilPictureUrl is defined %}
+                <img class="mr-3 message" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
+                {% else %}
+                    <img class="mr-3 message" src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
+                {% endif %}    
+                <div class="media-body">
+                    <h5 class="mt-0">{{ message.user.userName }} / Le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }}</h5>
+                    <p>{{ message.content }}</p>
+                </div>
+            </div>  
         {% endfor %}
 
     </div>     

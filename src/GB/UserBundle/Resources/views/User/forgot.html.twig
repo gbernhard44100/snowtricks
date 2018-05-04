@@ -3,7 +3,22 @@
 {% extends "GBUserBundle::layout.html.twig" %}
 
 {% block content %}
-
-    {{ form(form) }}
-
+    <div class="col-8 well">
+        {{ form_start(form) }}
+        <div>
+            <H2>Réinitialisation Mot de Passe :</H2>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                {{ form_label(form.userName, "Nom d'utilisateur :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                {{ form_widget(form.userName) }}
+                {{ form_errors(form.userName) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.submit, {'attr': {'class': 'btn-primary'}, 'label': 'Confirmer' }) }}
+        </div>
+        {{ form_rest(form) }} 
+        {{ form_end(form) }}     
+    </div>
 {% endblock %}

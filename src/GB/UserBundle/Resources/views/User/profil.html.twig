@@ -3,9 +3,29 @@
 {% extends "GBUserBundle::layout.html.twig" %}
 
 {% block content %}
-
-    {{ user.userName }}
-    
-    <a href="{{path('gb_user_update')}}">Modifier</a>
-
+    <div class="row">
+        <div class="col-8 well">
+            <div class="row">
+                <div class="col-3">
+                    {% if user.profilPictureUrl is defined %}
+                    <img src="{{ asset(user.webpath) }}" alt="{{ asset(user.profilPictureUrl) }}">
+                    {% else %}
+                    <img src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
+                    {% endif %}  
+                </div>
+                <div class="col-9 cesure">
+                    <div class="row d-flex justify-content-between">
+                        <H2>Mon profil :</H2>
+                        <a href="{{path('gb_user_update')}}" class="btn btn-primary">Modifier</a>
+                    </div>
+                    <div class="row">
+                        <p><strong>Nom d'utilisateur :</strong> {{ user.userName }}</p>
+                    </div>
+                    <div class="row">
+                        <p><strong>Adresse E-mail :</strong> {{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
 {% endblock %}

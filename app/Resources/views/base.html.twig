@@ -3,18 +3,48 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
-        {% block stylesheets %}
             <!-- Bootstrap core CSS -->
-            <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+        {% block stylesheets %}    
+            {% stylesheets output="css/compiled/main.css" filter="cssrewrite"
+                'bootstrap/css/bootstrap.min.css'
+                'css/style.css'
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
             <!-- Custom styles for this template -->
-            <link rel="stylesheet" href="{{ asset('css/thumbnail-gallery.css') }}">
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
                   integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1"
                   crossorigin="anonymous">
+            <link href="https://fonts.googleapis.com/css?family=Carter+One|Libre+Baskerville" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
+        {% if form is defined %}
+            {% form_theme form 'form_errors.html.twig' %}
+        {% endif %}
+        
         {{ include("nav.html.twig") }}
+
+        {% for message in app.session.flashbag.get('info') %}
+            <div class="alert alert-primary" role="alert">
+                <p><strong>{{ message }}</strong></p>
+            </div>
+        {% endfor %}
+        {% for message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-warning" role="alert">
+                <p><strong>{{ message }}</strong></p>
+            </div>
+        {% endfor %}
+        {% for message in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger" role="alert">
+                <p><strong>{{ message }}</strong></p>
+            </div>
+        {% endfor %}
+        {% for message in app.session.flashbag.get('success') %}
+            <div class="alert alert-success" role="alert">
+                <p><strong>{{ message }}</strong></p>
+            </div>
+        {% endfor %}
         
         {% block body %}{% endblock %}
         
@@ -27,8 +57,12 @@
 
         <!-- Bootstrap core JavaScript -->
         {% block javascripts %}
-            <script src="{{ asset('js/jquery.min.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.js') }}"></script>
+            {% javascripts output="js/compiled/main.js"
+            'js/jquery.min.js'
+            'js/bootstrap.min.js'
+            %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
 
     </body>

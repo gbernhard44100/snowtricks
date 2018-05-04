@@ -1,40 +1,74 @@
 {% extends "GBTricksBundle::layout.html.twig" %}
 
 {% block body %}
-    <!-- Banner -->
-    <div class="container-fluid">
-        <img class="img-fluid" src="{{ absolute_url('../pictures/banner.jpeg') }}" alt="banner">
-    </div>
+    <!-- Banner -->       
+    <div class="jumbotron d-flex align-items-center" id="banner">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <img src="{{ asset('pictures/logo.png') }}" alt='logo'>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <H1 id="title">Un style pour chacun, Une passion pour tous.</H1>   
+            </div>
+            <div class="row d-flex justify-content-center">
+                <a href="#Bienvenue" class="btn btn-warning" role="button"><H1 class>Lance toi!</H1></a>   
+            </div>
+        </div>
+   </div>
     
     <!-- Page Content -->
     <div class="container">
-
-        <h1 class="my-4 text-center text-lg-left">Toutes les figures :</h1>
-        <div class="row text-center text-lg-left">
-        {% for trick in tricks %}            
-            <div class="col-lg-3 col-md-4 col-xs-6">
+        <div id="Bienvenue" class="row">
+            <div class="col-lg-6 col-md-12">
+                <h1 class="text-center text-lg-left">Bienvenue dans la communauté Snowtricks :</h1>
+                <p>Viens découvrir notre univers de la glisse et nous montrer comment tu voles.
+                    Nous sommes nombreux à partager notre penchant et notre talent pour le snowboard.<br>
+                    Dans notre site tu auras accès à notre bibliothèque de figures.
+                    Inscrit toi dans notre communauté pour nous donner ton avis sur les figures existante et en insérer de nouvelles.. 
+                </p> 
+            </div>
+            <div class="col-lg-6 col-md-12 d-flex justify-content-center">
+                <img src="{{ asset('pictures/presentation.jpg') }}" alt="community">
+            </div>    
+        </div>
+        <hr id="tricksection">       
+        <div class="row justify-content-center title">
+            <H1>Les Figures</H1>
+        </div>
+        <div class="row d-flex justify-content-around">
+            {% for trick in tricks %}
+            <div class="trick col-lg-3 col-md-4 col-sm-12">
                 <div class="row">
-                    <a href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
-                        <img class="img-fluid img-thumbnail" alt="{{ trick.name }}" src="{% if trick.pictures.first %}{{ asset(trick.pictures.first.webpath) }} {% endif %}" >
-                    </a>
-                </div>                    
-                <div class="row">
-                    <a href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
-                        <h3>{{ trick.name }}</h3>
-                    </a>
-                    <a href="{{ path('gb_tricks_delete', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
-                        <button type="button" class="btn btn-default btn-sm">
-                            <span class="fas fa-trash-alt"></span> 
-                        </button>
-                    </a>
-                    <a href="{{ path('gb_tricks_modify', {'trick_id' : trick.id}) }}" class="d-block mb-4 h-100">
-                        <button type="button" class="btn btn-default btn-sm">
-                            <span class="fas fa-pencil-alt"></span> 
-                        </button>
+                    <a class="card text-white text-center" href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}">
+                        <img class="card-img-top img-fluid" alt="{{ trick.name }}" 
+                             src="{% if trick.pictures.first %}{{ asset(trick.pictures.first.webpath) }}
+                             {% else %}../pictures/tricksDefault.jpg
+                             {% endif %}">
+                        <div class="card-img-overlay d-flex align-items-center justify-content-center nowrap">                           
+                                <h2>{{ trick.name }}</h2>
+                        </div>
                     </a>
                 </div>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class="row">
+                    <div class="col-6" id="button">
+                        <a href="{{ path('gb_tricks_delete', {'trick_id' : trick.id}) }}">
+                            <button type="button" class="btn btn-danger btn-block">
+                                <span class="fas fa-trash-alt"></span> 
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-6" id="button">        
+                        <a  href="{{ path('gb_tricks_modify', {'trick_id' : trick.id}) }}">
+                            <button type="button" class="btn btn-warning btn-block">
+                                <span class="fas fa-pencil-alt"></span> 
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
