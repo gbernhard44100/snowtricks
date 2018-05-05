@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row well">
-    <div class="col-6">
+    <div class="col-sm-12 col-md-6">
         {{ form_start(form, { 'attr': { 'class': 'needs-validation' } }) }}
         <div>
             <H2>Vous avez un compte :</H2>
@@ -17,7 +17,7 @@
         <div class="form-group">
             {{ form_label(form.password, "Mot de passe :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
             {{ form_widget(form.password) }}
-            {{ form_errors(form.userName) }}
+            {{ form_errors(form.password) }}
             <a href='{{ path('gb_user_forgotPassword') }}'>Mot de passe oublié?</a>
         </div>
         <div class="form-group">
@@ -26,7 +26,7 @@
         {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
-    <div class="col-6 cesure">     
+    <div class="col-sm-12 col-md-6 cesure">     
         <div>
             <H2>Vous n'êtes pas inscrit :</H2>
         </div>

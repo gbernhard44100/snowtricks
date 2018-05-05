@@ -3,10 +3,10 @@
 {% extends "GBUserBundle::layout.html.twig" %}
 
 {% block content %}
-    <div class="col-8 well"> 
+    <div class="col-sm-12 col-md-12 col-lg-10 col-xl-8 well"> 
         <form method="post">
-            <H2>Renouvellement de mot de passe pour : {{ user.userName }}</H2>
-            <div class="col-6">
+            <H2>Modification du mot de passe pour : <strong>{{ user.userName }}</strong></H2>
+            <div class="col-12">
                 <div class="form-group">
                     <label for="password">Nouveau mot de passe : </label></br>
                     <input id="password" name="password" type="password">

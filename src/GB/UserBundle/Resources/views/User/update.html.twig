@@ -1,15 +1,21 @@
 {% extends 'GBUserBundle::layout.html.twig' %}
 
+{% block saveButton %}
+    
+{% endblock %}
+
 {% block content %}
     <div class="row">
-        <div class="col-10 well">
+        <div class="col-md-12 col-lg-10 col-xl-8  well">
             {{ form_start(form) }}
             <div class="row d-flex justify-content-between">
                 <H2>Modification du profil :</H2>
-                {{ form_widget(form.save, {'attr': {'class': 'btn-primary'}, 'label': 'Enregistrer' }) }}
+                <div class="d-none d-md-block">
+                    {{ form_widget(form.save, {'attr': {'class': 'btn-primary'}, 'label': 'Enregistrer' }) }}
+                </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="form-row">
                         <div class="col-md-8 md-4 mb-3">
                             {{ form_label(form.userName, "Nom d'utilisateur :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
@@ -25,12 +31,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 cesure">
-                    <div class="trick">
-                        <div class="row updatePicture">
+                <div class="col-12 col-md-6 cesure d-flex">
+                    <div class="trick align-self-center">
+                        <div class="row form-row">
+                            <label class="col-form-label col-form-label-sm">Photo de profil :</label>
+                        </div>
+                        <div class="row updatePicture justify-content-center">
                             <img src="{{ asset(form.vars.value.webpath) }}" alt="{{ asset(form.vars.value.profilPictureUrl) }}">                
                         </div>
-                        <div class="row d-flex">
+                        <div class="row d-flex justify-content-center">
                             <div class="custom-file col-8 align-self-center">
                                 {{ form_widget(form.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} }) }}
                                 {{ form_label(form.file, "Charger", {'label_attr': {'class': 'custom-file-label'} }) }}                        
@@ -39,6 +48,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row d-flex d-md-none justify-content-center">
+                {{ form_widget(form.save2, {'attr': {'class': 'btn-primary btn-lg'}, 'label': 'Enregistrer' }) }}
             </div>
             {{ form_rest(form) }}
             {{ form_end(form) }}                

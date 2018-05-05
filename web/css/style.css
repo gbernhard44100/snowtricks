@@ -67,7 +67,8 @@ a.navbar-brand img{
 
 #title {
     background-color: rgba(0,0,0,0.6);
-    padding: 10px; 
+    padding: 10px;
+    margin-top: 10px;
     color: white;
 }
 
@@ -88,21 +89,26 @@ a.navbar-brand img{
     text-decoration: underline;
 }
 
-.trick{
+.trick {
     margin-right: 5px;
     margin-bottom: 50px;
+
 }
+
+.trick, .trick .row {
+    max-width: 345px;
+}
+
 .trick #button {
     padding: 0px;
 }
 
 a.card{
-    padding: 0px;
-    max-width: 400px;
+    width: 345px;
 }
 .card-img-top, .img-fluid {
-    image-resolution: 400dpi;
-    height: 169px;
+    image-resolution: 345dpi;
+    height: 194px;
 }
 .card-img-overlay{
     background-color: rgba(0,0,0,0.25);
@@ -118,6 +124,8 @@ a.card{
     margin-top: 15px;
     margin-bottom: 30px;
     position: relative;
+    image-resolution: 900dpi;
+    max-width: 900px;
 }
 
 .trickshow .img-fluid,
@@ -144,6 +152,10 @@ img.message {
     height: auto;
 }
 
+#gb_tricksbundle_message_content {
+    height: 125px;
+}
+
 /*
  * Trick form :
  */
@@ -164,5 +176,50 @@ img.message {
 @media (min-width: 992px) {
     body {
     padding-top: 56px;
+    }   
+}
+
+@media (max-width: 992px) {
+    .trick {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    
+    .card-img-top, .img-fluid {
+        height: 194px;
+    }
+    
+    #frontPicture img{
+        height: 50vh;
+    }   
+    
+    #title {
+        font-size: 24px;
     }
 }
+
+@media (max-width: 575px) {     
+    h1 {
+        font-size: 36px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    #frontPicture img{
+        height: 40vh;
+    }     
+    
+}
+
+@media (max-width: 400px) {
+    #frontPicture img{
+        height: 35vh;
+    }
+    
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}   

@@ -96,7 +96,7 @@ class UserController extends Controller
 
         $user->setValidationToken(null);
         $em->flush();
-        $request->getSession()->getFlashBag()->add('notice', 'Votre inscription est validée');
+        $request->getSession()->getFlashBag()->add('success', 'Votre inscription est validée');
         
         return $this->redirectToRoute('gb_tricks_homepage');              
     }
@@ -126,7 +126,7 @@ class UserController extends Controller
                 $mailer = $this->get('mailer');
                 $mailer->send($message);  
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('notice', 'Un email vous a été envoyé pour renouveler votre mot de passe.');        
+                $request->getSession()->getFlashBag()->add('info', 'Un email vous a été envoyé pour renouveler votre mot de passe.');        
                 return $this->redirectToRoute('gb_tricks_homepage');
             }
         }
@@ -154,7 +154,7 @@ class UserController extends Controller
             $user->setPassword(hash('sha512',$request->request->get('password')));
             $user->setPasswordToken(NULL);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('info', 'Le mot de passe a bien été réinitialisé.');
+            $request->getSession()->getFlashBag()->add('success', 'Le mot de passe a bien été réinitialisé.');
             return $this->redirectToRoute('gb_tricks_homepage');
         }
         
@@ -187,7 +187,7 @@ class UserController extends Controller
             if($form->isValid()){                      
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('info',
+                $request->getSession()->getFlashBag()->add('success',
                         'La modification de votre profil a bien été réalisé.');
                 return $this->redirectToRoute('gb_tricks_homepage');                
             }

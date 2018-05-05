@@ -4,25 +4,35 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-8 well">
+        <div class="col-md-12 col-lg-10 col-xl-8 well">
+            <div class="row d-md-none d-xs-flex d-sm-flex justify-content-center smprofilpicture">
+                {% if user.profilPictureUrl is defined %}
+                <img src="{{ asset(user.webpath) }}" alt="{{ asset(user.profilPictureUrl) }}">
+                {% else %}
+                <img src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
+                {% endif %}
+            </div>
             <div class="row">
-                <div class="col-3">
+                <div class="col-3 d-none d-md-block">
                     {% if user.profilPictureUrl is defined %}
                     <img src="{{ asset(user.webpath) }}" alt="{{ asset(user.profilPictureUrl) }}">
                     {% else %}
                     <img src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
                     {% endif %}  
                 </div>
-                <div class="col-9 cesure">
+                <div class="col-12 col-md-9 cesure">
                     <div class="row d-flex justify-content-between">
                         <H2>Mon profil :</H2>
-                        <a href="{{path('gb_user_update')}}" class="btn btn-primary">Modifier</a>
+                        <a href="{{path('gb_user_update')}}" class="btn btn-primary d-none d-md-block">Modifier</a>
                     </div>
-                    <div class="row">
+                    <div class="row profil">
                         <p><strong>Nom d'utilisateur :</strong> {{ user.userName }}</p>
                     </div>
                     <div class="row">
                         <p><strong>Adresse E-mail :</strong> {{ user.email }}</p>
+                    </div>
+                    <div class="row d-flex d-md-none justify-content-center">
+                        <a href="{{path('gb_user_update')}}" class="btn btn-primary btn-lg">Modifier</a>
                     </div>
                 </div>
             </div>
