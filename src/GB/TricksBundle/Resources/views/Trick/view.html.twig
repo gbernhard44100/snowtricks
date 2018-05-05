@@ -64,17 +64,18 @@
         {% endif %}
         {% for message in messages %}
             <div class="media" id="comments">
-                {% if message.user.profilPictureUrl is defined %}
+                {% if message.user.profilPictureUrl %}
                 <img class="mr-3 message" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
                 {% else %}
                     <img class="mr-3 message" src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
                 {% endif %}    
                 <div class="media-body">
-                    <p class="mt-0"><strong>{{ message.user.userName }} / Le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }}</strong></p>
+                    <p class="mt-0"><strong>{{ message.user.userName }} : le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }}</strong></p>
                     <p class="d-flex flex-wrap-reverse">{{ message.content }}</p>
                 </div>
             </div>  
         {% endfor %}
+        {% if not everything %}    
             <div class="row d-flex justify-content-center loadMore">
                 <a href="{{ path('gb_tricks_trickpage', {'trick_id': trick.id }) }}?page={{ nextPage }}#comments">
                     <button type="button" class="btn btn-primary btn-block btn-lg">
@@ -82,7 +83,7 @@
                     </button>
                 </a>
             </div>
-
+        {% endif %}
     </div>
                               
 {% endblock %}    

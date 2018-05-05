@@ -224,6 +224,7 @@ img.message {
     
     #frontPicture img{
         height: 40vh;
+        width: 100%;
     }     
     
 }

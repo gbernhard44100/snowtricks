@@ -45,15 +45,22 @@ class TrickController extends Controller
         $nextPage = $page + 1;
         
         /** this variable used for the pull up button if there are more than a certain
-         * number of figures **/
+         * number of tricks **/
         $pullUp = false;
         $minToGetPullUp = 6;
         if(count($tricks) > $minToGetPullUp){
             $pullUp = TRUE;
         }
         
+        /* this variable is used to koow if all the tricks has been loaded */
+        $everything = false;
+        if(count($tricks) == count($trickRepository->findAll())){
+            $everything = true;
+        }
+        
         return $this->render('GBTricksBundle:Trick:index.html.twig',
-                array('tricks' => $tricks, 'page' => $page, 'nextPage' => $nextPage, 'pullUp' => $pullUp));
+                array('tricks' => $tricks, 'page' => $page, 'nextPage' => $nextPage,
+                    'pullUp' => $pullUp, 'everything' => $everything));
     }
     
     /**
@@ -77,8 +84,15 @@ class TrickController extends Controller
         
         $nextPage = $page + 1;
         
+        /* this variable is used to koow if all the tricks has been loaded */
+        $everything = false;
+        if(count($messages) == count($messageRepository->findAll())){
+            $everything = true;
+        }
+        
         return $this->render('GBTricksBundle:Trick:view.html.twig',
-                array('trick' => $trick, 'form' => $form->createView(), 'messages' => $messages, 'nextPage' => $nextPage));
+                array('trick' => $trick, 'form' => $form->createView(),
+                    'messages' => $messages, 'nextPage' => $nextPage, 'everything' => $everything));
     }
     
     /**
