@@ -39,10 +39,12 @@ class TrickController extends Controller
         else{
             $page = 1;
         }
-        $tricks = $trickRepository->findBy(array(), null, 8*$page);
+        $tricks = $trickRepository->findBy(array(), null, 6*$page);
+        
+        $nextPage = $page + 1;
         
         return $this->render('GBTricksBundle:Trick:index.html.twig',
-                array('tricks' => $tricks));
+                array('tricks' => $tricks, 'nextPage' => $nextPage));
     }
     
     /**
@@ -64,8 +66,10 @@ class TrickController extends Controller
         
         $messages = $messageRepository->findBy(array('trick' => $trick), array('date' => 'desc'), 5*$page);
         
+        $nextPage = $page + 1;
+        
         return $this->render('GBTricksBundle:Trick:view.html.twig',
-                array('trick' => $trick, 'form' => $form->createView(), 'messages' => $messages));
+                array('trick' => $trick, 'form' => $form->createView(), 'messages' => $messages, 'nextPage' => $nextPage));
     }
     
     /**

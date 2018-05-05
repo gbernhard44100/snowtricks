@@ -72,5 +72,12 @@
             </div>
             {% endfor %}
         </div>
+        <div class="row d-flex justify-content-center loadMore">
+            <a href="{{ path('gb_tricks_homepage') }}?page={{ nextPage }}#tricksection">
+                <button type="button" class="btn btn-primary btn-block btn-lg">
+                    Plus de figures 
+                </button>
+            </a>
+        </div>     
     </div>
 {% endblock %}

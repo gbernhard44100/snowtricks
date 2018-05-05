@@ -25,7 +25,7 @@ body {
     padding-top: 54px;
 }
 
-h1, label{
+h1, label, button, a{
    font-family: 'Carter One', cursive; 
 }
 
@@ -39,12 +39,24 @@ p{
     text-align: justify;
 }
 
+p.alert {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 14px;
+}
+
 a.navbar-brand img{
     height: 40px;
 }
 
 .navbar li {
     font-family: 'Carter One', cursive;
+}
+
+.alert {
+    padding-top: 25px;
+    padding-left: 5%;
+    margin-bottom: 0px;
 }
 
 /*
@@ -62,7 +74,8 @@ a.navbar-brand img{
 
 #title {
     background-color: rgba(0,0,0,0.6);
-    padding: 10px; 
+    padding: 10px;
+    margin-top: 10px;
     color: white;
 }
 
@@ -83,24 +96,34 @@ a.navbar-brand img{
     text-decoration: underline;
 }
 
-.trick{
+.trick {
     margin-right: 5px;
     margin-bottom: 50px;
+
 }
+
+.trick, .trick .row {
+    max-width: 345px;
+}
+
 .trick #button {
     padding: 0px;
 }
 
 a.card{
-    padding: 0px;
-    max-width: 400px;
+    width: 345px;
 }
-.card-img-top{
-    image-resolution: 400dpi;
-    height: 169px;
+.card-img-top, .img-fluid {
+    image-resolution: 345dpi;
+    height: 194px;
 }
 .card-img-overlay{
     background-color: rgba(0,0,0,0.25);
+}
+
+.loadMore {
+    padding-top: 30px;
+    margin-bottom: 30px;
 }
 
 /*
@@ -113,6 +136,8 @@ a.card{
     margin-top: 15px;
     margin-bottom: 30px;
     position: relative;
+    image-resolution: 900dpi;
+    max-width: 900px;
 }
 
 .trickshow .img-fluid,
@@ -126,6 +151,7 @@ a.card{
 .media{
     padding-top: 10px;
     padding-left: 30px;
+    margin-bottom: 15px;
     background-color: #E5E5E5;
     border-radius: 5em 5em;
 }
@@ -134,8 +160,79 @@ a.card{
     margin-bottom: 50px;
 }
 
+img.message {
+    width: 64px;
+    height: auto;
+}
+
+#gb_tricksbundle_message_content {
+    height: 125px;
+}
+
+/*
+ * Trick form :
+ */
+
+.well {
+    background-color: rgba(229, 229, 229, 0.85);
+    padding: 2.5em;
+}
+
+.img-form{
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
 @media (min-width: 992px) {
     body {
     padding-top: 56px;
+    }   
+}
+
+@media (max-width: 992px) {
+    .trick {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    
+    .card-img-top, .img-fluid {
+        height: 194px;
+    }
+    
+    #frontPicture img{
+        height: 50vh;
+    }   
+    
+    #title {
+        font-size: 24px;
     }
 }
+
+@media (max-width: 575px) {     
+    h1 {
+        font-size: 36px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    #frontPicture img{
+        height: 40vh;
+    }     
+    
+}
+
+@media (max-width: 400px) {
+    #frontPicture img{
+        height: 35vh;
+    }
+    
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}   

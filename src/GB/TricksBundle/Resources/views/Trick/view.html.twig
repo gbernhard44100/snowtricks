@@ -61,7 +61,7 @@
             <hr>
         {% endif %}
         {% for message in messages %}
-            <div class="media">
+            <div class="media" id="comments">
                 {% if message.user.profilPictureUrl is defined %}
                 <img class="mr-3 message" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
                 {% else %}
@@ -73,6 +73,13 @@
                 </div>
             </div>  
         {% endfor %}
+            <div class="row d-flex justify-content-center loadMore">
+                <a href="{{ path('gb_tricks_trickpage', {'trick_id': trick.id }) }}?page={{ nextPage }}#comments">
+                    <button type="button" class="btn btn-primary btn-block btn-lg">
+                        Commentaires suivants 
+                    </button>
+                </a>
+            </div>
 
     </div>     
 {% endblock %}
