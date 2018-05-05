@@ -72,12 +72,21 @@
             </div>
             {% endfor %}
         </div>
-        <div class="row d-flex justify-content-center loadMore">
+        <div class="row d-flex justify-content-around loadMore">
             <a href="{{ path('gb_tricks_homepage') }}?page={{ nextPage }}#tricksection">
                 <button type="button" class="btn btn-primary btn-block btn-lg">
                     Plus de figures 
                 </button>
             </a>
-        </div>     
+        </div> 
+        {% if pullUp == true %}
+            <div class="row d-flex justify-content-center justify-content-md-end pullUp">
+            <a href="{{ path('gb_tricks_homepage') }}?page={{ page }}#tricksection">
+                <button type="button" class="btn btn-warning btn-block btn-lg">
+                    <span class="fas fa-arrow-circle-up fa-3x"></span> 
+                </button>
+            </a>
+        </div>
+        {% endif %}    
     </div>
 {% endblock %}

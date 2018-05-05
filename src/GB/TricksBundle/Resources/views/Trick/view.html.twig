@@ -23,9 +23,11 @@
 
         <!-- Border -->
         <hr>    
-
+        <div class="row d-flex d-md-none justify-content-center">
+            <button id="displayMedia" class="btn btn-primary btn-lg">Afficher les Médias</button>
+        </div>
         <!-- Pictures & Videos -->
-        <div class="row d-flex justify-content-sm-center justify-content-md-around">
+        <div id="mediaContent" class="row d-none d-md-flex justify-content-center justify-content-md-around">
             {% if trick.pictures.first %}
                 {% for picture in trick.pictures %}
                     <div class="trick col-sm-12 col-md-4 col-lg-3">
@@ -68,8 +70,8 @@
                     <img class="mr-3 message" src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
                 {% endif %}    
                 <div class="media-body">
-                    <h5 class="mt-0">{{ message.user.userName }} / Le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }}</h5>
-                    <p>{{ message.content }}</p>
+                    <p class="mt-0"><strong>{{ message.user.userName }} / Le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }}</strong></p>
+                    <p class="d-flex flex-wrap-reverse">{{ message.content }}</p>
                 </div>
             </div>  
         {% endfor %}
@@ -81,5 +83,6 @@
                 </a>
             </div>
 
-    </div>     
-{% endblock %}
+    </div>
+                              
+{% endblock %}    

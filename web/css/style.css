@@ -119,6 +119,10 @@ a.card{
     margin-bottom: 30px;
 }
 
+.pullUp {
+    margin-bottom: 30px;
+}
+
 /*
  * TRICK PAGE
  */
@@ -145,11 +149,16 @@ a.card{
     padding-top: 10px;
     padding-left: 30px;
     margin-bottom: 15px;
+}
+
+.media-body {
     background-color: #E5E5E5;
-    border-radius: 5em 5em;
+    border-radius: 0.5em 0.5em;
+    font-size: 14px;
 }
 
 #content{
+    padding-top: 25px;
     margin-bottom: 50px;
 }
 

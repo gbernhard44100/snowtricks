@@ -62,6 +62,15 @@
             'js/bootstrap.min.js'
             %}
                 <script src="{{ asset_url }}"></script>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        $( "#displayMedia").click(function() {
+                            $("#mediaContent").removeClass("d-none");
+                            $("#mediaContent").addClass("d-flex");
+                            $("#displayMedia").addClass("d-none");
+                        });
+                    });
+                </script>
             {% endjavascripts %}
         {% endblock %}
 

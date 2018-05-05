@@ -41,10 +41,19 @@ class TrickController extends Controller
         }
         $tricks = $trickRepository->findBy(array(), null, 6*$page);
         
+        /** this variable used for the load More button **/
         $nextPage = $page + 1;
         
+        /** this variable used for the pull up button if there are more than a certain
+         * number of figures **/
+        $pullUp = false;
+        $minToGetPullUp = 6;
+        if(count($tricks) > $minToGetPullUp){
+            $pullUp = TRUE;
+        }
+        
         return $this->render('GBTricksBundle:Trick:index.html.twig',
-                array('tricks' => $tricks, 'nextPage' => $nextPage));
+                array('tricks' => $tricks, 'page' => $page, 'nextPage' => $nextPage, 'pullUp' => $pullUp));
     }
     
     /**
