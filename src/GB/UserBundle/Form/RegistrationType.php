@@ -25,6 +25,7 @@ class RegistrationType extends AbstractType
                 ->add('file', FileType::class,
                         array('required' => FALSE))
                 ->add('save', SubmitType::class)
+                ->add('save2', SubmitType::class)
                 ;
     }/**
      * {@inheritdoc}

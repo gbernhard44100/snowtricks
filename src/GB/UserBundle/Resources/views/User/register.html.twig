@@ -1,7 +1,7 @@
 {% extends 'GBUserBundle::layout.html.twig' %}
 
 {% block content %}
-    <div class="col-7 well">
+    <div class="col-sm-12 col-md-7 col-lg-6 col-xl-4 well">
         <h2>Inscription :</h2>
         {{ form_start(form) }}
         <div class="form-group">
@@ -22,7 +22,9 @@
         <div class="form-group">
             {{ form_widget(form.save, {'attr': {'class': 'btn-primary'}, 'label': 'S\'inscrire' }) }}
         </div>
-        {{ form_rest(form) }}
+        <div class="hidden">
+            {{ form_rest(form) }}
+        </div>
         {{ form_end(form) }}
     </div>
 {% endblock %}    

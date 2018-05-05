@@ -3,7 +3,7 @@
 {% block body %}
     <!-- Header with Background Image -->
     {% if trick.pictures.first %}
-    <div class="container" id="frontPicture">
+    <div class="container-fluid" id="frontPicture">
         <div class="row justify-content-center">
             <img src="{{ asset(trick.pictures.first.webpath) }}" 
                  alt="{{ trick.pictures.first.url }}">
@@ -14,8 +14,8 @@
     <!-- Page Content -->
     <div class="container" id="content">
         <!-- Description -->
-        <div class="row text-center text-lg-left">
-            <div class="align-items-center">
+        <div class="row text-left">
+            <div class="col-12">
                 <h1>{{ trick.name }}</h1>
                 <p>{{ trick.description }}</p>
             </div>
@@ -25,12 +25,14 @@
         <hr>    
 
         <!-- Pictures & Videos -->
-        <div class="row text-center text-lg-left d-flex align-items-start">
+        <div class="row d-flex justify-content-sm-center justify-content-md-around">
             {% if trick.pictures.first %}
                 {% for picture in trick.pictures %}
-                    <div class="trickshow">
-                        <div>
-                            <img class="img-fluid" src="{{ asset(picture.webpath) }}" alt="{{ picture.url }}">
+                    <div class="trick col-sm-12 col-md-4 col-lg-3">
+                        <div class="row justify-content-sm-center">
+                            <div>
+                                <img id="trickPicture" class="img-fluid" src="{{ asset(picture.webpath) }}" alt="{{ picture.url }}">
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -38,7 +40,7 @@
 
             {% if trick.videos.first %}
                 {% for video in trick.videos %}
-                    <div class=" embed-responsive embed-responsive-4by3 col-lg-3 col-md-4 col-xs-12">
+                    <div class="trick col-sm-12 col-md-4 col-lg-3">
                         <iframe class="embed-responsive-item"
                                 src="{{ video.url }}" 
                                 allowfullscreen>

@@ -50,8 +50,30 @@ body {
     margin-bottom: 10px;
 }
 
+.smprofilpicture {
+    padding-bottom: 10px;
+}
+
+.profil {
+    padding-top: 20px;
+}
+
 @media (min-width: 992px) {
     body {
     padding-top: 56px;
+    }
+}
+
+@media (max-width: 767.98px) {   
+    .cesure {
+        border-left: none;
+        padding-left: 0px;
+        
+        border-top: 2px solid black;
+        padding-top: 30px;
+    }
+    
+    p {
+        text-align: left;
     }
 }
