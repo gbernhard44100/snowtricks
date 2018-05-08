@@ -39,7 +39,7 @@ class TrickController extends Controller
         else{
             $page = 1;
         }
-        $tricks = $trickRepository->findBy(array(), null, 6*$page);
+        $tricks = $trickRepository->findBy(array(), null, $this->getParameter('tricks_per_page')*$page);
         
         /** this variable used for the load More button **/
         $nextPage = $page + 1;
@@ -47,14 +47,13 @@ class TrickController extends Controller
         /** this variable used for the pull up button if there are more than a certain
          * number of tricks **/
         $pullUp = false;
-        $minToGetPullUp = 6;
-        if(count($tricks) > $minToGetPullUp){
+        if(count($tricks) > $this->getParameter('pull_up')){
             $pullUp = TRUE;
         }
         
         /* this variable is used to koow if all the tricks has been loaded */
         $everything = false;
-        if(count($tricks) == count($trickRepository->findAll())){
+        if(empty($tricks) || count($tricks) == count($trickRepository->findAll())){
             $everything = true;
         }
         
@@ -80,13 +79,13 @@ class TrickController extends Controller
             $page = 1;
         }
         
-        $messages = $messageRepository->findBy(array('trick' => $trick), array('date' => 'desc'), 5*$page);
-        
+        $messages = $messageRepository->findBy(array('trick' => $trick),
+                array('date' => 'desc'), $this->getParameter('comments_per_page')*$page);
         $nextPage = $page + 1;
         
-        /* this variable is used to koow if all the tricks has been loaded */
+        /* this variable is used to koow if all the comments has been loaded */
         $everything = false;
-        if(count($messages) == count($messageRepository->findAll())){
+        if(empty($messages) || count($messages) == count($messageRepository->findAll())){
             $everything = true;
         }
         

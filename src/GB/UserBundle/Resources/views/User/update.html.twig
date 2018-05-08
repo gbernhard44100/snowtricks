@@ -1,8 +1,6 @@
 {% extends 'GBUserBundle::layout.html.twig' %}
 
-{% block saveButton %}
-    
-{% endblock %}
+{% block title %}Snowtricks: Modification profil{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -36,9 +34,11 @@
                         <div class="row form-row">
                             <label class="col-form-label col-form-label-sm">Photo de profil :</label>
                         </div>
+                        {% if user.profilPictureUrl %} 
                         <div class="row updatePicture justify-content-center">
                             <img src="{{ asset(form.vars.value.webpath) }}" alt="{{ asset(form.vars.value.profilPictureUrl) }}">                
                         </div>
+                        {% endif %}
                         <div class="row d-flex justify-content-center">
                             <div class="custom-file col-8 align-self-center">
                                 {{ form_widget(form.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} }) }}

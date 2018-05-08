@@ -66,7 +66,8 @@ class UserController extends Controller
                         ->setSubject('Ton inscription à Snowtricks')
                         ->setFrom([$this->getParameter('mailer_user')])
                         ->setTo([$user->getEmail()])
-                        ->setBody($this->render('GBUserBundle:User:ValidationEmail.txt.twig', 
+                        ->setContentType("text/html")
+                        ->setBody($this->renderView('GBUserBundle:User:ValidationEmail.txt.twig', 
                                 array('user' => $user)));
                         ;
                 $mailer = $this->get('mailer');
@@ -120,7 +121,8 @@ class UserController extends Controller
                         ->setSubject('Compte Snowtricks : mot de passe oublié')
                         ->setFrom([$this->getParameter('mailer_user')])
                         ->setTo([$user->getEmail()])
-                        ->setBody($this->render('GBUserBundle:User:ForgotPasswordEmail.txt.twig', 
+                        ->setContentType("text/html")
+                        ->setBody($this->renderView('GBUserBundle:User:ForgotPasswordEmail.txt.twig', 
                                 array('user' => $user)));
                         ;
                 $mailer = $this->get('mailer');
@@ -193,6 +195,6 @@ class UserController extends Controller
             }
         }
         return $this->render('GBUserBundle:User:update.html.twig', 
-                array('form' => $form->createView()));
+                array('form' => $form->createView(), 'user' => $user));
     }
 }

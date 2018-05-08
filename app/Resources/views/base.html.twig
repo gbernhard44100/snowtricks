@@ -5,7 +5,7 @@
         <title>{% block title %}{% endblock %}</title>
             <!-- Bootstrap core CSS -->
         {% block stylesheets %}    
-            {% stylesheets output="css/compiled/main.css" filter="cssrewrite"
+            {% stylesheets output="css/compiled/main.css" filter="cssrewrite, scssphp"
                 'bootstrap/css/bootstrap.min.css'
                 'css/style.css'
             %}
@@ -57,7 +57,7 @@
 
         <!-- Bootstrap core JavaScript -->
         {% block javascripts %}
-            {% javascripts output="js/compiled/main.js"
+            {% javascripts output="js/compiled/main.js" filter='jsqueeze'
             'js/jquery.min.js'
             'js/bootstrap.min.js'
             %}
