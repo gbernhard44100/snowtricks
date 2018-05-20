@@ -21,6 +21,7 @@ Link of the code analysis made by Codacy : [![Codacy Badge](https://api.codacy.c
 1. clone this Git repository in your project folder
 2. Rename the file **parameters.yml.dist** by **parameters.yml** in the folder *app/config*.
 3. Open the renamed file **parameters.yml** and fill the information like below : 
+    
     the next parameters are used to configure the database
     * database_host: *IP address of the server where your database is*
     * database_port: null
@@ -28,14 +29,15 @@ Link of the code analysis made by Codacy : [![Codacy Badge](https://api.codacy.c
     * database_user: *username to connect to your database*
     * database_password: *password to connect to your database*
     
+    the next parameter is to protect you from CSRF attacks :
     * secret: *a string which has to be unique for each of your application*
     
     the next parameters are used to configure the mailer to send email
     * mailer_transport: *smtp you want to use*
     * mailer_auth_mode: *authentication mode to use : plain, login, cram-md5, or null*
     * mailer_encryption: *tencryption mode to use tls, ssl, or null*
-    * mailer_host: **
-    * mailer_port: **
+    * mailer_host: *The host to connect to when using smtp as the transport.*
+    * mailer_port: *The port when using smtp as the transport. This defaults to 465 if encryption is ssl and 25 otherwise.*
     * mailer_user: *email address*
     * mailer_password: *email password*    
     
