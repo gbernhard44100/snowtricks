@@ -47,8 +47,12 @@ Link of the code analysis made by Codacy : [![Codacy Badge](https://api.codacy.c
     * comments_per_page: *number of comments you want in each page describing a trick and number of additional additional you want to load every time you click on the button "Commentaires suivants"*
  
 4. Open the command terminal
-5. Create the database from your symfony project by using the next code on your terminal: *php bin/console doctrine:database:create*
+5. Create the database from your symfony project by using the next code on your terminal:  
+*php bin/console doctrine:database:create*
 6. Update the database by using the next code on your terminal: *php bin/console doctrine:schema:update --force*
-7. Load the content of your database by using the next code on your terminal : *php bin/console doctrine:fixtures:load* and type **y**
-8. Load the compiled css and js files by using the next code on your terminal : *php bin/console assetic:dump* if you  want to use in dev mode or *php bin/console assetic:dump --env=prod* if you want to use in production
+7. Load the content of your database by using the next code on your terminal : *php bin/console doctrine:fixtures:load*  
+and type **y**
+8. Load the compiled css and js files by using the next code on your terminal :  
+*php bin/console assetic:dump* if you  want to use in dev mode  
+or *php bin/console assetic:dump --env=prod* if you want to use in production
 9. ENJOY!!!
