@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
-            <!-- Bootstrap core CSS -->
+        <!-- Bootstrap core CSS -->
         {% block stylesheets %}    
             {% stylesheets output="css/compiled/main.css" filter="cssrewrite"
                 'bootstrap/css/bootstrap.min.css'
                 'css/style.css'
             %}
-                <link rel="stylesheet" href="{{ asset_url }}" />
+            <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
             <!-- Custom styles for this template -->
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
@@ -22,7 +22,7 @@
         {% if form is defined %}
             {% form_theme form 'form_errors.html.twig' %}
         {% endif %}
-        
+
         {{ include("nav.html.twig") }}
 
         {% for message in app.session.flashbag.get('info') %}
@@ -45,34 +45,34 @@
                 <p><strong>{{ message }}</strong></p>
             </div>
         {% endfor %}
-        
-        {% block body %}{% endblock %}
-        
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-            </div>
-        <!-- /.container -->
-        </footer>
 
-        <!-- Bootstrap core JavaScript -->
-        {% block javascripts %}
-            {% javascripts output="js/compiled/main.js"
+    {% block body %}{% endblock %}
+
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    {% block javascripts %}
+        {% javascripts output="js/compiled/main.js"
             'js/jquery.min.js'
             'js/bootstrap.min.js'
-            %}
-                <script src="{{ asset_url }}"></script>
-                <script type="text/javascript">
-                    $(document).ready(function(){
-                        $( "#displayMedia").click(function() {
-                            $("#mediaContent").removeClass("d-none");
-                            $("#mediaContent").addClass("d-flex");
-                            $("#displayMedia").addClass("d-none");
-                        });
-                    });
-                </script>
-            {% endjavascripts %}
-        {% endblock %}
+        %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#displayMedia").click(function () {
+                    $("#mediaContent").removeClass("d-none");
+                    $("#mediaContent").addClass("d-flex");
+                    $("#displayMedia").addClass("d-none");
+                });
+            });
+        </script>
+        {% endjavascripts %}
+    {% endblock %}
 
-    </body>
+</body>
 </html>

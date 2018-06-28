@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class MessageType extends AbstractType
 {
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,9 @@ class MessageType extends AbstractType
     {
         $builder->add('content', TextareaType::class)
                 ->add('save', SubmitType::class);
-    }/**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -35,6 +38,5 @@ class MessageType extends AbstractType
     {
         return 'gb_tricksbundle_message';
     }
-
 
 }

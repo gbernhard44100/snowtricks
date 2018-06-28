@@ -3,12 +3,12 @@
 {% block body %}
     <!-- Header with Background Image -->
     {% if trick.pictures.first %}
-    <div class="container-fluid" id="frontPicture">
-        <div class="row justify-content-center">
-            <img src="{{ asset(trick.pictures.first.webpath) }}" 
-                 alt="{{ trick.pictures.first.url }}">
+        <div class="container-fluid" id="frontPicture">
+            <div class="row justify-content-center">
+                <img src="{{ asset(trick.pictures.first.webpath) }}" 
+                     alt="{{ trick.pictures.first.url }}">
+            </div>
         </div>
-    </div>
     {% endif %}
 
     <!-- Page Content -->
@@ -65,7 +65,7 @@
         {% for message in messages %}
             <div class="media" id="comments">
                 {% if message.user.profilPictureUrl is defined %}
-                <img class="mr-3 message" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
+                    <img class="mr-3 message" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
                 {% else %}
                     <img class="mr-3 message" src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
                 {% endif %}    
@@ -75,14 +75,14 @@
                 </div>
             </div>  
         {% endfor %}
-            <div class="row d-flex justify-content-center loadMore">
-                <a href="{{ path('gb_tricks_trickpage', {'trick_id': trick.id }) }}?page={{ nextPage }}#comments">
-                    <button type="button" class="btn btn-primary btn-block btn-lg">
-                        Commentaires suivants 
-                    </button>
-                </a>
-            </div>
+        <div class="row d-flex justify-content-center loadMore">
+            <a href="{{ path('gb_tricks_trickpage', {'trick_id': trick.id }) }}?page={{ nextPage }}#comments">
+                <button type="button" class="btn btn-primary btn-block btn-lg">
+                    Commentaires suivants 
+                </button>
+            </a>
+        </div>
 
     </div>
-                              
+
 {% endblock %}    

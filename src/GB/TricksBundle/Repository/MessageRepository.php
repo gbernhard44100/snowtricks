@@ -10,4 +10,5 @@ namespace GB\TricksBundle\Repository;
  */
 class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
+    
 }

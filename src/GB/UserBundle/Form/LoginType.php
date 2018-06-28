@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class LoginType extends AbstractType
 {
+
     /**
      * {@inheritdoc}
      */
@@ -19,8 +20,10 @@ class LoginType extends AbstractType
         $builder->add('userName', TextType::class)
                 ->add('password', PasswordType::class)
                 ->add('submit', SubmitType::class)
-                ;
-    }/**
+        ;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -38,6 +41,5 @@ class LoginType extends AbstractType
     {
         return 'gb_userbundle_user';
     }
-
 
 }

@@ -10,4 +10,5 @@ namespace GB\TricksBundle\Repository;
  */
 class PictureRepository extends \Doctrine\ORM\EntityRepository
 {
+    
 }

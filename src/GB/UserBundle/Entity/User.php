@@ -5,7 +5,6 @@ namespace GB\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use GB\UserBundle\Validator\UserExist;
@@ -21,7 +20,8 @@ use GB\UserBundle\Validator\Password;
  * @UniqueEntity(fields={"email"}, message="Cette adresse email a déjà été utilisée.", groups={"registration"})
  * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface, \Serializable {
+class User implements UserInterface, \Serializable
+{
 
     /**
      * @var int
@@ -74,7 +74,7 @@ class User implements UserInterface, \Serializable {
      * @ORM\Column(name="passwordToken", type="string", length=255, nullable=true)
      */
     private $passwordToken;
-    
+
     /**
      * @var string
      *
@@ -88,46 +88,49 @@ class User implements UserInterface, \Serializable {
      * @ORM\Column(name="roles", type="array")
      */
     private $roles = array('IS_AUTHENTICATED_REMEMBERED');
-    
     private $file;
     private $tempFileName;
-    
-    public function eraseCredentials() {
+
+    public function eraseCredentials()
+    {
         
     }
-    
-    public function serialize() {
+
+    public function serialize()
+    {
         return serialize(array(
-        $this->id,
-        $this->userName,
-        $this->password,
-        $this->email,
-        $this->profilPictureUrl,
-        $this->validationToken,
-        $this->passwordToken,
-        $this->roles
-    ));
+            $this->id,
+            $this->userName,
+            $this->password,
+            $this->email,
+            $this->profilPictureUrl,
+            $this->validationToken,
+            $this->passwordToken,
+            $this->roles
+        ));
     }
-    
-    public function unserialize($serialized) {
+
+    public function unserialize($serialized)
+    {
         list (
-        $this->id,
-        $this->userName,
-        $this->password,
-        $this->email,
-        $this->profilPictureUrl,
-        $this->validationToken,
-        $this->passwordToken,
-        $this->roles
-    ) = unserialize($serialized);
+                $this->id,
+                $this->userName,
+                $this->password,
+                $this->email,
+                $this->profilPictureUrl,
+                $this->validationToken,
+                $this->passwordToken,
+                $this->roles
+                ) = unserialize($serialized);
     }
-    
+
     /**
      * Get id
      *
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -138,7 +141,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setUserName($userName) {
+    public function setUserName($userName)
+    {
         $this->userName = $userName;
 
         return $this;
@@ -149,7 +153,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getUserName() {
+    public function getUserName()
+    {
         return $this->userName;
     }
 
@@ -160,7 +165,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setProfilPictureUrl($profilPictureUrl) {
+    public function setProfilPictureUrl($profilPictureUrl)
+    {
         $this->profilPictureUrl = $profilPictureUrl;
         return $this;
     }
@@ -170,7 +176,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getProfilPictureUrl() {
+    public function getProfilPictureUrl()
+    {
         return $this->profilPictureUrl;
     }
 
@@ -181,7 +188,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
 
         return $this;
@@ -192,7 +200,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -202,7 +211,8 @@ class User implements UserInterface, \Serializable {
      * @param string $password
      * @return User
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
         return $this;
     }
@@ -212,11 +222,11 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    
     /**
      * Set validationToken
      *
@@ -264,7 +274,7 @@ class User implements UserInterface, \Serializable {
     {
         return $this->passwordToken;
     }
-    
+
     /**
      * Set salt
      *
@@ -272,7 +282,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setSalt($salt) {
+    public function setSalt($salt)
+    {
         $this->salt = $salt;
 
         return $this;
@@ -283,7 +294,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return string
      */
-    public function getSalt() {
+    public function getSalt()
+    {
         return $this->salt;
     }
 
@@ -294,7 +306,8 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function setRoles($roles) {
+    public function setRoles($roles)
+    {
         $this->roles = $roles;
 
         return $this;
@@ -305,19 +318,22 @@ class User implements UserInterface, \Serializable {
      *
      * @return array
      */
-    public function getRoles() {
+    public function getRoles()
+    {
         return $this->roles;
     }
 
-    public function getFile() {
+    public function getFile()
+    {
         return $this->file;
     }
 
-    public function setFile(UploadedFile $file = null) {        
+    public function setFile(UploadedFile $file = null)
+    {
         $this->file = $file;
-        if ($this->profilPictureUrl !== null) {            
+        if ($this->profilPictureUrl !== null) {
             $this->tempFileName = $this->profilPictureUrl;
-            $this->profilPictureUrl = null;            
+            $this->profilPictureUrl = null;
         }
     }
 
@@ -330,7 +346,8 @@ class User implements UserInterface, \Serializable {
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function preUpload() {       
+    public function preUpload()
+    {
         if ($this->file === null) {
             return;
         }
@@ -342,58 +359,62 @@ class User implements UserInterface, \Serializable {
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
      */
-    public function upload() {
+    public function upload()
+    {
         if ($this->file === null) {
             return;
         }
         /**
          * Delete the old folder if exists.
          */
-        if ($this->tempFileName !== null) {           
+        if ($this->tempFileName !== null) {
             $oldFile = $this->getUploadRootDir() . $this->getUploadDir() . '/' . $this->tempFileName;
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
         }
- 
+
         $this->file->move($this->getUploadRootDir() . $this->getUploadDir(), $this->profilPictureUrl);
 
         /**
          * Resizing the picture after moving it into the Upload folder:
          */
-        $source = imagecreatefromjpeg($this->getUploadDir() . '/' . $this->profilPictureUrl);       
+        $source = imagecreatefromjpeg($this->getUploadDir() . '/' . $this->profilPictureUrl);
         $finalSizePicture = imagecreatetruecolor(150, 150);
-        imagecopyresampled($finalSizePicture, $source, 0, 0, 0, 0,
-                imagesx($finalSizePicture), imagesy($finalSizePicture), 
-                imagesx($source), imagesy($source));
+        imagecopyresampled($finalSizePicture, $source, 0, 0, 0, 0, imagesx($finalSizePicture), imagesy($finalSizePicture), imagesx($source), imagesy($source));
         imagejpeg($finalSizePicture, $this->getUploadRootDir() . $this->getUploadDir() . '/' . $this->profilPictureUrl);
     }
 
     /**
      * @ORM\PreRemove()
      */
-    public function preRemoveUpload() {
+    public function preRemoveUpload()
+    {
         $this->tempFileName = $this->getUploadRootDir() . $this->getUploadDir() . '/' . $this->profilPictureUrl;
     }
 
     /**
      * @ORM\PostRemove()
      */
-    public function removeUpload() {
+    public function removeUpload()
+    {
         if (file_exists($this->tempFileName)) {
             unlink($this->tempFileName);
         }
     }
 
-    public function getUploadDir() {
+    public function getUploadDir()
+    {
         return 'pictures/profils';
     }
 
-    public function getUploadRootDir() {
+    public function getUploadRootDir()
+    {
         return '';
     }
 
-    public function getWebPath() {
+    public function getWebPath()
+    {
         return $this->getUploadDir() . '/' . $this->profilPictureUrl;
     }
 

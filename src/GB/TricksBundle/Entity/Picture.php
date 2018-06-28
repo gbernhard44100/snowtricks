@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Picture
  *
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Picture
 {
+
     /**
      * @var int
      *
@@ -41,11 +43,9 @@ class Picture
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
-
     private $file;
-    
     private $tempFileName;
-    
+
     /**
      * Get id
      *
@@ -103,37 +103,35 @@ class Picture
     {
         return $this->trick;
     }
-    
-    public function getFile() 
+
+    public function getFile()
     {
         return $this->file;
     }
-    
+
     public function setFile(UploadedFile $file = null)
     {
         $this->file = $file;
-        
-        if($this->url !== null)
-        {
+
+        if ($this->url !== null) {
             $this->tempFileName = $this->url;
             $this->url = null;
-            
         }
     }
-    
+
     /**
      * 
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function preUpload(){
-        if($this->file === null)
-        {
+    public function preUpload()
+    {
+        if ($this->file === null) {
             return;
         }
-        $this->url = md5(uniqid()).'.'.$this->file->getClientOriginalExtension();
+        $this->url = md5(uniqid()) . '.' . $this->file->getClientOriginalExtension();
     }
-    
+
     /**
      * 
      * @ORM\PostPersist()
@@ -141,56 +139,53 @@ class Picture
      */
     public function upload()
     {
-        if($this->file === null)
-        {
+        if ($this->file === null) {
             return;
         }
-        
+
         /**
          * Suppression de l'ancien fichier si il existe.
          */
-        if($this->tempFileName !== null){
-            $oldFile = $this->getUploadRootDir().$this->getUploadDir().$this->tempFileName;
-            if(file_exists($oldFile))
-            {
+        if ($this->tempFileName !== null) {
+            $oldFile = $this->getUploadRootDir() . $this->getUploadDir() . $this->tempFileName;
+            if (file_exists($oldFile)) {
                 unlink($oldFile);
-                
             }
         }
-        $this->file->move($this->getUploadRootDir().$this->getUploadDir(), $this->url);        
+        $this->file->move($this->getUploadRootDir() . $this->getUploadDir(), $this->url);
     }
-    
+
     /**
      * @ORM\PreRemove()
      */
     public function preRemoveUpload()
     {
-        $this->tempFileName = $this->getUploadRootDir().$this->getUploadDir().'/'.$this->url;
+        $this->tempFileName = $this->getUploadRootDir() . $this->getUploadDir() . '/' . $this->url;
     }
-    
+
     /**
      * @ORM\PostRemove()
      */
     public function removeUpload()
     {
-        if(file_exists($this->tempFileName))
-        {
+        if (file_exists($this->tempFileName)) {
             unlink($this->tempFileName);
         }
     }
-    
+
     public function getUploadDir()
     {
         return 'pictures/tricks';
     }
-    
+
     public function getUploadRootDir()
     {
         return '';
     }
-    
+
     public function getWebPath()
     {
-        return $this->getUploadDir().'/'.$this->url;
+        return $this->getUploadDir() . '/' . $this->url;
     }
+
 }

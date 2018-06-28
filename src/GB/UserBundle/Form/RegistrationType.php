@@ -11,9 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
 class RegistrationType extends AbstractType
 {
+
     /**
      * {@inheritdoc}
      */
@@ -22,12 +22,13 @@ class RegistrationType extends AbstractType
         $builder->add('userName', TextType::class)
                 ->add('email', EmailType::class)
                 ->add('password', PasswordType::class)
-                ->add('file', FileType::class,
-                        array('required' => FALSE))
+                ->add('file', FileType::class, array('required' => FALSE))
                 ->add('save', SubmitType::class)
                 ->add('save2', SubmitType::class)
-                ;
-    }/**
+        ;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -45,6 +46,5 @@ class RegistrationType extends AbstractType
     {
         return 'gb_userbundle_user';
     }
-
 
 }

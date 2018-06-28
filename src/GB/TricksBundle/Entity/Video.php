@@ -4,6 +4,7 @@ namespace GB\TricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Video
  *
@@ -12,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Video
 {
+
     /**
      * @var int
      *
@@ -28,7 +30,7 @@ class Video
      * @Assert\NotBlank()
      */
     private $url;
-    
+
     /**
      *
      * @ORM\ManyToOne(targetEntity="GB\TricksBundle\Entity\Trick",
@@ -94,8 +96,10 @@ class Video
     {
         return $this->trick;
     }
-    
-    public function adjustUrl(){
+
+    public function adjustUrl()
+    {
         
     }
+
 }

@@ -10,4 +10,5 @@ namespace GB\TricksBundle\Repository;
  */
 class VideoRepository extends \Doctrine\ORM\EntityRepository
 {
+    
 }

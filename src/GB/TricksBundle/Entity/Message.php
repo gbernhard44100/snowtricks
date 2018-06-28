@@ -4,6 +4,7 @@ namespace GB\TricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Message
  *
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Message
 {
+
     /**
      * @var int
      *
@@ -44,13 +46,13 @@ class Message
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="GB\UserBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
-    */
+     */
     private $user;
-    
+
     /**
      * Get id
      *
@@ -132,11 +134,12 @@ class Message
     {
         return $this->trick;
     }
-    
+
     /**
      * @ORM\PrePersist()
      */
-    public function setToday(){
+    public function setToday()
+    {
         $this->date = new \DateTime();
     }
 
@@ -163,4 +166,5 @@ class Message
     {
         return $this->user;
     }
+
 }

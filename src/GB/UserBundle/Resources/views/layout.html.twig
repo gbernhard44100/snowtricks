@@ -7,7 +7,7 @@
         'css/style.css'
         'css/GBUserBundleStyle.css'
     %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
@@ -19,7 +19,7 @@
 {% block body %}
     <div class="container-fluid main d-flex align-items-center">
         <div class="container">
-            {% block content %}{% endblock %}
-        </div>
-    </div>    
+        {% block content %}{% endblock %}
+    </div>
+</div>    
 {% endblock %}

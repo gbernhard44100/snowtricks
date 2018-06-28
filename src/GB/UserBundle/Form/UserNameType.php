@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UserNameType extends AbstractType
 {
+
     /**
      * {@inheritdoc}
      */
@@ -18,8 +19,10 @@ class UserNameType extends AbstractType
     {
         $builder->add('userName', TextType::class)
                 ->add('submit', SubmitType::class)
-                ;
-    }/**
+        ;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
@@ -37,6 +40,5 @@ class UserNameType extends AbstractType
     {
         return 'gb_userbundle_user';
     }
-
 
 }

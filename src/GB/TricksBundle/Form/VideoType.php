@@ -5,11 +5,11 @@ namespace GB\TricksBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class VideoType extends AbstractType
 {
+
     /**
      * {@inheritdoc}
      */
@@ -17,7 +17,7 @@ class VideoType extends AbstractType
     {
         $builder->add('url', TextType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -35,6 +35,5 @@ class VideoType extends AbstractType
     {
         return 'gb_tricksbundle_video';
     }
-
 
 }

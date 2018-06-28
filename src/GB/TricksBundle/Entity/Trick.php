@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Trick
  *
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Trick
 {
+
     /**
      * @var int
      *
@@ -61,25 +63,26 @@ class Trick
      * mappedBy="trick")
      */
     private $messages;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="GB\TricksBundle\Entity\Picture", cascade={"persist", "remove"},
      * mappedBy="trick", orphanRemoval=true)
      */
     private $pictures;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="GB\TricksBundle\Entity\Video", cascade={"persist", "remove"},
      * mappedBy="trick")
      */
     private $videos;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->messages = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
@@ -185,43 +188,42 @@ class Trick
     {
         return $this->frontImage;
     }
-    
+
     public function addPicture(Picture $picture)
     {
         $this->pictures[] = $picture;
         $picture->setTrick($this);
-        
+
         return $this;
     }
-    
+
     public function removePicture(Picture $picture)
     {
         $this->pictures->removeElement($picture);
         $picture->setTrick(null);
     }
-    
+
     public function addVideo(Video $video)
     {
         $this->videos[] = $video;
         $video->setTrick($this);
-        
+
         return $this;
     }
-    
+
     public function removeVideo(Video $video)
     {
         $this->videos->removeElement($video);
-        $video->setTrick(null);        
+        $video->setTrick(null);
     }
-    
+
     public function addMessage(Message $message)
     {
         $this->messages[] = $message;
         $message->setTrick($this);
-        
+
         return $this;
     }
-        
 
     /**
      * Remove message
@@ -262,4 +264,5 @@ class Trick
     {
         return $this->videos;
     }
+
 }

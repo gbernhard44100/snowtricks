@@ -3,36 +3,36 @@
 {% extends "GBUserBundle::layout.html.twig" %}
 
 {% block content %}
-<div class="row well">
-    <div class="col-sm-12 col-md-6">
-        {{ form_start(form, { 'attr': { 'class': 'needs-validation' } }) }}
-        <div>
-            <H2>Vous avez un compte :</H2>
+    <div class="row well">
+        <div class="col-sm-12 col-md-6">
+            {{ form_start(form, { 'attr': { 'class': 'needs-validation' } }) }}
+            <div>
+                <H2>Vous avez un compte :</H2>
+            </div>    
+            <div class="form-group">
+                {{ form_label(form.userName, "Nom d'utilisateur :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                {{ form_widget(form.userName, {'attr': {'class': 'form-control'} }) }}
+                {{ form_errors(form.userName) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password, "Mot de passe :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                {{ form_widget(form.password) }}
+                {{ form_errors(form.password) }}
+                <a href='{{ path('gb_user_forgotPassword') }}'>Mot de passe oublié?</a>
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.submit, {'attr': {'class': 'btn-primary'}, 'label': 'Se connecter' }) }}
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+        <div class="col-sm-12 col-md-6 cesure">     
+            <div>
+                <H2>Vous n'êtes pas inscrit :</H2>
+            </div>
+            <div class="container subscribe d-flex justify-content-center flex-wrap">
+                <a href="{{ path('gb_user_registration') }}" id="add_picture" class="btn btn-secondary d-block align-self-center"><h3>Inscription</h3></a>
+            </div>
         </div>    
-        <div class="form-group">
-            {{ form_label(form.userName, "Nom d'utilisateur :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
-            {{ form_widget(form.userName, {'attr': {'class': 'form-control'} }) }}
-            {{ form_errors(form.userName) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(form.password, "Mot de passe :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
-            {{ form_widget(form.password) }}
-            {{ form_errors(form.password) }}
-            <a href='{{ path('gb_user_forgotPassword') }}'>Mot de passe oublié?</a>
-        </div>
-        <div class="form-group">
-            {{ form_widget(form.submit, {'attr': {'class': 'btn-primary'}, 'label': 'Se connecter' }) }}
-        </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
     </div>
-    <div class="col-sm-12 col-md-6 cesure">     
-        <div>
-            <H2>Vous n'êtes pas inscrit :</H2>
-        </div>
-        <div class="container subscribe d-flex justify-content-center flex-wrap">
-            <a href="{{ path('gb_user_registration') }}" id="add_picture" class="btn btn-secondary d-block align-self-center"><h3>Inscription</h3></a>
-        </div>
-    </div>    
-</div>
 {% endblock %}

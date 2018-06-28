@@ -26,7 +26,7 @@ body {
 }
 
 h1, label, button, a{
-   font-family: 'Carter One', cursive; 
+    font-family: 'Carter One', cursive; 
 }
 
 h2{
@@ -188,7 +188,7 @@ img.message {
 
 @media (min-width: 992px) {
     body {
-    padding-top: 56px;
+        padding-top: 56px;
     }   
 }
 
@@ -197,15 +197,15 @@ img.message {
         padding-right: 0px;
         padding-left: 0px;
     }
-    
+
     .card-img-top, .img-fluid {
         height: 194px;
     }
-    
+
     #frontPicture img{
         height: 50vh;
     }   
-    
+
     #title {
         font-size: 24px;
     }
@@ -215,22 +215,22 @@ img.message {
     h1 {
         font-size: 36px;
     }
-    
+
     h2 {
         font-size: 24px;
     }
-    
+
     #frontPicture img{
         height: 40vh;
     }     
-    
+
 }
 
 @media (max-width: 400px) {
     #frontPicture img{
         height: 35vh;
     }
-    
+
     .row {
         margin-left: 0px;
         margin-right: 0px;
