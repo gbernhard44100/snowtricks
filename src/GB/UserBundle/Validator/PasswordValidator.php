@@ -33,8 +33,7 @@ class PasswordValidator extends ConstraintValidator
             return;
         }
 
-        $password = hash('sha512', $value);
-        if ($password !== $checkingUser->getPassword()) {
+        if (!password_verify($value, $checkingUser->getPassword())) {
             $this->context->buildViolation($constraint->message)
                     ->setParameter('{{ string }}', $value)
                     ->addViolation();

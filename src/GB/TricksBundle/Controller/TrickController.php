@@ -51,7 +51,8 @@ class TrickController extends Controller
             $pullUp = TRUE;
         }
 
-        return $this->render('GBTricksBundle:Trick:index.html.twig', array('tricks' => $tricks, 'page' => $page, 'nextPage' => $nextPage, 'pullUp' => $pullUp));
+        return $this->render('GBTricksBundle:Trick:index.html.twig', array(
+            'tricks' => $tricks, 'page' => $page, 'nextPage' => $nextPage, 'pullUp' => $pullUp));
     }
 
     /**
@@ -70,11 +71,13 @@ class TrickController extends Controller
             $page = 1;
         }
 
-        $messages = $messageRepository->findBy(array('trick' => $trick), array('date' => 'desc'), 5 * $page);
+        $messages = $messageRepository->findBy(
+                array('trick' => $trick), array('date' => 'desc'), 5 * $page);
 
         $nextPage = $page + 1;
 
-        return $this->render('GBTricksBundle:Trick:view.html.twig', array('trick' => $trick, 'form' => $form->createView(), 'messages' => $messages, 'nextPage' => $nextPage));
+        return $this->render('GBTricksBundle:Trick:view.html.twig', array(
+            'trick' => $trick, 'form' => $form->createView(), 'messages' => $messages, 'nextPage' => $nextPage));
     }
 
     /**

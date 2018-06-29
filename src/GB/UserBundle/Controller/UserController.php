@@ -51,8 +51,8 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $user->setPassword(hash('sha512', $user->getPassword()));
-                $token = hash('sha256', uniqid());
+                $user->setPassword(password_hash($user->getPassword(), PASSWORD_BCRYPT));
+                $token = hash('sha512',session_id(). microtime());
                 $user->setValidationToken($token);
                 /**
                  * Envoi d'un email avec le service swiftmailer, puis persistence du user.
@@ -102,7 +102,7 @@ class UserController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $user = $em->getRepository('GBUserBundle:User')->findOneByUserName($user->getUserName());
-                $token = hash('sha256', uniqid());
+                $token = hash('sha512',session_id(). microtime());
                 $user->setPasswordToken($token);
                 /**
                  * Envoi d'un email avec le service swiftmailer.
@@ -139,7 +139,7 @@ class UserController extends Controller
         }
 
         if ($request->isMethod('POST')) {
-            $user->setPassword(hash('sha512', $request->request->get('password')));
+            $user->setPassword(password_hash($request->request->get('password'), PASSWORD_BCRYPT));
             $user->setPasswordToken(NULL);
             $em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Le mot de passe a bien été réinitialisé.');
