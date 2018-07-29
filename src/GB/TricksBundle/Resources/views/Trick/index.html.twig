@@ -55,6 +55,7 @@
                 </div>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="row">
+                    <p></p>
                     <div class="col-6" id="button">
                         <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Suppresstrick{{ trick.id }}">
                             <span class="fas fa-trash-alt"></span>
@@ -74,7 +75,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                                        <a href="{{ path('gb_tricks_delete', {'trick_id' : trick.id}) }}">
+                                        <a href="{{ path('gb_tricks_delete', {'trick_id' : trick.id, 'token' : csrf_token('delete-trick')}) }}">
                                             <button type="button" class="btn btn-danger">Oui</button>
                                         </a>
                                     </div>

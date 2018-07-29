@@ -148,10 +148,13 @@ class TrickController extends Controller
      * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
      * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
      */  
-    public function deleteAction(Trick $trick)
+    public function deleteAction(Request $request, Trick $trick)
     {
-        $this->getDoctrine()->getManager()->remove($trick);
-        $this->getDoctrine()->getManager()->flush();
+        $submittedToken = $request->query->get('token');
+        if ($this->isCsrfTokenValid('delete-trick', $submittedToken)) {
+            $this->getDoctrine()->getManager()->remove($trick);
+            $this->getDoctrine()->getManager()->flush();
+        }
         return $this->redirectToRoute('gb_tricks_homepage');
     }
     
