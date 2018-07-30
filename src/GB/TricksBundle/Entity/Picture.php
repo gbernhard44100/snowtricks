@@ -43,7 +43,9 @@ class Picture
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
+    
     private $file;
+    
     private $tempFileName;
 
     /**

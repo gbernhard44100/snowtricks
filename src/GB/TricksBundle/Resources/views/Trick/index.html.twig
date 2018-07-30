@@ -45,7 +45,7 @@
                 <div class="row">
                     <a class="card text-white text-center " href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}">
                         <img class="card-img-top img-fluid" alt="{{ trick.name }}" 
-                             src="{% if trick.pictures.first %}{{ asset(trick.pictures.first.webpath) }}
+                             src="{% if trick.pictures.first and trick.frontImage %}{{ asset(trick.pictures[trick.frontImage - 1].webpath) }}
                              {% else %}{{ asset('pictures/tricksDefault.jpg') }}
                              {% endif %}">
                         <div class="card-img-overlay d-flex align-items-center justify-content-center nowrap">                           

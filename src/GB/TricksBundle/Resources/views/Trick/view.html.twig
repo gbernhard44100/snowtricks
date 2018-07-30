@@ -5,12 +5,19 @@
 {% block body %}
     <!-- Header with Background Image -->
     {% if trick.pictures.first %}
-    <div class="container-fluid" id="frontPicture">
-        <div class="row justify-content-center">
-            <img src="{{ asset(trick.pictures.first.webpath) }}" 
-                 alt="{{ trick.pictures.first.url }}">
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <div class="d-flex flex-row-reverse" id="frontPictureSelection">
+                {% include "GBTricksBundle:Trick:FrontPictureForm.html.twig" %}
+            </div>
+        {% endif %}
+        <div class="container-fluid" id="frontPicture">
+            <div class="row justify-content-center">
+                    {% if trick.frontImage %}
+                        <img src="{{ asset(trick.pictures[trick.frontImage - 1].webpath) }}" 
+                         alt="{{ trick.pictures[trick.frontImage - 1].url }}">
+                    {% endif %}
+            </div>
         </div>
-    </div>
     {% endif %}
 
     <!-- Page Content -->
@@ -31,11 +38,18 @@
         <!-- Pictures & Videos -->
         <div id="mediaContent" class="row d-none d-md-flex justify-content-center justify-content-md-around">
             {% if trick.pictures.first %}
+                {% set index = 0 %}
                 {% for picture in trick.pictures %}
+                    {% set index = index + 1 %}
                     <div class="trick col-sm-12 col-md-4 col-lg-3">
                         <div class="row justify-content-sm-center">
-                            <div>
-                                <img id="trickPicture" class="img-fluid" src="{{ asset(picture.webpath) }}" alt="{{ picture.url }}">
+                            <div class="card">
+                                <img id="trickPicture" class="card-img-top img-fluid" src="{{ asset(picture.webpath) }}" alt="{{ picture.url }}">
+                                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                    <div class="card-img-overlay d-flex align-items-center justify-content-center nowrap">                           
+                                        <h2 class="imgIndex">{{ index }}</h2>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

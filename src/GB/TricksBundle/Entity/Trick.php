@@ -55,7 +55,7 @@ class Trick
      *
      * @ORM\Column(name="frontImage", type="integer", nullable=true)
      */
-    private $frontImage;
+    private $frontImage = 1;
 
     /**
      *

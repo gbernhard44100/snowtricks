@@ -25,3 +25,9 @@ gb_tricks_delete:
     defaults: { _controller: GBTricksBundle:Trick:delete }
     requirements:
         trick_id: \d+
+
+gb_tricks_reset_frontPicture:
+    path:     /resetFrontPicture/{trick_id}
+    defaults: { _controller: GBTricksBundle:Trick:resetFrontPicture }
+    requirements:
+        trick_id: \d+

@@ -20,6 +20,7 @@ use GB\TricksBundle\Entity\Trick;
 use GB\TricksBundle\Form\TrickType;
 use GB\TricksBundle\Entity\Message;
 use GB\TricksBundle\Form\MessageType;
+use GB\TricksBundle\Form\FrontPictureType;
 
 /**
  * To limit some functionalities to the authentified users
@@ -70,7 +71,10 @@ class TrickController extends Controller
         $em = $this->getDoctrine()->getManager();
         $messageRepository = $em->getRepository('GBTricksBundle:Message');
         
-        $form = $this->MessageAction($request, $trick);
+        $form = $this->messageAction($request, $trick);
+        
+        $frontPictureForm = $this->get('form.factory')->create(FrontPictureType::class, $trick);
+        $this->frontPictureAction($request, $trick);
         
         if($request->query->get('page')){
             $page = $request->query->get('page');
@@ -88,10 +92,14 @@ class TrickController extends Controller
         if(empty($messages) || count($messages) == count($messageRepository->findAll())){
             $everything = true;
         }
+
+        /* This code line is written so that the default value is equal to the frontImage id of the corresponding trick. */
+        $frontPictureForm = $this->get('form.factory')->create(FrontPictureType::class, $trick);
         
         return $this->render('GBTricksBundle:Trick:view.html.twig',
                 array('trick' => $trick, 'form' => $form->createView(),
-                    'messages' => $messages, 'nextPage' => $nextPage, 'everything' => $everything));
+                    'messages' => $messages, 'nextPage' => $nextPage,
+                    'everything' => $everything, 'frontPictureForm' => $frontPictureForm->createView()));
     }
     
     /**
@@ -162,7 +170,7 @@ class TrickController extends Controller
      * @ParamConverter("trick", option={"mapping": {"trick_id": "id"}})
      * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
      */  
-    public function MessageAction(Request $request, Trick $trick)
+    public function messageAction(Request $request, Trick $trick)
     {
         $message = new Message();
         $form = $this->get('form.factory')->create(MessageType::class, $message);
@@ -179,6 +187,37 @@ class TrickController extends Controller
             }
         }
         return $form;
+    }
+    
+    /**
+     * @ParamConverter("trick", option={
+     * "mapping": {"trick_id": "id"}})
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     */ 
+    public function frontPictureAction(Request $request, Trick $trick)
+    {
+        $form = $this->get('form.factory')->create(FrontPictureType::class, $trick);
+        if($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
+            }
+        }
+    }
+    
+    /**
+     * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
+     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     */  
+    public function resetFrontPictureAction(Request $request, Trick $trick)
+    {
+        $submittedToken = $request->query->get('token');
+        if ($this->isCsrfTokenValid('delete-frontPicture', $submittedToken)) {
+            $trick->setFrontImage(null);
+            $this->getDoctrine()->getManager()->flush();
+        }
+        return $this->redirectToRoute('gb_tricks_trickpage', array('trick_id' => $trick->getId()));
     }
         
 }
