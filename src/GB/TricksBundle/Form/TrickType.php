@@ -37,7 +37,6 @@ class TrickType extends AbstractType
                     'allow_delete' => TRUE,
                     'required' => FALSE,
                     'by_reference' => FALSE))
-                ->add('save', SubmitType::class)
         ;
     }
 

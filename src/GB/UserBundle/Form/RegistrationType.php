@@ -23,8 +23,6 @@ class RegistrationType extends AbstractType
                 ->add('email', EmailType::class)
                 ->add('password', PasswordType::class)
                 ->add('file', FileType::class, array('required' => FALSE))
-                ->add('save', SubmitType::class)
-                ->add('save2', SubmitType::class)
         ;
     }
 

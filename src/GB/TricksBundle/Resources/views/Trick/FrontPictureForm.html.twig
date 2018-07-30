@@ -6,7 +6,7 @@
             </div>
             {{ form_widget(frontPictureForm.frontImage, {'attr': {'class': 'custom-select'}, 'label': 'Changer photo' }) }}
             <div class="input-group-append">
-                {{ form_widget(frontPictureForm.save, {'attr': {'class': 'btn-primary'}, 'label': 'Enregistrer' }) }}
+                <input type="image" class="btn btn-primary" src="{{ asset('pictures/save_icon.png') }}" alt="Enregistrer" />
             </div>    
         </div>
     </div>

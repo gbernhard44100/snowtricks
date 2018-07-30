@@ -21,7 +21,7 @@
                 <a href='{{ path('gb_user_forgotPassword') }}'>Mot de passe oublié?</a>
             </div>
             <div class="form-group">
-                {{ form_widget(form.submit, {'attr': {'class': 'btn-primary'}, 'label': 'Se connecter' }) }}
+                <input type="submit" class="btn btn-primary" value="Se connecter" />
             </div>
             {{ form_rest(form) }}
             {{ form_end(form) }}

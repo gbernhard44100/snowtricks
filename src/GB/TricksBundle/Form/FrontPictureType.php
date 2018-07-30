@@ -16,13 +16,11 @@ class FrontPictureType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
         $NbPicture = $options['data']->getPictures()->count();
         $array = array_combine(range(1, $NbPicture),range(1, $NbPicture));
 
         $builder->add('frontImage', ChoiceType::class, array(
-            'choices' =>  $array))
-                ->add('save', SubmitType::class);
+            'choices' =>  $array));
     }
 
     /**
