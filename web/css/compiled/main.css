@@ -25,16 +25,16 @@ body {
     padding-top: 54px;
 }
 
-h1, label, button, a{
+h1, label, button, .btn, a{
     font-family: 'Carter One', cursive; 
 }
 
-h2{
+h2, .input-group-text{
     font-family: 'Libre Baskerville', serif;
     font-weight: bolder;
 }
 
-p{
+p {
     font-family: 'Libre Baskerville', serif;
     text-align: justify;
 }
@@ -63,7 +63,7 @@ a.navbar-brand img{
  * HOME PAGE
 */
 .jumbotron {
-    background-image: url(../../../pictures/banner.jpg);
+    background-image: url(../../pictures/banner.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -126,18 +126,37 @@ a.card{
     margin-bottom: 30px;
 }
 
+.pullUp {
+    margin-bottom: 30px;
+}
+
 /*
  * TRICK PAGE
  */
 
+.card img, #frontPicture .card-img-overlay {
+    background-color: rgba(255,255,255,0);
+}
+
+#frontPictureSelection {
+    padding-top: 20px;
+    padding-right: 10px;
+}
+
 #frontPicture img{
-    width: 80%;
+    width: 100%;
     height: 60vh;
     margin-top: 15px;
     margin-bottom: 30px;
     position: relative;
     image-resolution: 900dpi;
     max-width: 900px;
+}
+
+.imgIndex {
+    background-color: rgba(255,255,255,0.9);
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .trickshow .img-fluid,
@@ -152,11 +171,16 @@ a.card{
     padding-top: 10px;
     padding-left: 30px;
     margin-bottom: 15px;
+}
+
+.media-body {
     background-color: #E5E5E5;
-    border-radius: 5em 5em;
+    border-radius: 0.5em 0.5em;
+    font-size: 14px;
 }
 
 #content{
+    padding-top: 25px;
     margin-bottom: 50px;
 }
 
@@ -236,3 +260,82 @@ img.message {
         margin-right: 0px;
     }
 }   
+/*!
+ * Start Bootstrap - Thumbnail Gallery (https://startbootstrap.com/template-overviews/thumbnail-gallery)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-thumbnail-gallery/blob/master/LICENSE)
+ */
+
+
+/* Fonts
+font-family: 'Carter One', cursive;
+font-family: 'Libre Baskerville', serif;
+*/
+
+
+/*
+ * MAIN LAYOUT 
+*/
+#mainBody {
+    background-image: url(../../pictures/background.jpeg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.main{
+    min-height: 100vh;
+}
+
+.well {
+    background-color: rgba(229, 229, 229, 0.85);
+    border-radius: 5em;
+    padding: 2.5em;
+}
+
+.cesure {
+    border-left: 2px solid black;
+    padding-left: 30px;
+}
+
+.subscribe {
+    width: 100%;
+    height: 100%;
+}
+
+.col-form-label, .col-form-label-sm {
+    font-size: 16px;
+}
+
+.updatePicture{
+    margin-bottom: 10px;
+}
+
+.smprofilpicture {
+    padding-bottom: 10px;
+}
+
+.profil {
+    padding-top: 20px;
+}
+
+@media (min-width: 992px) {
+    body {
+        padding-top: 56px;
+    }
+}
+
+@media (max-width: 767.98px) {   
+    .cesure {
+        border-left: none;
+        padding-left: 0px;
+
+        border-top: 2px solid black;
+        padding-top: 30px;
+    }
+
+    p {
+        text-align: left;
+    }
+}

@@ -190,8 +190,7 @@ class TrickController extends Controller
     }
     
     /**
-     * @ParamConverter("trick", option={
-     * "mapping": {"trick_id": "id"}})
+     * @ParamConverter("trick", option={"mapping": {"trick_id": "id"}})
      * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
      */ 
     public function frontPictureAction(Request $request, Trick $trick)

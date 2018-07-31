@@ -14,7 +14,7 @@ font-family: 'Libre Baskerville', serif;
 /*
  * MAIN LAYOUT 
 */
-body {
+#mainBody {
     background-image: url(../pictures/background.jpeg);
     -webkit-background-size: cover;
     -moz-background-size: cover;
