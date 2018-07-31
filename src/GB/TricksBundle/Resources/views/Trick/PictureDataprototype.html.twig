@@ -1,8 +1,7 @@
 <div class="trick col-lg-3 col-md-4 col-sm-12">
     <div class="row">
         <div class="custom-file">
-            {{ form_widget(form.pictures.vars.prototype.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} })}}
-            {{ form_label(form.pictures.vars.prototype.file, "Charger", {'label_attr': {'class': 'custom-file-label'} })}}                        
+            {{ form_widget(form.pictures.vars.prototype.file, { 'attr': {'class': 'input-group-btn btn btn-secondary'} })}}                       
             {{ form_errors(form.pictures.vars.prototype.file, {'attr': {'class': 'invalid-feedback'} })}}
         </div>
     </div>

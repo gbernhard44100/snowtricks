@@ -51,11 +51,8 @@
                     <img class="img-fluid img-form" src="{{ asset(picture.vars.value.webpath) }}" alt="{{ asset(picture.vars.value.url) }}">                
                 </div>
                 <div class="row">
-                    <div class="custom-file">
-                        {{ form_widget(picture.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} }) }}
-                        {{ form_label(picture.file, "Charger", {'label_attr': {'class': 'custom-file-label'} }) }}                        
-                        {{ form_errors(picture.file) }}
-                    </div>
+                    {{ form_widget(picture.file, { 'attr': {'class': 'input-group-btn btn btn-secondary'} }) }}
+                    {{ form_errors(picture.file) }}
                 </div>
             </div>
         {% endfor %}        

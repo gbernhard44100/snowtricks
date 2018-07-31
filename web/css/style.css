@@ -18,7 +18,7 @@ body {
     padding-top: 54px;
 }
 
-h1, label, button, a{
+h1, label, button, .btn, a{
     font-family: 'Carter One', cursive; 
 }
 
