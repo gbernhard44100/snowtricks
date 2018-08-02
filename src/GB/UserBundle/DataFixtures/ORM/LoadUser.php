@@ -1,4 +1,5 @@
 <?php
+
 // src/GB/UserBundle/DataFixtures/ORM/LoadUser.php
 
 namespace GB\UserBundle\DataFixtures\ORM;
@@ -10,9 +11,10 @@ use Symfony\Component\Yaml\Yaml;
 
 class LoadUser implements FixtureInterface
 {
+
     public function load(ObjectManager $manager)
     {
-        $users = Yaml::parse(file_get_contents(__DIR__.'/UserData.yml'));
+        $users = Yaml::parse(file_get_contents(__DIR__ . '/UserData.yml'));
 
         foreach ($users as $user) {
             $userToPersist = new User();
@@ -21,10 +23,11 @@ class LoadUser implements FixtureInterface
             $userToPersist->setPassword($user['password']);
             $userToPersist->setProfilPictureUrl($user['profilPictureUrl']);
             $userToPersist->setValidationToken($user['validationToken']);
-            
+
             $manager->persist($userToPersist);
         }
-        
+
         $manager->flush();
     }
+
 }

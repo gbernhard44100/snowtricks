@@ -1,21 +1,21 @@
 {{ form_start(frontPictureForm, {'attr': {'class': 'form-row', 'id': 'frontselection'} }) }}
-    <div class="col-auto">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <div class="input-group-text">Photo à la Une :</div>
-            </div>
-            {{ form_widget(frontPictureForm.frontImage, {'attr': {'class': 'custom-select'}, 'label': 'Changer photo' }) }}
-            <div class="input-group-append">
-                <input type="image" class="btn btn-primary" src="{{ asset('pictures/save_icon.png') }}" alt="Enregistrer" />
-            </div>    
+<div class="col-auto">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">Photo à la Une :</div>
         </div>
+        {{ form_widget(frontPictureForm.frontImage, {'attr': {'class': 'custom-select'}, 'label': 'Changer photo' }) }}
+        <div class="input-group-append">
+            <input type="image" class="btn btn-primary" src="{{ asset('pictures/save_icon.png') }}" alt="Enregistrer" />
+        </div>    
     </div>
-    <div class="col-auto">
-        <a href="{{ path('gb_tricks_reset_frontPicture', {'trick_id' : trick.id, 'token' : csrf_token('delete-frontPicture')}) }}">
-            <button type="button" name="Reset" class="btn btn-danger">
-                <span class="fas fa-trash-alt"></span>
-            </button>
-        </a>
-    </div>    
-    {{ form_rest(frontPictureForm) }}
+</div>
+<div class="col-auto">
+    <a href="{{ path('gb_tricks_reset_frontPicture', {'trick_id' : trick.id, 'token' : csrf_token('delete-frontPicture')}) }}">
+        <button type="button" name="Reset" class="btn btn-danger">
+            <span class="fas fa-trash-alt"></span>
+        </button>
+    </a>
+</div>    
+{{ form_rest(frontPictureForm) }}
 {{ form_end(frontPictureForm) }}

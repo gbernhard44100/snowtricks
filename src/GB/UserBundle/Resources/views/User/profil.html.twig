@@ -9,17 +9,17 @@
         <div class="col-md-12 col-lg-10 col-xl-8 well">
             <div class="row d-md-none d-xs-flex d-sm-flex justify-content-center smprofilpicture">
                 {% if user.profilPictureUrl %}
-                <img src="{{ asset(user.webpath) }}" alt="{{ asset(user.profilPictureUrl) }}">
+                    <img src="{{ asset(user.webpath) }}" alt="{{ asset(user.profilPictureUrl) }}">
                 {% else %}
-                <img src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
+                    <img src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
                 {% endif %}
             </div>
             <div class="row">
                 <div class="col-3 d-none d-md-block">
                     {% if user.profilPictureUrl %}
-                    <img src="{{ asset(user.webpath) }}" alt="{{ asset(user.profilPictureUrl) }}">
+                        <img src="{{ asset(user.webpath) }}" alt="{{ asset(user.profilPictureUrl) }}">
                     {% else %}
-                    <img src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
+                        <img src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
                     {% endif %}  
                 </div>
                 <div class="col-12 col-md-9 cesure">

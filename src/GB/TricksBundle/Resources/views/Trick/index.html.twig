@@ -18,8 +18,8 @@
                 <H2 class><span class="fas fa-arrow-circle-down"></span> Lance toi!</H2>
             </a>
         </div>
-   </div>
-    
+    </div>
+
     <!-- Page Content -->
     <div class="container">
         <div id="Bienvenue" class="row">
@@ -41,77 +41,77 @@
         </div>
         <div class="row d-flex justify-content-center justify-content-md-around">
             {% for trick in tricks %}
-            <div class="trick col-12 col-md-4 col-lg-3">
-                <div class="row">
-                    <a class="card text-white text-center " href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}">
-                        <img class="card-img-top img-fluid" alt="{{ trick.name }}" 
-                             src="{% if trick.pictures.first and trick.frontImage %}{{ asset(trick.pictures[trick.frontImage - 1].webpath) }}
-                             {% else %}{{ asset('pictures/tricksDefault.jpg') }}
-                             {% endif %}">
-                        <div class="card-img-overlay d-flex align-items-center justify-content-center nowrap">                           
-                                <h2>{{ trick.name }}</h2>
+                <div class="trick col-12 col-md-4 col-lg-3">
+                    <div class="row">
+                        <a class="card text-white text-center " href="{{ path('gb_tricks_trickpage', {'trick_id' : trick.id}) }}">
+                            <img class="card-img-top img-fluid" alt="{{ trick.name }}" 
+                                 src="{% if trick.pictures.first and trick.frontImage %}{{ asset(trick.pictures[trick.frontImage - 1].webpath) }}
+                            {% else %}{{ asset('pictures/tricksDefault.jpg') }}
+                                {% endif %}">
+                                <div class="card-img-overlay d-flex align-items-center justify-content-center nowrap">                           
+                                    <h2>{{ trick.name }}</h2>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <div class="row">
-                    <p></p>
-                    <div class="col-6" id="button">
-                        <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Suppresstrick{{ trick.id }}">
-                            <span class="fas fa-trash-alt"></span>
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="Suppresstrick{{ trick.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalCenterTitle">Suppression : {{ trick.name }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Êtes vous sûr de vouloir supprimer cette figure?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                                        <a href="{{ path('gb_tricks_delete', {'trick_id' : trick.id, 'token' : csrf_token('delete-trick')}) }}">
-                                            <button type="button" class="btn btn-danger">Oui</button>
-                                        </a>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <div class="row">
+                                <p></p>
+                                <div class="col-6" id="button">
+                                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Suppresstrick{{ trick.id }}">
+                                        <span class="fas fa-trash-alt"></span>
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="Suppresstrick{{ trick.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Suppression : {{ trick.name }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Êtes vous sûr de vouloir supprimer cette figure?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                                                    <a href="{{ path('gb_tricks_delete', {'trick_id' : trick.id, 'token' : csrf_token('delete-trick')}) }}">
+                                                        <button type="button" class="btn btn-danger">Oui</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-6" id="button">        
+                                    <a  href="{{ path('gb_tricks_modify', {'trick_id' : trick.id}) }}">
+                                        <button type="button" class="btn btn-warning btn-block">
+                                            <span class="fas fa-pencil-alt"></span> 
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    </div>
+                    {% if not everything %}
+                        <div class="row d-flex justify-content-around loadMore">
+                            <a href="{{ path('gb_tricks_homepage') }}?page={{ nextPage }}#tricksection">
+                                <button type="button" class="btn btn-primary btn-block btn-lg">
+                                    Plus de figures 
+                                </button>
+                            </a>
+                        </div> 
+                    {% endif %}
+                    {% if pullUp == true %}
+                        <div class="row d-flex justify-content-center justify-content-md-end pullUp">
+                            <a href="{{ path('gb_tricks_homepage') }}?page={{ page }}#tricksection">
+                                <button type="button" class="btn btn-warning btn-block btn-lg">
+                                    <span class="fas fa-arrow-circle-up fa-3x"></span> 
+                                </button>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-6" id="button">        
-                        <a  href="{{ path('gb_tricks_modify', {'trick_id' : trick.id}) }}">
-                            <button type="button" class="btn btn-warning btn-block">
-                                <span class="fas fa-pencil-alt"></span> 
-                            </button>
-                        </a>
-                    </div>
+                    {% endif %}    
                 </div>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-        {% if not everything %}
-        <div class="row d-flex justify-content-around loadMore">
-            <a href="{{ path('gb_tricks_homepage') }}?page={{ nextPage }}#tricksection">
-                <button type="button" class="btn btn-primary btn-block btn-lg">
-                    Plus de figures 
-                </button>
-            </a>
-        </div> 
-        {% endif %}
-        {% if pullUp == true %}
-            <div class="row d-flex justify-content-center justify-content-md-end pullUp">
-            <a href="{{ path('gb_tricks_homepage') }}?page={{ page }}#tricksection">
-                <button type="button" class="btn btn-warning btn-block btn-lg">
-                    <span class="fas fa-arrow-circle-up fa-3x"></span> 
-                </button>
-            </a>
-        </div>
-        {% endif %}    
-    </div>
-{% endblock %}
+                {% endblock %}
