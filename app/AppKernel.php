@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new GB\TricksBundle\GBTricksBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new GB\UserBundle\GBUserBundle(),
+            new AppBundle\AppBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
