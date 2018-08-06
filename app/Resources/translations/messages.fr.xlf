@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Username could not be found.</source>
+                <target>Le nom d'utilisateur est inconnu.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

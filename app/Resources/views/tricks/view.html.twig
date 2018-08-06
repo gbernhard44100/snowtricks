@@ -1,0 +1,103 @@
+{% extends "tricks/_tricks_layout.html.twig" %}
+
+{% block title %}Snowtricks: {{ trick.name }}{% endblock %}
+
+{% block body %}
+    <!-- Header with Background Image -->
+    {% if trick.pictures.first %}
+        {% if is_granted('ROLE_USER') %}
+            <div class="d-flex flex-row-reverse" id="frontPictureSelection">
+                {% include "tricks/forms/_front_picture_form.html.twig" %}
+            </div>
+        {% endif %}
+        <div class="container-fluid" id="frontPicture">
+            <div class="row justify-content-center">
+                {% if trick.frontImage %}
+                    <img src="{{ asset(trick.pictures[trick.frontImage - 1].webpath) }}" 
+                         alt="{{ trick.pictures[trick.frontImage - 1].url }}">
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Page Content -->
+    <div class="container" id="content">
+        <!-- Description -->
+        <div class="row text-left">
+            <div class="col-12">
+                <h1>{{ trick.name }}</h1>
+                <p>{{ trick.description }}</p>
+            </div>
+        </div>
+
+        <!-- Border -->
+        <hr>    
+        <div class="row d-flex d-md-none justify-content-center">
+            <button id="displayMedia" class="btn btn-primary btn-lg">Afficher les Médias</button>
+        </div>
+        <!-- Pictures & Videos -->
+        <div id="mediaContent" class="row d-none d-md-flex justify-content-center justify-content-md-around">
+            {% if trick.pictures.first %}
+                {% set index = 0 %}
+                {% for picture in trick.pictures %}
+                    {% set index = index + 1 %}
+                    <div class="trick col-sm-12 col-md-4 col-lg-3">
+                        <div class="row justify-content-sm-center">
+                            <div class="card">
+                                <img id="trickPicture" class="card-img-top img-fluid" src="{{ asset(picture.webpath) }}" alt="{{ picture.url }}">
+                                {% if is_granted('ROLE_USER') %}
+                                    <div class="card-img-overlay d-flex align-items-center justify-content-center nowrap">                           
+                                        <h2 class="imgIndex">{{ index }}</h2>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if trick.videos.first %}
+                {% for video in trick.videos %}
+                    <div class="trick col-sm-12 col-md-4 col-lg-3">
+                        <iframe class="embed-responsive-item"
+                                src="{{ video.url }}" 
+                                allowfullscreen>
+                        </iframe>            
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div> 
+
+        <!-- Border -->
+        <hr>
+
+        <!-- Message form & Messages-->
+        {% if is_granted('ROLE_USER') %}
+            <div class="row">
+                {% include "tricks/forms/_message_form.html.twig" %}
+            </div>
+            <hr>
+        {% endif %}
+        {% for message in messages %}
+            <div class="media" id="comments">
+                {% if message.user.profilPictureUrl %}
+                    <img class="mr-3 message" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
+                {% else %}
+                    <img class="mr-3 message" src="{{ asset('pictures/profils/user.png') }}" alt="photo de profil par défaut">
+                {% endif %}
+                <div class="media-body">
+                    <p class="mt-0"><strong>{{ message.user.userName }} : le {{ message.date | date('d/m/Y') }} à {{ message.date | date('H:i') }}</strong></p>
+                    <p class="d-flex flex-wrap-reverse">{{ message.content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="row d-flex justify-content-center loadMore">
+            <a href="{{ path('trick_show', {'trick_id': trick.id }) }}?page=#comments">
+                <button type="button" class="btn btn-primary btn-block btn-lg">
+                    Commentaires suivants 
+                </button>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}    

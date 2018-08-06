@@ -1,12 +1,12 @@
 <?php
 
-namespace GB\TricksBundle\Form;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use GB\TricksBundle\Validator\PictureFileExtension;
+use AppBundle\Validator\PictureFileExtension;
 
 class PictureType extends AbstractType
 {
@@ -16,8 +16,7 @@ class PictureType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', FileType::class, array('constraints' => array(new PictureFileExtension(),
-        )));
+        $builder->add('file', FileType::class);
     }
 
     /**
@@ -26,7 +25,7 @@ class PictureType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'GB\TricksBundle\Entity\Picture',
+            'data_class' => 'AppBundle\Entity\Picture',
         ));
     }
 

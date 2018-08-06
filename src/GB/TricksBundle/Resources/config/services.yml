@@ -1,4 +1,0 @@
-services:
-#    gb_tricks.example:
-#        class: GB\TricksBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]

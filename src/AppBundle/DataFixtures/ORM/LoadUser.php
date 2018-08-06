@@ -2,11 +2,11 @@
 
 // src/GB/UserBundle/DataFixtures/ORM/LoadUser.php
 
-namespace GB\UserBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use GB\UserBundle\Entity\User;
+use AppBundle\Entity\User;
 use Symfony\Component\Yaml\Yaml;
 
 class LoadUser implements FixtureInterface

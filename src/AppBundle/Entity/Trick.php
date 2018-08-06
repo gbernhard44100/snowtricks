@@ -1,6 +1,6 @@
 <?php
 
-namespace GB\TricksBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Trick
  *
  * @ORM\Table(name="trick")
- * @ORM\Entity(repositoryClass="GB\TricksBundle\Repository\TrickRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
  * @UniqueEntity(fields={"name"}, message="Le nom de la figure est déjà été utilisé.")
  */
 class Trick
@@ -59,19 +59,19 @@ class Trick
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="GB\TricksBundle\Entity\Message", cascade={"persist", "remove"},
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message", cascade={"persist", "remove"},
      * mappedBy="trick")
      */
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="GB\TricksBundle\Entity\Picture", cascade={"persist", "remove"},
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Picture", cascade={"persist", "remove"},
      * mappedBy="trick", orphanRemoval=true)
      */
     private $pictures;
 
     /**
-     * @ORM\OneToMany(targetEntity="GB\TricksBundle\Entity\Video", cascade={"persist", "remove"},
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Video", cascade={"persist", "remove"},
      * mappedBy="trick")
      */
     private $videos;
@@ -228,9 +228,9 @@ class Trick
     /**
      * Remove message
      *
-     * @param \GB\TricksBundle\Entity\Message $message
+     * @param \AppBundle\Entity\Message $message
      */
-    public function removeMessage(\GB\TricksBundle\Entity\Message $message)
+    public function removeMessage(\AppBundle\Entity\Message $message)
     {
         $this->messages->removeElement($message);
     }

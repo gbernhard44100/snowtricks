@@ -1,6 +1,6 @@
 <?php
 
-namespace GB\TricksBundle\Repository;
+namespace AppBundle\Repository;
 
 /**
  * VideoRepository

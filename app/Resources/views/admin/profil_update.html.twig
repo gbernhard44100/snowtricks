@@ -1,0 +1,59 @@
+{% extends 'admin/_admin_layout.html.twig' %}
+
+{% block title %}Snowtricks: Modification profil{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12 col-lg-10 col-xl-8  well">
+            {{ form_start(form) }}
+            <div class="row d-flex justify-content-between">
+                <H2>Modification du profil :</H2>
+                <div class="d-none d-md-block">
+                    <button type="submit" class="btn btn-primary btn-lg" value="Enregistrer" />Enregistrer</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-row">
+                        <div class="col-md-8 md-4 mb-3">
+                            {{ form_label(form.userName, "Nom d'utilisateur :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                            {{ form_widget(form.userName) }}
+                            {{ form_errors(form.userName) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-8 md-4 mb-3">
+                            {{ form_label(form.email, "Adresse email :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 cesure d-flex">
+                    <div class="trick align-self-center">
+                        <div class="row form-row">
+                            <label class="col-form-label col-form-label-sm">Photo de profil :</label>
+                        </div>
+                        {% if user.profilPictureUrl %} 
+                            <div class="row updatePicture justify-content-center">
+                                <img src="{{ asset(form.vars.value.webpath) }}" alt="{{ asset(form.vars.value.profilPictureUrl) }}">                
+                            </div>
+                        {% endif %}
+                        <div class="row d-flex justify-content-center">
+                            <div class="custom-file col-8 align-self-center">
+                                {{ form_widget(form.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} }) }}
+                                {{ form_label(form.file, "Charger", {'label_attr': {'class': 'custom-file-label'} }) }}                        
+                                {{ form_errors(form.file) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex d-md-none justify-content-center">
+                <input type="submit" class="btn btn-primary btn-lg" value="Enregistrer" />
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}                
+        </div>
+    </div>
+{% endblock %}    

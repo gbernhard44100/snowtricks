@@ -2,15 +2,15 @@
 
 // src/GB/TricksBundle/DataFixtures/ORM/LoadMessage.php
 
-namespace GB\TricksBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use GB\TricksBundle\Entity\Message;
+use AppBundle\Entity\Message;
 use Symfony\Component\Yaml\Yaml;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use GB\TricksBundle\DataFixtures\ORM\LoadTrick;
-use GB\UserBundle\DataFixtures\ORM\LoadUser;
+use AppBundle\DataFixtures\ORM\LoadTrick;
+use AppBundle\DataFixtures\ORM\LoadUser;
 
 class LoadMessage implements FixtureInterface, DependentFixtureInterface
 {
@@ -18,8 +18,8 @@ class LoadMessage implements FixtureInterface, DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $messages = Yaml::parse(file_get_contents(__DIR__ . '/MessageData.yml'));
-        $trickRepository = $manager->getRepository('GBTricksBundle:Trick');
-        $userRepository = $manager->getRepository('GBUserBundle:User');
+        $trickRepository = $manager->getRepository('AppBundle:Trick');
+        $userRepository = $manager->getRepository('AppBundle:User');
 
         foreach ($messages as $message) {
             $messageToPersist = new Message();

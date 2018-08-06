@@ -1,6 +1,6 @@
 <?php
 
-namespace GB\TricksBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Video
  *
  * @ORM\Table(name="video")
- * @ORM\Entity(repositoryClass="GB\TricksBundle\Repository\VideoRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\VideoRepository")
  */
 class Video
 {
@@ -33,7 +33,7 @@ class Video
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="GB\TricksBundle\Entity\Trick",
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Trick",
      *  inversedBy="videos")
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
@@ -76,11 +76,11 @@ class Video
     /**
      * Set trick
      *
-     * @param \GB\TricksBundle\Entity\Trick $trick
+     * @param \AppBundle\Entity\Trick $trick
      *
      * @return Video
      */
-    public function setTrick(\GB\TricksBundle\Entity\Trick $trick = null)
+    public function setTrick(\AppBundle\Entity\Trick $trick = null)
     {
         $this->trick = $trick;
 
@@ -90,7 +90,7 @@ class Video
     /**
      * Get trick
      *
-     * @return \GB\TricksBundle\Entity\Trick
+     * @return \AppBundle\Entity\Trick
      */
     public function getTrick()
     {

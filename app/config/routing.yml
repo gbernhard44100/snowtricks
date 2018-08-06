@@ -3,21 +3,13 @@ app:
     type:     annotation
     prefix:   /
 
-gb_user:
-    resource: "@GBUserBundle/Resources/config/routing.yml"
-    prefix:   /
-
-gb_tricks:
-    resource: "@GBTricksBundle/Resources/config/routing.yml"
-    prefix:   /
-
 login:
     path: /login
     defaults:
-        _controller: GBUserBundle:User:login
+        _controller: AppBundle:User:login
         
 login_check:
     path: /login_check
-    
+
 logout:
     path: /logout

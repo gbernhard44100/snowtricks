@@ -5,7 +5,7 @@
        eget dui cursus rutrum. Fusce eu sapien auctor, pretium enim eget, sagittis turpis.
        Pellentesque mollis dolor est, eu pretium metus imperdiet eget. Vestibulum sed mattis est.
        Suspendisse potenti. Proin congue nec erat in molestie. Cras ac nunc eget purus.
-   trick_id: 5
+   trick_id: 1
    user_id: 1
 -
    date: 2018-05-05 15:55:27
@@ -20,7 +20,7 @@
    content: >
        Maecenas vel ipsum ut velit eleifend vulputate. Nunc tristique ipsum in arcu efficitur,
        ac dignissim purus consectetur. Nulla facilisi.
-   trick_id: 5
+   trick_id: 1
    user_id: 1
 -
    date: 2018-05-04 16:16:27
@@ -35,7 +35,7 @@
        Phasellus consectetur ex sapien, sit amet maximus sem venenatis tristique. 
        Phasellus ut magna elementum, cursus ipsum eu, dignissim ipsum. Suspendisse volutpat sagittis ornare. 
        Mauris aliquam bibendum lorem nec porta. Vivamus non sagittis orci, ac sodales velit. Fusce eu consectetur felis, quis lobortis.
-   trick_id: 5
+   trick_id: 1
    user_id: 1
 -
    date: 2018-05-03 22:16:27
@@ -47,7 +47,7 @@
    date: 2018-05-03 21:05:41
    content: >
        Mauris maximus dictum volutpat.
-   trick_id: 5
+   trick_id: 1
    user_id: 1
 -
    date: 2018-05-03 20:45:27
@@ -63,7 +63,7 @@
        Proin imperdiet consequat ligula, eu vestibulum quam varius a. Mauris ac luctus ante.
        Nunc placerat risus ut elementum aliquam. Suspendisse potenti.
        Mauris id orci sit amet risus pretium hendrerit.
-   trick_id: 5
+   trick_id: 1
    user_id: 2
 -
    date: 2018-05-03 18:50:12

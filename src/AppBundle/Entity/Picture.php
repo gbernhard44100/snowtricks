@@ -1,6 +1,6 @@
 <?php
 
-namespace GB\TricksBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Picture
  *
  * @ORM\Table(name="picture")
- * @ORM\Entity(repositoryClass="GB\TricksBundle\Repository\PictureRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PictureRepository")
  * @UniqueEntity(fields={"url"}, message={"Le nom de la photo a déjà été utilisé."})
  * @ORM\HasLifecycleCallbacks
  */
@@ -38,7 +38,7 @@ class Picture
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="GB\TricksBundle\Entity\Trick",
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Trick",
      *  inversedBy="pictures")
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
@@ -83,11 +83,11 @@ class Picture
     /**
      * Set trick
      *
-     * @param \GB\TricksBundle\Entity\Trick $trick
+     * @param \AppBundle\Entity\Trick $trick
      *
      * @return Picture
      */
-    public function setTrick(\GB\TricksBundle\Entity\Trick $trick = null)
+    public function setTrick(\AppBundle\Entity\Trick $trick = null)
     {
         $this->trick = $trick;
 
@@ -97,7 +97,7 @@ class Picture
     /**
      * Get trick
      *
-     * @return \GB\TricksBundle\Entity\Trick
+     * @return \AppBundle\Entity\Trick
      */
     public function getTrick()
     {

@@ -6,180 +6,161 @@ use AppBundle\Form\LoginType;
 use AppBundle\Form\RegistrationType;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserNameType;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class UserController extends Controller
 {
 
-    public function loginAction(Request $request)
+    /**
+     * @Route("/login", name="login")
+     */
+    public function loginAction(Request $request, AuthorizationChecker $checker, AuthenticationUtils $utils)
     {
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('gb_tricks_homepage');
+        if ($checker->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('homepage');
         }
-
-        $user = new User();
-        $form = $this->get('form.factory')->create(LoginType::class, $user);
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $user = $this->getDoctrine()->getManager()->getRepository("GBUserBundle:User")
-                        ->findOneByUserName($user->getUserName());
-                $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
-                $this->get('security.token_storage')->setToken($token);
-                $event = new InteractiveLoginEvent($request, $token);
-                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
-                return $this->redirectToRoute('gb_tricks_homepage');
-            }
+        $error = $utils->getLastAuthenticationError();
+        $message = null;
+        if (!is_null($error)) {
+            $message = $error->getMessageKey();
         }
-
-        return $this->render('GBUserBundle:User:login.html.twig', array(
-                    'form' => $form->createView(),
+        return $this->render('admin/login.html.twig', array(
+            'last_username' => $utils->getLastUsername(),
+            'message' => $message,
         ));
     }
 
-    public function registerAction(Request $request, UserPasswordEncoderInterface $encoder)
+    /**
+     * @Route("/registration", name="registration")
+     */
+    public function registerAction(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
     {
         $user = new User();
-        $form = $this->get('form.factory')->create(RegistrationType::class, $user);
-        $form->remove('file');
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $user->setPassword(password_hash($user->getPassword(), PASSWORD_BCRYPT));
-                $token = hash('sha512', session_id() . microtime());
-                $user->setValidationToken($token);
-                /**
-                 * Envoi d'un email avec le service swiftmailer, puis persistence du user.
-                 */
-                $message = (new \Swift_Message())
-                        ->setSubject('Ton inscription à Snowtricks')
-                        ->setFrom([$this->getParameter('mailer_user')])
-                        ->setTo([$user->getEmail()])
-                        ->setContentType("text/html")
-                        ->setBody($this->renderView('GBUserBundle:User:ValidationEmail.txt.twig', array('user' => $user)));
-                ;
-                $mailer = $this->get('mailer');
-                $mailer->send($message);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-                $request->getSession()->getFlashBag()->add('info', 'Votre inscription a bien été pris en compte. Un email pour demande de validation de votre compte vous a été envoyé.');
-                return $this->redirectToRoute('gb_tricks_homepage');
-            }
+        $form = $this->createForm(RegistrationType::class, $user)->remove('file');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $token = hash('sha512', session_id() . microtime());
+            $user->setValidationToken($token);
+            $em->persist($user);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info', 'Votre inscription a bien été pris en compte. Un email pour demande de validation de votre compte vous a été envoyé.');
+            return $this->redirectToRoute('login');
         }
-        return $this->render('GBUserBundle:User:register.html.twig', array('form' => $form->createView()));
+        return $this->render('admin/register.html.twig', array('form' => $form->createView()));
     }
 
-    public function validAction(Request $request)
+    /**
+     * @Route("/uservalidation", name="user_validation")
+     */
+    public function validAction(Request $request, EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine()->getManager();
-        $userRepository = $em->getRepository('GBUserBundle:User');
+        $userRepository = $em->getRepository('AppBundle:User');
         $user = $userRepository->findOneBy(array('validationToken' => $request->query->get('Token')));
         if (empty($user)) {
             $request->getSession()->getFlashBag()->add('error', 'Le token n\'est pas valide');
-            return $this->redirectToRoute('gb_tricks_homepage');
+            return $this->redirectToRoute('login');
         }
-
         $user->setValidationToken(null);
         $em->flush();
         $request->getSession()->getFlashBag()->add('success', 'Votre inscription est validée');
-
-        return $this->redirectToRoute('gb_tricks_homepage');
+        return $this->redirectToRoute('login');
     }
-
-    public function forgotAction(Request $request)
+    
+    /**
+     * @Route("/forgotpassword", name="forgot_password")
+     */
+    public function forgotAction(Request $request, EntityManagerInterface $em)
     {
         $user = new User();
-        $form = $this->get('form.factory')->create(UserNameType::class, $user);
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $user = $em->getRepository('GBUserBundle:User')->findOneByUserName($user->getUserName());
-                $token = hash('sha512', session_id() . microtime());
-                $user->setPasswordToken($token);
-                /**
-                 * Envoi d'un email avec le service swiftmailer.
-                 */
-                $message = (new \Swift_Message())
-                        ->setSubject('Compte Snowtricks : mot de passe oublié')
-                        ->setFrom([$this->getParameter('mailer_user')])
-                        ->setTo([$user->getEmail()])
-                        ->setContentType("text/html")
-                        ->setBody($this->renderView('GBUserBundle:User:ForgotPasswordEmail.txt.twig', array('user' => $user)));
-                ;
-                $mailer = $this->get('mailer');
-                $mailer->send($message);
-                $em->flush();
-                $request->getSession()->getFlashBag()->add('info', 'Un email vous a été envoyé pour renouveler votre mot de passe.');
-                return $this->redirectToRoute('gb_tricks_homepage');
-            }
+        $form = $this->createForm(UserNameType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $em->getRepository('AppBundle:User')->findOneByUserName($user->getUserName());
+            $token = hash('sha512', session_id() . microtime());
+            $user->setPasswordToken($token);
+            $this->sendPasswordEmailToUser($user);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info', 'Un email vous a été envoyé pour renouveler votre mot de passe.');
+            return $this->redirectToRoute('login');
         }
-
-        return $this->render('GBUserBundle:User:forgot.html.twig', array('form' => $form->createView()));
+        return $this->render('admin/forgot.html.twig', array('form' => $form->createView()));
     }
 
-    public function resetPasswordAction(Request $request)
+    /**
+     * @Route("/resetPassword", name="password_reset")
+     */
+    public function resetPasswordAction(Request $request, EntityManagerInterface $em)
     {
-        /**
-         * Recherche de l'utilisateur ayant le token correspondant à get('passwordToken')
-         * (si pas de User correspondant renvoi vers la page d'accueil avec flashbag erreur)
-         */
-        $em = $this->getDoctrine()->getManager();
-        $userRepository = $em->getRepository('GBUserBundle:User');
-        $user = $userRepository->findOneBy(array('passwordToken' => $request->query->get('Token')));
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('passwordToken' => $request->query->get('Token')));
         if (empty($user)) {
             $request->getSession()->getFlashBag()->add('error', 'Le token n\'est pas valide');
-            return $this->redirectToRoute('gb_tricks_homepage');
+            return $this->redirectToRoute('login');
         }
-
         if ($request->isMethod('POST')) {
             $user->setPassword(password_hash($request->request->get('password'), PASSWORD_BCRYPT));
             $user->setPasswordToken(NULL);
             $em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Le mot de passe a bien été réinitialisé.');
-            return $this->redirectToRoute('gb_tricks_homepage');
+            return $this->redirectToRoute('login');
         }
-
-        return $this->render('GBUserBundle:User:reset.html.twig', array('user' => $user));
+        return $this->render('admin/reset_password.html.twig', array('user' => $user));
     }
 
-    public function showAction()
+    /**
+     * @Route("/user", name="user_show")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function showUserAction()
     {
-        $user = $this->getUser();
-        if (is_null($user)) {
-            $request->getSession()->getFlashBag()->add('error', 'Aucun utilisateur n\'est connecté.');
-            return $this->redirectToRoute('gb_tricks_homepage');
-        }
-        return $this->render('GBUserBundle:User:profil.html.twig', array('user' => $user));
+        return $this->render('admin/profil_show.html.twig', array('user' => $this->getUser()));
     }
 
-    public function updateAction(Request $request)
+    /**
+     * @Route("/user/update", name="user_update")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function updateAction(Request $request, EntityManagerInterface $em)
     {
-        $user = $this->getUser();
-        if (is_null($user)) {
-            $request->getSession()->getFlashBag()->add('error', 'Aucun utilisateur n\'est connecté.');
-            return $this->redirectToRoute('gb_tricks_homepage');
+        $form = $this->createForm(RegistrationType::class, $this->getUser())->remove('password');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('success', 'La modification de votre profil a bien été réalisé.');
+            return $this->redirectToRoute('user_show');
         }
-        $form = $this->get('form.factory')->create(RegistrationType::class, $user)
-                ->remove('password');
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-                $request->getSession()->getFlashBag()->add('success', 'La modification de votre profil a bien été réalisé.');
-                return $this->redirectToRoute('gb_tricks_homepage');
-            }
-        }
-        return $this->render('GBUserBundle:User:update.html.twig', array('form' => $form->createView(), 'user' => $user));
+        return $this->render('admin/profil_update.html.twig', array('form' => $form->createView(), 'user' => $this->getUser()));
     }
 
+    public function sendPasswordEmailToUser(User $user, \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message())
+                        ->setSubject('Compte Snowtricks : mot de passe oublié')
+                        ->setFrom([$this->getParameter('mailer_user')])
+                        ->setTo([$user->getEmail()])
+                        ->setContentType("text/html")
+                        ->setBody($this->renderView('admin/forgot_password_email.html.twig', array('user' => $user)));
+        ;
+        $mailer->send($message);
+    }
+    
+    public function sendValidationEmailToUser(User $user, \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message())
+            ->setSubject('Ton inscription à Snowtricks')
+            ->setFrom([$this->getParameter('mailer_user')])
+            ->setTo([$user->getEmail()])
+            ->setContentType("text/html")
+            ->setBody($this->renderView('admin/validation_email.html.twig', array('user' => $user)));
+        ;
+        $mailer->send($message);
+    }
 }

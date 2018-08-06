@@ -1,21 +1,18 @@
 <?php
 
-namespace GB\UserBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use GB\UserBundle\Validator\UserExist;
-use GB\UserBundle\Validator\Registration;
-use GB\UserBundle\Validator\Password;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="GB\UserBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity(fields={"userName"}, message="Le nom d'utilisateur a déjà été utilisé.", groups={"registration"})
  * @UniqueEntity(fields={"email"}, message="Cette adresse email a déjà été utilisée.", groups={"registration"})
  * @ORM\HasLifecycleCallbacks
@@ -24,8 +21,6 @@ class User implements UserInterface, \Serializable
 {
 
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -33,62 +28,47 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @var string
-     * @UserExist(groups={"userExist"})
-     * @Registration(groups={"login"})
      * @ORM\Column(name="userName", type="string", length=255, unique=true)
      */
     private $userName;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="profilPictureUrl", type="string", length=255, nullable=true, unique=true)
      */
     private $profilPictureUrl;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
 
     /**
-     * @var string
-     * @Password(groups={"login"})
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="validationToken", type="string", length=255, nullable=true)
      */
     private $validationToken;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="passwordToken", type="string", length=255, nullable=true)
      */
     private $passwordToken;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="salt", type="string", length=255, nullable=true)
      */
     private $salt;
 
     /**
-     * @var array
-     *
      * @ORM\Column(name="roles", type="array")
      */
-    private $roles = array('IS_AUTHENTICATED_REMEMBERED');
+    private $roles = array('ROLE_USER');
+    
     private $file;
+    
     private $tempFileName;
 
     public function eraseCredentials()

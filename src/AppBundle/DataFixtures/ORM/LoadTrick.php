@@ -2,13 +2,13 @@
 
 // src/GB/TricksBundle/DataFixtures/ORM/LoadTrick.php
 
-namespace GB\TricksBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use GB\TricksBundle\Entity\Trick;
-use GB\TricksBundle\Entity\Video;
-use GB\TricksBundle\Entity\Picture;
+use AppBundle\Entity\Trick;
+use AppBundle\Entity\Video;
+use AppBundle\Entity\Picture;
 use Symfony\Component\Yaml\Yaml;
 
 class LoadTrick implements FixtureInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace GB\TricksBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Message
  *
  * @ORM\Table(name="message")
- * @ORM\Entity(repositoryClass="GB\TricksBundle\Repository\MessageRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\MessageRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Message
@@ -41,14 +41,14 @@ class Message
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="GB\TricksBundle\Entity\Trick",
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Trick",
      * inversedBy="messages")
      * @ORM\JoinColumn(name="trick_id", referencedColumnName="id")
      */
     private $trick;
 
     /**
-     * @ORM\ManyToOne(targetEntity="GB\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -114,11 +114,11 @@ class Message
     /**
      * Set trick
      *
-     * @param \GB\TricksBundle\Entity\Trick $trick
+     * @param \AppBundle\Entity\Trick $trick
      *
      * @return Message
      */
-    public function setTrick(\GB\TricksBundle\Entity\Trick $trick)
+    public function setTrick(\AppBundle\Entity\Trick $trick)
     {
         $this->trick = $trick;
 
@@ -128,7 +128,7 @@ class Message
     /**
      * Get trick
      *
-     * @return \GB\TricksBundle\Entity\Trick
+     * @return \AppBundle\Entity\Trick
      */
     public function getTrick()
     {
@@ -146,11 +146,11 @@ class Message
     /**
      * Set user
      *
-     * @param \GB\UserBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return Message
      */
-    public function setUser(\GB\UserBundle\Entity\User $user)
+    public function setUser(\AppBundle\Entity\User $user)
     {
         $this->user = $user;
 
@@ -160,7 +160,7 @@ class Message
     /**
      * Get user
      *
-     * @return \GB\UserBundle\Entity\User
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {

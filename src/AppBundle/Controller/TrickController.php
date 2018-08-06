@@ -7,152 +7,127 @@ use AppBundle\Entity\Trick;
 use AppBundle\Form\FrontPictureType;
 use AppBundle\Form\MessageType;
 use AppBundle\Form\TrickType;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Forms;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends Controller
 {
 
     /**
-     * 
-     * @Route("/", name="homepage"
-     * @return type
+     * @Route("/", name="homepage")
      */
-    public function indexAction()
+    public function indexAction(EntityManagerInterface $em)
     {
-        $tricks = $em->getRepository('GBTricksBundle:Trick')->findAll();
-        return $this->render('::index.html.twig', array('tricks' => $tricks));
+        $tricks = $em->getRepository('AppBundle:Trick')->findAll();
+        return $this->render('tricks/index.html.twig', array('tricks' => $tricks));
     }
 
     /**
      * @Route("/trick/{trick_id}", name="trick_show")
      * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
      */
-    public function viewAction(Request $request, Trick $trick)
+    public function viewAction(Request $request, Trick $trick, EntityManagerInterface $em)
     {
-        $form = $this->messageAction($request, $trick);
-
-        $frontPictureForm = $this->get('form.factory')->create(FrontPictureType::class, $trick);
-        $this->frontPictureAction($request, $trick);
-
-        $messages = $em->getRepository('GBTricksBundle:Message')->findBy(array('trick' => $trick), array('date' => 'desc'));
-
-        $frontPictureForm = $this->get('form.factory')->create(FrontPictureType::class, $trick);
-
-        return $this->render('::Trick:view.html.twig', array(
-            'trick' => $trick, 'form' => $form->createView(), 'frontPictureForm' => $frontPictureForm->createView()
+        $form = $this->messageAction($request, $trick, $em);
+        $frontPictureForm = $this->frontPictureAction($request, $trick, $em);
+        $messages = $em->getRepository('AppBundle:Message')->findBy(array('trick' => $trick), array('date' => 'desc'));
+        return $this->render('tricks/view.html.twig', array(
+            'trick' => $trick, 'form' => $form->createView(), 'messages' => $messages,
+            'frontPictureForm' => $frontPictureForm->createView()
         ));
     }
 
     /**
-     * 
-     * @param Request $request
-     * @return type
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @Route("/add", name="trick_add")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function addAction(Request $request)
+    public function addAction(Request $request, EntityManagerInterface $em)
     {
         $trick = new Trick();
-        $form = $this->get('form.factory')->create(TrickType::class, $trick);
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($trick);
-                $em->flush();
-                return $this->redirectToRoute('gb_tricks_trickpage', array('trick_id' => $trick->getId()));
-            }
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($trick);
+            $em->flush();
+            return $this->redirectToRoute('trick_show', array('trick_id' => $trick->getId()));
         }
-
-        return $this->render('GBTricksBundle:Trick:save.html.twig', array('form' => $form->createView()));
+        return $this->render('tricks/save.html.twig', array(
+            'form' => $form->createView()));
     }
 
     /**
+     * @Route("/modify/{trick_id}", name="trick_modify")
      * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function modifyAction(Request $request, Trick $trick)
+    public function modifyAction(Request $request, Trick $trick, EntityManagerInterface $em)
     {
-        $form = $this->get('form.factory')->create(TrickType::class, $trick);
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-                return $this->redirectToRoute('gb_tricks_trickpage', array('trick_id' => $trick->getId()));
-            }
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('trick_show', array('trick_id' => $trick->getId()));
         }
-        return $this->render('GBTricksBundle:Trick:save.html.twig', array('form' => $form->createView()));
+        return $this->render('tricks/save.html.twig', array(
+            'form' => $form->createView()));
     }
 
     /**
+     * @Route("/delete/{trick_id}", name="trick_delete")
      * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function deleteAction(Request $request, Trick $trick)
+    public function deleteAction(Request $request, Trick $trick, EntityManagerInterface $em)
     {
         $submittedToken = $request->query->get('token');
         if ($this->isCsrfTokenValid('delete-trick', $submittedToken)) {
-            $this->getDoctrine()->getManager()->remove($trick);
-            $this->getDoctrine()->getManager()->flush();
+            $em->remove($trick);
+            $em->flush();
         }
-        return $this->redirectToRoute('gb_tricks_homepage');
+        return $this->redirectToRoute('homepage');
     }
 
     /**
-     * @ParamConverter("trick", option={"mapping": {"trick_id": "id"}})
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function messageAction(Request $request, Trick $trick)
+    public function messageAction(Request $request, Trick $trick, EntityManagerInterface $em)
     {
         $message = new Message();
-        $form = $this->get('form.factory')->create(MessageType::class, $message);
-        $em = $this->getDoctrine()->getManager();
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $message->setTrick($trick);
-                $message->setUser($this->getUser());
-                $em->persist($message);
-                $em->flush();
-                $form = $this->get('form.factory')->create(MessageType::class, new Message());
-            }
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message->setTrick($trick);
+            $message->setUser($this->getUser());
+            $em->persist($message);
+            $em->flush();
+            $form = $this->createForm(MessageType::class, new Message());
         }
         return $form;
     }
 
     /**
-     * @ParamConverter("trick", option={"mapping": {"trick_id": "id"}})
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function frontPictureAction(Request $request, Trick $trick)
+    public function frontPictureAction(Request $request, Trick $trick, EntityManagerInterface $em)
     {
-        $form = $this->get('form.factory')->create(FrontPictureType::class, $trick);
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-            }
+        $form = $this->createForm(FrontPictureType::class, $trick);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            $form = $this->createForm(FrontPictureType::class, $trick);
         }
         return $form;
     }
 
     /**
+     * @Route("/trick/{trick_id}/resetFrontPicture", name="reset_front_picture")
      * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
-     * @Security("has_role('IS_AUTHENTICATED_REMEMBERED')")
+     * @Security("has_role('ROLE_USER')")
      */
     public function resetFrontPictureAction(Request $request, Trick $trick)
     {
@@ -161,7 +136,7 @@ class TrickController extends Controller
             $trick->setFrontImage(null);
             $this->getDoctrine()->getManager()->flush();
         }
-        return $this->redirectToRoute('gb_tricks_trickpage', array('trick_id' => $trick->getId()));
+        return $this->redirectToRoute('trick_show', array('trick_id' => $trick->getId()));
     }
 
 }

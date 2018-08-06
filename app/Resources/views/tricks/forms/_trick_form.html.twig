@@ -1,0 +1,231 @@
+<div class="well">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
+    <div class="row d-flex bd-highlight mb-3">
+        <div class="bd-highlight">
+            <H2>Contenu :</H2>
+        </div>
+        <div class="ml-auto bd-highlight">
+            <input type="submit" class="btn btn-primary" value="Enregistrer" />
+        </div>
+    </div>
+
+    {{ form_errors(form) }}    
+    <div class="form-row">
+        <div class="col-md-4 md-4 mb-3">
+            {{ form_label(form.name, "Nom de la figure :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 md-4 mb-3">
+            {{ form_label(form.category, "Catégories :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+            {{ form_widget(form.category) }}
+            {{ form_errors(form.category) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 md-4 mb-3">
+            {{ form_label(form.description, "Description :", {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+        </div>
+    </div>
+    <hr>
+    <div class="row d-flex bd-highlight mb-3">
+        <div class="bd-highlight">
+            <H2>Images :</H2>
+        </div>
+        <div class="ml-auto bd-highlight">
+            <a href="#" id="add_picture" class="btn btn-secondary">Ajouter une Photo</a>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-around" id="gb_tricksbundle_trick_pictures_list" data-prototype="
+         {% filter escape %}
+             {% include 'tricks/forms/_picture_dataprototype.html.twig' %}
+         {% endfilter %}    
+         ">    
+        {% for picture in form.pictures %}        
+            <div class="trick col-lg-3 col-md-4 col-sm-12">
+                <div class="row">
+                    <img class="img-fluid img-form" src="{{ asset(picture.vars.value.webpath) }}" alt="{{ asset(picture.vars.value.url) }}">                
+                </div>
+                <div class="row">
+                    {{ form_widget(picture.file, { 'attr': {'class': 'input-group-btn btn btn-secondary'} }) }}
+                    {{ form_errors(picture.file) }}
+                </div>
+            </div>
+        {% endfor %}        
+    </div>
+    <hr>
+    <div class="row d-flex bd-highlight mb-3">
+        <div class="bd-highlight">
+            <H2>Videos :</H2>
+        </div>
+        <div class="ml-auto bd-highlight">
+            <a href="#" id="add_video" class="btn btn-secondary">Ajouter une Video</a>
+        </div>
+    </div>
+    <div id="gb_tricksbundle_trick_videos_list" data-prototype="
+         {% filter escape %}
+             {% include 'tricks/forms/_video_dataprototype.html.twig' %}
+         {% endfilter %}
+         ">        
+        {% for video in form.videos %}        
+            <div class="form-group row">
+                {{ form_label(video.url, 'Lien URL :', {'label_attr': {'class': 'col-form-label col-form-label-sm'} }) }}
+                <div class="col-sm-7 col-xs-6">
+                    {{ form_widget(video.url, {'attr': {'class': 'form-control form-control-sm', 'placeholder': 'col-form-label-sm'} } ) }}
+                    {{ form_errors(video.url) }}
+                </div>
+            </div>
+        {% endfor %}        
+    </div>
+
+    <div class="hidden">
+        {{ form_rest(form) }}
+    </div>
+    {{ form_end(form) }}
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>    
+<script type="text/javascript">
+    $(document).ready(function () {
+        // On récupère la balise <div> en question qui contient l'attribut qui nous intéresse.
+        var $container = $('div#gb_tricksbundle_trick_pictures_list');
+
+        // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+        var index = $container.find(':input').length;
+
+        // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+        $('#add_picture').click(function (e) {
+            addPicture($container);
+
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
+        });
+
+        // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+        if (index == 0) {
+            addPicture($container);
+        } else {
+            // S'il existe déjà des images, on ajoute un lien de suppression pour chacune d'entre elles
+            $container.children('div').each(function () {
+                addDeleteLink($(this));
+            });
+        }
+// La fonction qui ajoute un formulaire CategoryType
+        function addPicture($container) {
+            // Dans le contenu de l'attribut « data-prototype », on remplace :
+            // - le texte "__name__label__" qu'il contient par le label du champ
+            // - le texte "__name__" qu'il contient par le numéro du champ
+            var template = $container.attr('data-prototype')
+                    .replace(/__name__label__/g, 'Picture n°' + (index + 1))
+                    .replace(/__name__/g, index)
+                    ;
+
+            // On crée un objet jquery qui contient ce template
+            var $prototype = $(template);
+
+            // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+            addDeleteLink($prototype);
+
+            // On ajoute le prototype modifié à la fin de la balise <div>
+            $container.append($prototype);
+
+            // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+            index++;
+        }
+
+
+        // La fonction qui ajoute un lien de suppression d'une catégorie
+        function addDeleteLink($prototype) {
+            // Création du lien
+            var $deleteLink = $('\
+<div class="row">\n\
+<a href="#" class="btn btn-danger btn-block">\n\
+<button type="button" class="btn btn-danger btn-block">\n\
+<span class="fas fa-trash-alt">\n\
+</span>\n\
+</button></a>\n\
+</div>');
+
+            // Ajout du lien
+            $prototype.append($deleteLink);
+
+            // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+            $deleteLink.click(function (e) {
+                $prototype.remove();
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+        }
+    });
+
+    $(document).ready(function () {
+        // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+        var $container = $('div#gb_tricksbundle_trick_videos_list');
+
+        // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+        var index = $container.find(':input').length;
+
+        // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+        $('#add_video').click(function (e) {
+            addVideo($container);
+
+            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            return false;
+        });
+
+        // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+        if (index == 0) {
+            addVideo($container);
+        } else {
+            // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+            $container.children('div').each(function () {
+                addDeleteLink($(this));
+            });
+        }
+
+        // La fonction qui ajoute un formulaire CategoryType
+        function addVideo($container) {
+            // Dans le contenu de l'attribut « data-prototype », on remplace :
+            // - le texte "__name__label__" qu'il contient par le label du champ
+            // - le texte "__name__" qu'il contient par le numéro du champ
+            var template = $container.attr('data-prototype')
+                    .replace(/__name__label__/g, 'Video n°' + (index + 1))
+                    .replace(/__name__/g, index)
+                    ;
+
+            // On crée un objet jquery qui contient ce template
+            var $prototype = $(template);
+
+            // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+            addDeleteLink($prototype);
+
+            // On ajoute le prototype modifié à la fin de la balise <div>
+            $container.append($prototype);
+
+            // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+            index++;
+        }
+
+        // La fonction qui ajoute un lien de suppression d'une catégorie
+        function addDeleteLink($prototype) {
+            // Création du lien
+            var $deleteLink = $('<div class="col-sm-2"><a href="#" class="btn btn-danger">Supprimer</a></div>');
+
+            // Ajout du lien
+            $prototype.append($deleteLink);
+
+            // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+            $deleteLink.click(function (e) {
+                $prototype.remove();
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+        }
+    });
+
+</script>
