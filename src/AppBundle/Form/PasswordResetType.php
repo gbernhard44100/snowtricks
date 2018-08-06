@@ -3,13 +3,12 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
-class LoginType extends AbstractType
+class PasswordResetType extends AbstractType
 {
 
     /**
@@ -17,9 +16,10 @@ class LoginType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('userName', TextType::class)
-                ->add('password', PasswordType::class)
-        ;
+        $builder->add('password', PasswordType::class, array(
+            'required' => true,
+            'constraints' => array(new NotBlank())
+        ));
     }
 
     /**
@@ -29,7 +29,6 @@ class LoginType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\User',
-            'validation_groups' => array('login')
         ));
     }
 
@@ -38,7 +37,7 @@ class LoginType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'gb_userbundle_user';
+        return 'appbundle_password_reset';
     }
 
 }

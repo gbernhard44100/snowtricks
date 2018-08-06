@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class FrontPictureType extends AbstractType
 {
@@ -20,7 +21,9 @@ class FrontPictureType extends AbstractType
         $array = array_combine(range(1, $NbPicture), range(1, $NbPicture));
 
         $builder->add('frontImage', ChoiceType::class, array(
-            'choices' => $array));
+            'choices' => $array,
+            'constraints' => array(new Choice(array('choices' => $array)))
+        ));
     }
 
     /**
@@ -38,7 +41,7 @@ class FrontPictureType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'gb_tricksbundle_picture';
+        return 'appbundle_front_picture';
     }
 
 }

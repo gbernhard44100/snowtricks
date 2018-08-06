@@ -4,15 +4,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trick
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
- * @UniqueEntity(fields={"name"}, message="Le nom de la figure est déjà été utilisé.")
  */
 class Trick
 {
@@ -30,7 +27,6 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
      */
     private $name;
 
@@ -38,7 +34,6 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-     * @Assert\NotBlank()
      */
     private $description;
 
@@ -46,7 +41,6 @@ class Trick
      * @var \stdClass
      *
      * @ORM\Column(name="category", type="string")
-     * @Assert\NotBlank()
      */
     private $category;
 
@@ -76,6 +70,8 @@ class Trick
      */
     private $videos;
 
+    const QTY_PER_LOAD = 6;
+    
     public function __construct()
     {
         $this->messages = new ArrayCollection();

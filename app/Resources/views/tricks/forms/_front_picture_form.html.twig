@@ -6,16 +6,16 @@
         </div>
         {{ form_widget(frontPictureForm.frontImage, {'attr': {'class': 'custom-select'}, 'label': 'Changer photo' }) }}
         <div class="input-group-append">
-            <input type="image" class="btn btn-primary" src="{{ asset('pictures/save_icon.png') }}" alt="Enregistrer" />
+            <button type="submit" name="Save" class="btn btn-primary">
+                <span class="far fa-save fa-lg"></span>
+            </button>
         </div>    
     </div>
 </div>
 <div class="col-auto">
-    <a href="{{ path('reset_front_picture', {'trick_id' : trick.id, 'token' : csrf_token('delete-frontPicture')}) }}">
-        <button type="button" name="Reset" class="btn btn-danger">
-            <span class="fas fa-trash-alt"></span>
-        </button>
-    </a>
+    <button type="submit" name="Reset" class="btn btn-danger">
+        <span class="fas fa-trash-alt"></span>
+    </button>
 </div>    
 {{ form_rest(frontPictureForm) }}
 {{ form_end(frontPictureForm) }}

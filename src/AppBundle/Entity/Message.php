@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Message
@@ -35,7 +34,6 @@ class Message
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Assert\NotBlank()
      */
     private $content;
 
@@ -53,6 +51,8 @@ class Message
      */
     private $user;
 
+    const QTY_PER_LOAD = 5;
+    
     /**
      * Get id
      *

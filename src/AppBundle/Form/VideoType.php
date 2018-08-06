@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Url;
 
 class VideoType extends AbstractType
 {
@@ -15,7 +16,9 @@ class VideoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('url', TextType::class);
+        $builder->add('url', TextType::class, array(
+            'constraints' => array(new Url())
+        ));
     }
 
     /**
@@ -33,7 +36,7 @@ class VideoType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'gb_tricksbundle_video';
+        return 'appbundle_video';
     }
 
 }

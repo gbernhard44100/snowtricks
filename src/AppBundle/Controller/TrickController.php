@@ -35,7 +35,9 @@ class TrickController extends Controller
     {
         $form = $this->messageAction($request, $trick, $em);
         $frontPictureForm = $this->frontPictureAction($request, $trick, $em);
-        $messages = $em->getRepository('AppBundle:Message')->findBy(array('trick' => $trick), array('date' => 'desc'));
+        $messages = $em->getRepository('AppBundle:Message')->findBy(
+            array('trick' => $trick), array('date' => 'desc')
+        );
         return $this->render('tricks/view.html.twig', array(
             'trick' => $trick, 'form' => $form->createView(), 'messages' => $messages,
             'frontPictureForm' => $frontPictureForm->createView()
@@ -54,10 +56,13 @@ class TrickController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($trick);
             $em->flush();
-            return $this->redirectToRoute('trick_show', array('trick_id' => $trick->getId()));
+            return $this->redirectToRoute('trick_show', array(
+                'trick_id' => $trick->getId()
+            ));
         }
         return $this->render('tricks/save.html.twig', array(
-            'form' => $form->createView()));
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -71,10 +76,13 @@ class TrickController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            return $this->redirectToRoute('trick_show', array('trick_id' => $trick->getId()));
+            return $this->redirectToRoute('trick_show', array(
+                'trick_id' => $trick->getId()
+            ));
         }
         return $this->render('tricks/save.html.twig', array(
-            'form' => $form->createView()));
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -118,25 +126,13 @@ class TrickController extends Controller
         $form = $this->createForm(FrontPictureType::class, $trick);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!is_null($request->request->get('Reset'))) {
+                $trick->setFrontImage(null);
+            }
             $em->flush();
             $form = $this->createForm(FrontPictureType::class, $trick);
         }
         return $form;
-    }
-
-    /**
-     * @Route("/trick/{trick_id}/resetFrontPicture", name="reset_front_picture")
-     * @ParamConverter("trick", options={"mapping": {"trick_id": "id"}})
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function resetFrontPictureAction(Request $request, Trick $trick)
-    {
-        $submittedToken = $request->query->get('token');
-        if ($this->isCsrfTokenValid('delete-frontPicture', $submittedToken)) {
-            $trick->setFrontImage(null);
-            $this->getDoctrine()->getManager()->flush();
-        }
-        return $this->redirectToRoute('trick_show', array('trick_id' => $trick->getId()));
     }
 
 }

@@ -39,11 +39,10 @@
                                 <img src="{{ asset(form.vars.value.webpath) }}" alt="{{ asset(form.vars.value.profilPictureUrl) }}">                
                             </div>
                         {% endif %}
-                        <div class="row d-flex justify-content-center">
+                        <div class="row d-flex justify-content-left">
                             <div class="custom-file col-8 align-self-center">
-                                {{ form_widget(form.file, {'attr': {'class': 'custom-file-input', 'lang': 'fr'} }) }}
-                                {{ form_label(form.file, "Charger", {'label_attr': {'class': 'custom-file-label'} }) }}                        
-                                {{ form_errors(form.file) }}
+                                {{ form_widget(form.file, {'attr': {'class': 'input-group-btn btn btn-secondary'} }) }}                        
+                                {{ form_errors(form.file, {'attr': {'class': 'invalid-feedback'} }) }}
                             </div>
                         </div>
                     </div>

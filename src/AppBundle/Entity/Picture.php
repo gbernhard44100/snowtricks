@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Picture
@@ -31,8 +30,6 @@ class Picture
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255, unique=true)
-     * @Assert\Regex(pattern="(\.jpeg|\.jpg|\.png)$",
-     * message="Le fichier à charger doit être sous format jpeg, jpg ou png")
      */
     private $url;
 

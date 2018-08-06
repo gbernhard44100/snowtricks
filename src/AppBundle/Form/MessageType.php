@@ -3,11 +3,10 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MessageType extends AbstractType
 {
@@ -17,7 +16,10 @@ class MessageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('content', TextareaType::class);
+        $builder->add('content', TextareaType::class, array(
+            'required' => true,
+            'constraints' => array(new NotBlank())
+        ));
     }
 
     /**
@@ -35,7 +37,7 @@ class MessageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'gb_tricksbundle_message';
+        return 'appbundle_message';
     }
 
 }
