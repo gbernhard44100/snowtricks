@@ -21,7 +21,7 @@
     {% endif %}
 
     <!-- Page Content -->
-    <div class="container" id="content">
+    <div id="content" class="container js-comment-list" data-nb-displayed="{% if not messages is empty %}{{ constant('QTY_PER_LOAD', messages[0]) }}{% else %}0{% endif %}">
         <!-- Description -->
         <div class="row text-left">
             <div class="col-12">
@@ -78,8 +78,9 @@
             </div>
             <hr>
         {% endif %}
+        {% set nbcomment = 1 %}
         {% for message in messages %}
-            <div class="media" id="comments">
+            <div class="media comment {% if nbcomment > constant('QTY_PER_LOAD', message) %}invisible{% endif %}">
                 {% if message.user.profilPictureUrl %}
                     <img class="mr-3 message" src="{{ asset(message.user.webPath) }}" alt="{{ message.user.userName }}">
                 {% else %}
@@ -90,13 +91,12 @@
                     <p class="d-flex flex-wrap-reverse">{{ message.content }}</p>
                 </div>
             </div>
+            {% set nbcomment = nbcomment + 1 %}
         {% endfor %}
         <div class="row d-flex justify-content-center loadMore">
-            <a href="{{ path('trick_show', {'trick_id': trick.id }) }}?page=#comments">
-                <button type="button" class="btn btn-primary btn-block btn-lg">
-                    Commentaires suivants 
-                </button>
-            </a>
+            <button id="displayMoreComments" type="button" class="btn btn-primary btn-lg {% if messages is empty or messages|length <= constant('QTY_PER_LOAD', messages[0]) %}invisible{% endif %}">
+                Commentaires suivants 
+            </button>
         </div>
     </div>
 

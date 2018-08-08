@@ -2,6 +2,8 @@
 
 {% extends "admin/_admin_layout.html.twig" %}
 
+{% block title %}Snowtricks: MdP oublié{% endblock %}
+
 {% block content %}
     <div class="col-sm-9 col-md-9 col-lg-6 col-xl-5 well">
         {{ form_start(form) }}
@@ -16,7 +18,7 @@
             </div>
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Confirmer" />
+            <button type="submit" class="btn btn-primary" name="confirm" />Confirmer</button>
         </div>
         {{ form_rest(form) }} 
         {{ form_end(form) }}     

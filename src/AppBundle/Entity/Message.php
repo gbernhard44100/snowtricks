@@ -51,7 +51,7 @@ class Message
      */
     private $user;
 
-    const QTY_PER_LOAD = 5;
+    const QTY_PER_LOAD = 3;
     
     /**
      * Get id

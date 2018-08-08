@@ -52,6 +52,10 @@ a.navbar-brand img{
     margin-bottom: 0px;
 }
 
+.invisible {
+  display: none;
+}
+
 /*
  * HOME PAGE
 */

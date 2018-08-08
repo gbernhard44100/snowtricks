@@ -39,9 +39,9 @@
         <div class="row justify-content-center title">
             <H1>Les Figures</H1>
         </div>
-        <div class="row d-flex justify-content-center justify-content-md-around">
+        <div class="row d-flex justify-content-center justify-content-md-around js-trick-list" data-nb-displayed="{% if not tricks is empty %}{{ constant('QTY_PER_LOAD', tricks[0]) }}{% endif %}">
             {% for trick in tricks %}
-                <div class="trick col-12 col-md-4 col-lg-3">
+                <div class="trick col-12 col-md-4 col-lg-3 {% if trick.id > constant('QTY_PER_LOAD', trick) %}invisible{% endif %}">
                     <div class="row">
                         <a class="card text-white text-center " href="{{ path('trick_show', {'trick_id' : trick.id}) }}">
                             <img class="card-img-top img-fluid" alt="{{ trick.name }}" 
@@ -52,62 +52,60 @@
                                     <h2>{{ trick.name }}</h2>
                                 </div>
                             </a>
-                        </div>
-                        {% if is_granted('ROLE_USER') %}
-                            <div class="row">
-                                <p></p>
-                                <div class="col-6" id="button">
-                                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Suppresstrick{{ trick.id }}">
-                                        <span class="fas fa-trash-alt"></span>
-                                    </button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="Suppresstrick{{ trick.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">Suppression : {{ trick.name }}</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Êtes vous sûr de vouloir supprimer cette figure?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                                                    <a href="{{ path('trick_delete', {'trick_id' : trick.id, 'token' : csrf_token('delete-trick')}) }}">
-                                                        <button type="button" class="btn btn-danger">Oui</button>
-                                                    </a>
-                                                </div>
+                    </div>
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="row">
+                            <p></p>
+                            <div class="col-6" id="button">
+                                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Suppresstrick{{ trick.id }}">
+                                    <span class="fas fa-trash-alt"></span>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="Suppresstrick{{ trick.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">Suppression : {{ trick.name }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Êtes vous sûr de vouloir supprimer cette figure?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                                                <a href="{{ path('trick_delete', {'trick_id' : trick.id, 'token' : csrf_token('delete-trick')}) }}">
+                                                    <button type="button" class="btn btn-danger">Oui</button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6" id="button">        
-                                    <a  href="{{ path('trick_modify', {'trick_id' : trick.id}) }}">
-                                        <button type="button" class="btn btn-warning btn-block">
-                                            <span class="fas fa-pencil-alt"></span> 
-                                        </button>
-                                    </a>
-                                </div>
                             </div>
-                        {% endif %}
-                    </div>
-                    {% endfor %}
-                    </div>
-                        <div class="row d-flex justify-content-around loadMore">
-                            <a href="?page=#tricksection">
-                                <button type="button" class="btn btn-primary btn-block btn-lg">
-                                    Plus de figures 
-                                </button>
-                            </a>
-                        </div> 
-                        <div class="row d-flex justify-content-center justify-content-md-end pullUp">
-                            <a href="?page=#tricksection">
-                                <button type="button" class="btn btn-warning btn-block btn-lg">
-                                    <span class="fas fa-arrow-circle-up fa-3x"></span> 
-                                </button>
-                            </a>
-                        </div>   
+                            <div class="col-6" id="button">        
+                                <a  href="{{ path('trick_modify', {'trick_id' : trick.id}) }}">
+                                    <button type="button" class="btn btn-warning btn-block">
+                                        <span class="fas fa-pencil-alt"></span> 
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
-                {% endblock %}
+            {% endfor %}
+        </div>
+        <div class="row d-flex justify-content-around loadMore">
+            <button type="button" id="displayMoreTricks" class="btn btn-primary btn-lg">
+                Plus de figures 
+            </button>
+        </div> 
+        <div id="pullUp" class="row d-flex justify-content-center justify-content-md-end pullUp invisible">
+            <a href="#tricksection">
+                <button type="button" class="btn btn-warning btn-block btn-lg">
+                    <span class="fas fa-arrow-circle-up fa-3x"></span> 
+                </button>
+            </a>
+        </div>   
+    </div>
+{% endblock %}
