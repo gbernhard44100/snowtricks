@@ -60,63 +60,10 @@
         {% javascripts output="js/compiled/main.js"
             'js/jquery.min.js'
             'js/bootstrap.min.js'
+            'js/myjs.js'
         %}
         <script src="{{ asset_url }}"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                if (!(document.querySelector('.js-trick-list') === null)) {       
-                    var tricklist = document.querySelector('.js-trick-list');
-                    var nbtrickdisplayed = parseInt(tricklist.dataset.nbDisplayed);
-                }
-                
-                if (!(document.querySelector('.js-comment-list') === null)) {
-                    var commentlist = document.querySelector('.js-comment-list');
-                    var nbcommentdisplayed = parseInt(commentlist.dataset.nbDisplayed);
-                }
-                
-                $("#displayMoreTricks").click(function () {
-                    var tricks = document.getElementsByClassName('trick');
-                    nbtrickdisplayed = nbtrickdisplayed + nbtrickdisplayed;
-                    k = nbtrickdisplayed;
-                    if (nbtrickdisplayed >= tricks.length) {
-                        $("#displayMoreTricks").addClass("invisible");
-                        k = tricks.length;
-                    }
-                    for (var i = 0; i < k; i++) {	
-                        if (tricks[i].classList.contains("invisible")) {
-                            tricks[i].classList.remove("invisible");
-                        }
-                    }
-                    if ($("#pullUp").hasClass("invisible")) {
-                            $("#pullUp").removeClass("invisible");
-                    }
-                });
-
-                $("#displayMoreComments").click(function () {
-                    var comments = document.getElementsByClassName('comment');
-                    nbcommentdisplayed = nbcommentdisplayed + nbcommentdisplayed;
-                    var j = nbcommentdisplayed;
-                    if (nbcommentdisplayed >= comments.length) {
-                        $("#displayMoreComments").addClass("invisible");
-                        j = comments.length;
-                    }
-                    for (var i = 0; i < j; i++) {	
-                        if (comments[i].classList.contains("invisible")) {
-                            comments[i].classList.remove("invisible");
-                        }
-                    }
-                });
-
-                $("#displayMedia").click(function () {
-                    $("#mediaContent").removeClass("d-none");
-                    $("#mediaContent").addClass("d-flex");
-                    $("#displayMedia").addClass("d-none");
-                });
-                
-            });
-        </script>
         {% endjavascripts %}
     {% endblock %}
-
 </body>
 </html>
