@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\PasswordResetType;
 use AppBundle\Form\RegistrationType;
 use AppBundle\Form\UserNameType;
+use AppBundle\Utils\Messenger;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -43,7 +44,7 @@ class UserController extends Controller
     public function registerAction(
         Request $request,
         EntityManagerInterface $em,
-        \Swift_Mailer $mailer,
+        Messenger $messenger,
         UserPasswordEncoderInterface $encoder
     ) {
         $user = new User();
@@ -56,7 +57,7 @@ class UserController extends Controller
             $user->setValidationToken($token);
             $em->persist($user);
             $em->flush();
-            $this->sendValidationEmailToUser($user, $mailer);
+            $messenger->sendEmail('Ton inscription à Snowtricks', 'admin/validation_email.html.twig', $user);
             $request->getSession()->getFlashBag()->add(
                 'info',
                 'Votre inscription a bien été pris en compte. Un email pour demande de validation de votre compte vous a été envoyé.'
@@ -86,7 +87,7 @@ class UserController extends Controller
     /**
      * @Route("/forgotpassword", name="forgot_password")
      */
-    public function forgotAction(Request $request, EntityManagerInterface $em, \Swift_Mailer $mailer)
+    public function forgotAction(Request $request, EntityManagerInterface $em, Messenger $messenger)
     {
         $user = new User();
         $form = $this->createForm(UserNameType::class, $user);
@@ -95,7 +96,7 @@ class UserController extends Controller
             $user = $em->getRepository('AppBundle:User')->findOneByUserName($user->getUserName());
             $token = hash('sha512', session_id() . microtime());
             $user->setPasswordToken($token);
-            $this->sendPasswordEmailToUser($user, $mailer);
+            $messenger->sendEmail('Snowtricks : mot de passe oublié', 'admin/forgot_password_email.html.twig', $user);
             $em->flush();
             $request->getSession()->getFlashBag()->add(
                     'info',
@@ -151,29 +152,5 @@ class UserController extends Controller
             return $this->redirectToRoute('user_show');
         }
         return $this->render('admin/profil_update.html.twig', array('form' => $form->createView(), 'user' => $this->getUser()));
-    }
-
-    public function sendPasswordEmailToUser(User $user, \Swift_Mailer $mailer)
-    {
-        $message = (new \Swift_Message())
-                        ->setSubject('Compte Snowtricks : mot de passe oublié')
-                        ->setFrom([$this->getParameter('mailer_user')])
-                        ->setTo([$user->getEmail()])
-                        ->setContentType("text/html")
-                        ->setBody($this->renderView('admin/forgot_password_email.html.twig', array('user' => $user)));
-        ;
-        $mailer->send($message);
-    }
-    
-    public function sendValidationEmailToUser(User $user, \Swift_Mailer $mailer)
-    {
-        $message = (new \Swift_Message())
-            ->setSubject('Ton inscription à Snowtricks')
-            ->setFrom([$this->getParameter('mailer_user')])
-            ->setTo([$user->getEmail()])
-            ->setContentType("text/html")
-            ->setBody($this->renderView('admin/validation_email.html.twig', array('user' => $user)));
-        ;
-        $mailer->send($message);
     }
 }
