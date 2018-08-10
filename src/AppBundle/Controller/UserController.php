@@ -73,7 +73,7 @@ class UserController extends Controller
     public function validAction(Request $request, EntityManagerInterface $em)
     {
         $userRepository = $em->getRepository('AppBundle:User');
-        $user = $userRepository->findOneBy(array('validationToken' => $request->query->get('Token')));
+        $user = $userRepository->findOneBy(array('validationToken' => $request->request->get('Token')));
         if (empty($user)) {
             $request->getSession()->getFlashBag()->add('error', 'Le token n\'est pas valide');
             return $this->redirectToRoute('login');
@@ -92,8 +92,8 @@ class UserController extends Controller
         $user = new User();
         $form = $this->createForm(UserNameType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $em->getRepository('AppBundle:User')->findOneByUserName($user->getUserName());
+        $user = $em->getRepository('AppBundle:User')->findOneByUserName($user->getUserName());
+        if ($form->isSubmitted() && $form->isValid() && !is_null($user)) {
             $token = hash('sha512', session_id() . microtime());
             $user->setPasswordToken($token);
             $messenger->sendEmail('Snowtricks : mot de passe oublié', 'admin/forgot_password_email.html.twig', $user);
@@ -111,7 +111,7 @@ class UserController extends Controller
      */
     public function resetPasswordAction(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {
-        $user = $em->getRepository('AppBundle:User')->findOneBy(array('passwordToken' => $request->query->get('Token')));
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('passwordToken' => $request->request->get('passwordToken')));
         if (empty($user)) {
             $request->getSession()->getFlashBag()->add('error', 'Le token n\'est pas valide');
             return $this->redirectToRoute('login');
@@ -121,7 +121,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $encoded = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($encoded);
-            $user->setPasswordToken(NULL);
+            $user->setPasswordToken(null);
             $em->flush();
             $request->getSession()->getFlashBag()->add('success', 'Le mot de passe a bien été réinitialisé.');
             return $this->redirectToRoute('login');
