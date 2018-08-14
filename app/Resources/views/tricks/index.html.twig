@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                                                <a href="{{ path('trick_delete', {'trick_id' : trick.id, 'token' : csrf_token('delete-trick')}) }}">
+                                                <a class="suppressTrick" href="{{ path('trick_delete', {'trick_id' : trick.id, 'token' : csrf_token('delete-trick')}) }}">
                                                     <button type="button" class="btn btn-danger">Oui</button>
                                                 </a>
                                             </div>

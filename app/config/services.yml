@@ -24,5 +24,8 @@ services:
         
     AppBundle\Utils\Messenger:
         arguments:
-            - %mailer_user%
+            - '%mailer_user%'
             - "@templating"
+            
+    Symfony\Bundle\AsseticBundle\AsseticBundle:
+        public: true

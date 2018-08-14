@@ -20,7 +20,7 @@
         ]
     },
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0",
         "components/jquery": "^3.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
@@ -28,7 +28,7 @@
         "leafo/scssphp": "~0.6",
         "oyejorge/less.php": "v1.7.0.14",
         "patchwork/jsqueeze": "~1.0",
-        "phpunit/phpunit": "^6.5",
+        "phpunit/phpunit": "6.*",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
         "symfony/assetic-bundle": "^2.7.1",
@@ -42,7 +42,9 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.0",
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/browser-kit": "^3.4",
+        "symfony/css-selector": "^3.4",
+        "symfony/phpunit-bridge": "^4.1"
     },
     "scripts": {
         "symfony-scripts": [

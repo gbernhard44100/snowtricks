@@ -95,9 +95,4 @@ class Video
         return $this->trick;
     }
 
-    public function adjustUrl()
-    {
-        
-    }
-
 }
