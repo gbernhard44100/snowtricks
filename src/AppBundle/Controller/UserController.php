@@ -3,10 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\FormHandler\PasswordResetTypeHandler;
+use AppBundle\Form\FormHandler\RegistrationTypeHandler;
+use AppBundle\Form\FormHandler\UserNameTypeHandler;
 use AppBundle\Form\PasswordResetType;
 use AppBundle\Form\RegistrationType;
 use AppBundle\Form\UserNameType;
-use AppBundle\Utils\Messenger;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,7 +20,20 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends Controller
 {
+    private $registrationTypeHandler;
+    private $userNameTypeHandler;
+    private $passwordResetTypeHandler;
 
+    public function __construct(
+        RegistrationTypeHandler $registrationTypeHandler,
+        UserNameTypeHandler $userNameTypeHandler,
+        PasswordResetTypeHandler $passwordResetTypeHandler
+    ) {
+        $this->registrationTypeHandler = $registrationTypeHandler;
+        $this->userNameTypeHandler = $userNameTypeHandler;
+        $this->passwordResetTypeHandler = $passwordResetTypeHandler;
+    }    
+    
     /**
      * @Route("/login", name="login")
      */
@@ -41,23 +56,11 @@ class UserController extends Controller
     /**
      * @Route("/registration", name="registration")
      */
-    public function registerAction(
-        Request $request,
-        EntityManagerInterface $em,
-        Messenger $messenger,
-        UserPasswordEncoderInterface $encoder
-    ) {
+    public function registerAction(Request $request)
+    {
         $user = new User();
-        $form = $this->createForm(RegistrationType::class, $user)->remove('file');
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $encoded = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($encoded);
-            $token = hash('sha512', session_id() . microtime());
-            $user->setValidationToken($token);
-            $em->persist($user);
-            $em->flush();
-            $messenger->sendEmail('Ton inscription à Snowtricks', 'admin/validation_email.html.twig', $user);
+        $form = $this->createForm(RegistrationType::class, $user)->remove('file')->handleRequest($request);
+        if ($this->registrationTypeHandler->handle($form)) {
             $request->getSession()->getFlashBag()->add(
                 'info',
                 'Votre inscription a bien été pris en compte. Un email pour demande de validation de votre compte vous a été envoyé.'
@@ -68,7 +71,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/uservalidation", name="user_validation")
+     * @Route("/user/validation", name="user_validation")
      */
     public function validAction(Request $request, EntityManagerInterface $em)
     {
@@ -87,20 +90,16 @@ class UserController extends Controller
     /**
      * @Route("/forgotpassword", name="forgot_password")
      */
-    public function forgotAction(Request $request, EntityManagerInterface $em, Messenger $messenger)
+    public function forgotAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(UserNameType::class, $user);
-        $form->handleRequest($request);
+        $form = $this->createForm(UserNameType::class, $user)->handleRequest($request);
         $user = $em->getRepository('AppBundle:User')->findOneByUserName($user->getUserName());
-        if ($form->isSubmitted() && $form->isValid() && !is_null($user)) {
-            $token = hash('sha512', session_id() . microtime());
-            $user->setPasswordToken($token);
-            $messenger->sendEmail('Snowtricks : mot de passe oublié', 'admin/forgot_password_email.html.twig', $user);
-            $em->flush();
+        if ($this->userNameTypeHandler->handle($form)) {
             $request->getSession()->getFlashBag()->add(
                     'info',
-                    'Un email vous a été envoyé pour renouveler votre mot de passe.');
+                    'Un email vous a été envoyé pour renouveler votre mot de passe.'
+            );
             return $this->redirectToRoute('login');
         }
         return $this->render('admin/forgot.html.twig', array('form' => $form->createView()));
@@ -109,20 +108,15 @@ class UserController extends Controller
     /**
      * @Route("/resetPassword", name="password_reset")
      */
-    public function resetPasswordAction(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
+    public function resetPasswordAction(Request $request)
     {
         $user = $em->getRepository('AppBundle:User')->findOneBy(array('passwordToken' => $request->request->get('passwordToken')));
         if (empty($user)) {
             $request->getSession()->getFlashBag()->add('error', 'Le token n\'est pas valide');
             return $this->redirectToRoute('login');
         }
-        $form = $this->createForm(PasswordResetType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $encoded = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($encoded);
-            $user->setPasswordToken(null);
-            $em->flush();
+        $form = $this->createForm(PasswordResetType::class, $user)->handleRequest($request);
+        if ($this->passwordResetTypeHandler->handle($form)) {
             $request->getSession()->getFlashBag()->add('success', 'Le mot de passe a bien été réinitialisé.');
             return $this->redirectToRoute('login');
         }
@@ -144,8 +138,7 @@ class UserController extends Controller
      */
     public function updateAction(Request $request, EntityManagerInterface $em)
     {
-        $form = $this->createForm(RegistrationType::class, $this->getUser())->remove('password');
-        $form->handleRequest($request);
+        $form = $this->createForm(RegistrationType::class, $this->getUser())->remove('password')->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $request->getSession()->getFlashBag()->add('success', 'La modification de votre profil a bien été réalisé.');

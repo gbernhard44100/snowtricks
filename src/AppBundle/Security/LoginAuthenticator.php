@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Security;
@@ -21,11 +22,16 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     
     private $router;
     private $csrfTokenManager;
+    private $encoder;
 
-    public function __construct(RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager)
-    {
+    public function __construct(
+        RouterInterface $router,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $encoder
+    ) {
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->encoder = $encoder;
     }
     
     public function supports(Request $request)
@@ -52,19 +58,12 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $username = $credentials['username'];
-
-        if (empty($username)) {
-            throw new CustomUserMessageAuthenticationException(
-                    'Aucun utilisateur n\'est renseigné.');
-        }
-
-        return $userProvider->loadUserByUserName($username);
+        return $userProvider->loadUserByUserName($credentials['username']);
     }
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        if(!password_verify($credentials['password'],$user->getPassword())) {
+        if(!$this->encoder->isPasswordValid($user, $credentials['password'])) {
             throw new CustomUserMessageAuthenticationException('Mot de passe incorrect');
         }
         if($user->getValidationToken()) {
@@ -85,8 +84,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
-        $url = $this->router->generate('login');
-        return new RedirectResponse($url);
+        return new RedirectResponse($this->router->generate('login'));
     }
 
     public function start(Request $request, AuthenticationException $authException = NULL)

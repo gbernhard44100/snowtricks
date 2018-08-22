@@ -1,7 +1,5 @@
 <?php
 
-// src/GB/TricksBundle/DataFixtures/ORM/LoadMessage.php
-
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;

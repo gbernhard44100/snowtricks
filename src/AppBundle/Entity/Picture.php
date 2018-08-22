@@ -140,9 +140,6 @@ class Picture
             return;
         }
 
-        /**
-         * Suppression de l'ancien fichier si il existe.
-         */
         if ($this->tempFileName !== null) {
             $oldFile = $this->getUploadRootDir() . $this->getUploadDir() . $this->tempFileName;
             if (file_exists($oldFile)) {

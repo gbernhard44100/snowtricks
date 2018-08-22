@@ -51,18 +51,13 @@ class TrickController extends Controller
     public function addAction(Request $request, EntityManagerInterface $em)
     {
         $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
+        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($trick);
             $em->flush();
-            return $this->redirectToRoute('trick_show', array(
-                'trick_id' => $trick->getId()
-            ));
+            return $this->redirectToRoute('trick_show', array('trick_id' => $trick->getId()));
         }
-        return $this->render('tricks/save.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render('tricks/save.html.twig', array('form' => $form->createView()));
     }
 
     /**
@@ -72,17 +67,12 @@ class TrickController extends Controller
      */
     public function modifyAction(Request $request, Trick $trick, EntityManagerInterface $em)
     {
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
+        $form = $this->createForm(TrickType::class, $trick)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            return $this->redirectToRoute('trick_show', array(
-                'trick_id' => $trick->getId()
-            ));
+            return $this->redirectToRoute('trick_show', array('trick_id' => $trick->getId()));
         }
-        return $this->render('tricks/save.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render('tricks/save.html.twig', array('form' => $form->createView()));
     }
 
     /**
@@ -106,8 +96,7 @@ class TrickController extends Controller
     public function messageAction(Request $request, Trick $trick, EntityManagerInterface $em)
     {
         $message = new Message();
-        $form = $this->createForm(MessageType::class, $message);
-        $form->handleRequest($request);
+        $form = $this->createForm(MessageType::class, $message)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $message->setTrick($trick);
             $message->setUser($this->getUser());
@@ -123,8 +112,7 @@ class TrickController extends Controller
      */
     public function frontPictureAction(Request $request, Trick $trick, EntityManagerInterface $em)
     {
-        $form = $this->createForm(FrontPictureType::class, $trick);
-        $form->handleRequest($request);
+        $form = $this->createForm(FrontPictureType::class, $trick)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if (!is_null($request->request->get('Reset'))) {
                 $trick->setFrontImage(null);

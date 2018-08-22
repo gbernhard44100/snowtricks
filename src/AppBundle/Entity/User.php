@@ -349,7 +349,6 @@ class User implements UserInterface, \Serializable
                 unlink($oldFile);
             }
         }
-
         $this->file->move($this->getUploadRootDir() . $this->getUploadDir(), $this->profilPictureUrl);
 
         /**

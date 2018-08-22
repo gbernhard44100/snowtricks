@@ -52,8 +52,7 @@ class TrickControllerTest extends WebTestCase
         $crawler = $client->click($link);
         $crawler = $client->followRedirects();
         $crawler = $client->request('GET', '/');
-        $end = $crawler->filter('a.suppressTrick')->count() + 1;
-        $this->assertSame($start, $end);
+        $this->assertCount(($start - 1), $crawler->filter('a.suppressTrick'));
     }
 
     public function provideUrls()

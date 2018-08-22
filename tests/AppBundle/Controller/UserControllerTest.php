@@ -39,16 +39,6 @@ class UserControllerTest extends WebTestCase
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
-    
-    public function testUserNotValidated($url)
-    {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'snowtrickstest',
-            'PHP_AUTH_PW'   => 'timpig!1',
-        ));
-        $client->request('GET', $url);
-        $this->assertFalse($client->getResponse()->isSuccessful());
-    }
 
     public function provideUrls()
     {

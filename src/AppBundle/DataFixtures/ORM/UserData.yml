@@ -20,3 +20,11 @@
     password: $2y$10$BbjwjtqkPJQc9nqJbBNRlOO24q.JSYCQquSJES1mop6Ak2klBGzE.
     validationToken: null
     passwordToken: null
+    
+-   
+    userName: snowtrickstestnotvalid
+    profilPictureUrl: null
+    email: snowtrickstestnotvalid@gmail.com
+    password: $2y$10$BbjwjtqkPJQc9nqJbBNRlOO24q.JSYCQquSJES1mop6Ak2klBGzE.
+    validationToken: $2y$10$BbjwjtqkPJQc9nqJbBNRlOO24q.JSYCQquSJES1mop6Ak2klBGzE.
+    passwordToken: null
