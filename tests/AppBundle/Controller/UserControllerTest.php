@@ -32,10 +32,14 @@ class UserControllerTest extends WebTestCase
      */
     public function testAdminPageIsSuccessful($url)
     {
-        $client = static::createClient(array(), array(
-            'PHP_AUTH_USER' => 'snowtrickstest',
-            'PHP_AUTH_PW'   => 'timpig!1',
+        $client = static::createClient();
+        $crawler = $client->request('GET', 'login');
+        $form = $crawler->selectButton('Connexion')->form();
+        $form->setValues(array(
+            '_username' => 'snowtrickstest',
+            '_password'   => 'timpig!1',
         ));
+        $client->submit($form);
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
