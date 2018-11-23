@@ -1,4 +1,5 @@
 <?php
+
 /*
  * ************** CAUTION **************
  *
@@ -14,14 +15,14 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 }
 
 if (!in_array(@$_SERVER['REMOTE_ADDR'], array(
-            '127.0.0.1',
-            '::1',
-        ))) {
+    '127.0.0.1',
+    '::1',
+))) {
     header('HTTP/1.0 403 Forbidden');
     exit('This script is only accessible from localhost.');
 }
 
-require_once dirname(__FILE__) . '/../var/SymfonyRequirements.php';
+require_once dirname(__FILE__).'/../var/SymfonyRequirements.php';
 
 $symfonyRequirements = new SymfonyRequirements();
 
@@ -29,6 +30,7 @@ $majorProblems = $symfonyRequirements->getFailedRequirements();
 $minorProblems = $symfonyRequirements->getFailedRecommendations();
 $hasMajorProblems = (bool) count($majorProblems);
 $hasMinorProblems = (bool) count($minorProblems);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -335,24 +337,24 @@ $hasMinorProblems = (bool) count($minorProblems);
                 </div>
 
                 <div class="search">
-                    <form method="get" action="http://symfony.com/search">
-                        <div class="form-row">
+                  <form method="get" action="http://symfony.com/search">
+                    <div class="form-row">
 
-                            <label for="search-id">
+                      <label for="search-id">
                                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAABUElEQVQoz2NgAIJ29iBdD0d7X2cPb+tY2f9MDMjgP2O2hKu7vS8CBlisZUNSMJ3fxRMkXO61wm2ue6I3iB1q8Z8ZriDZFCS03fm/wX+1/xp/TBo8QPxeqf+MUAW+QIFKj/+q/wX/c/3n/i/6Qd/bx943z/Q/K1SBI1D9fKv/AhCn/Wf5L5EHdFGKw39OqAIXoPpOMziX4T9/DFBBnuN/HqhAEtCKCNf/XDA/rZRyAmrpsvrPDVUw3wrkqCiLaewg6TohX1d7X0ffs5r/OaAKfinmgt3t4ulr4+Xg4ANip3j+l/zPArNT4LNOD0pAgWCSOUIBy3+h/+pXbBa5tni0eMx23+/mB1YSYnENroT5Pw/QSOX/mkCo+l/jgo0v2KJA643s8PgAmsMBDCbu/5xALHPB2husxN9uCzsDOgAq5kAoaZVnYMCh5Ky1r88Eh/+iABM8jUk7ClYIAAAAAElFTkSuQmCC" alt="Search on Symfony website" />
-                            </label>
+                      </label>
 
-                            <input name="q" id="search-id" type="search" placeholder="Search on Symfony website" />
+                      <input name="q" id="search-id" type="search" placeholder="Search on Symfony website" />
 
-                            <button type="submit" class="sf-button">
-                                <span class="border-l">
-                                    <span class="border-r">
-                                        <span class="btn-bg">OK</span>
-                                    </span>
-                                </span>
-                            </button>
-                        </div>
-                    </form>
+                      <button type="submit" class="sf-button">
+                          <span class="border-l">
+                            <span class="border-r">
+                                <span class="btn-bg">OK</span>
+                            </span>
+                        </span>
+                      </button>
+                    </div>
+                   </form>
                 </div>
             </div>
 
